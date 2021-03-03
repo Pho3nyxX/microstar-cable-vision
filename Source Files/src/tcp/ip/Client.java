@@ -18,10 +18,12 @@ public class Client {
         BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         BufferedReader keyboardInput = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        String command;
 
         while (true) {
+            System.out.println("Eneter Data to sent to server or EXIT to leave.");
             System.out.println("Input: ");
-            String command = keyboardInput.readLine();
+            command = keyboardInput.readLine();
 
             if (command.equals("EXIT")) {
                 break;
@@ -32,9 +34,12 @@ public class Client {
             String serverResponse = input.readLine();
             System.out.println("Server says: " + serverResponse);
         }
-
+        out.println(command);
         //JOptionPane.showMessageDialog(null, serverResponse);
 
+        input.close();
+        keyboardInput.close();
+        out.close();
         socket.close();
         System.exit(0);
     }

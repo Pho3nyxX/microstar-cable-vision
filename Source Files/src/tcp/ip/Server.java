@@ -15,14 +15,14 @@ public class Server {
 
     public static void main(String[] args) throws IOException {
         ServerSocket listener = new ServerSocket(PORT);
+        System.out.println("Server is waiting for client connection...");
 
         while (true) {
-            System.out.println("Server is waiting for client connection...");
             Socket client = listener.accept(); //Make connection here
             System.out.println("Server connected to client");
+
             ClientHandler clientThread = new ClientHandler(client);
             clients.add(clientThread);
-
             pool.execute(clientThread);
         }
     }
