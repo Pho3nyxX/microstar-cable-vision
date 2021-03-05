@@ -1,6 +1,7 @@
 package tcp.ip;
 
-//import javax.swing.*;
+/* For all Client Related Communication */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
