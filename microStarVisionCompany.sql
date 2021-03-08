@@ -1,36 +1,15 @@
--- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
---
--- Host: localhost    Database: microstarcablevision
--- ------------------------------------------------------
--- Server version	8.0.23
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `account`
---
-
-DROP TABLE IF EXISTS `account`;
+ DROP TABLE IF EXISTS `account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `account` (
-  `account_ID` int NOT NULL AUTO_INCREMENT,
+  `account_id` int NOT NULL AUTO_INCREMENT,
   `account_Status` varchar(15) NOT NULL,
-  `amount_Due` float NOT NULL,
+  `amount_due` float NOT NULL,
   `customer_id` int NOT NULL,
   PRIMARY KEY (`account_ID`),
-  UNIQUE KEY `account_ID_UNIQUE` (`account_ID`),
+  UNIQUE KEY `account_ID_UNIQUE` (`account_id`),
   KEY `fk_account_customer_45698_idx` (`customer_id`),
-  CONSTRAINT `fk_account_customer_45698` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_ID`) ON UPDATE CASCADE
+  CONSTRAINT `fk_account_customer_45698` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,15 +30,15 @@ DROP TABLE IF EXISTS `address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `address` (
-  `address_ID` int NOT NULL AUTO_INCREMENT,
+  `address_id` int NOT NULL AUTO_INCREMENT,
   `town` varchar(45) NOT NULL,
   `parish` varchar(45) NOT NULL,
   `street` varchar(45) NOT NULL,
   `customer_id` int NOT NULL,
   PRIMARY KEY (`address_ID`),
-  UNIQUE KEY `address_ID_UNIQUE` (`address_ID`),
+  UNIQUE KEY `address_ID_UNIQUE` (`address_id`),
   KEY `fk_address_customer_97657_idx` (`customer_id`),
-  CONSTRAINT `fk_address_customer_97657` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_ID`)
+  CONSTRAINT `fk_address_customer_97657` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -111,16 +90,16 @@ DROP TABLE IF EXISTS `complaint`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `complaint` (
-  `compalint_id` int NOT NULL AUTO_INCREMENT,
+  `complaint_id` int NOT NULL AUTO_INCREMENT,
   `type_of_issue` varchar(50) NOT NULL,
   `details_of_issue` varchar(500) DEFAULT NULL,
   `date_raised` datetime NOT NULL,
   `status` varchar(15) NOT NULL,
   `account_id` int NOT NULL,
-  PRIMARY KEY (`compalint_id`),
-  UNIQUE KEY `compalint_ID_UNIQUE` (`compalint_id`),
+  PRIMARY KEY (`complaint_id`),
+  UNIQUE KEY `compalint_ID_UNIQUE` (`complaint_id`),
   KEY `fk_compaint_account_idx` (`account_id`),
-  CONSTRAINT `fk_compaint_account_65563` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_ID`)
+  CONSTRAINT `fk_compaint_account_65563` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -147,7 +126,7 @@ CREATE TABLE `complaintvisit` (
   PRIMARY KEY (`complaintvisit_id`),
   KEY `fk_complaintvisit_visit_75689_idx` (`visit_id`),
   KEY `fk_complaintvisit_complaint_75365_idx` (`complaint_id`),
-  CONSTRAINT `fk_complaintvisit_complaint_75365` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`compalint_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_complaintvisit_complaint_75365` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_complaintvisit_visit_75689` FOREIGN KEY (`visit_id`) REFERENCES `visit` (`visit_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -169,11 +148,11 @@ DROP TABLE IF EXISTS `contactnum`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contactnum` (
-  `contact_Num` int NOT NULL AUTO_INCREMENT,
-  `user_ID` int NOT NULL,
-  PRIMARY KEY (`user_ID`),
-  UNIQUE KEY `contact_Num_UNIQUE` (`contact_Num`),
-  CONSTRAINT `fk_contactnum_user_12564` FOREIGN KEY (`user_ID`) REFERENCES `user` (`user_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  `contact_num` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `contact_num_UNIQUE` (`contact_num`),
+  CONSTRAINT `fk_contactnum_user_12564` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -194,11 +173,11 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customer` (
-  `customer_ID` int NOT NULL AUTO_INCREMENT,
+  `customer_id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
-  UNIQUE KEY `customer_ID_UNIQUE` (`customer_ID`),
-  CONSTRAINT `fk_customer_account_15648` FOREIGN KEY (`customer_ID`) REFERENCES `user` (`user_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE KEY `customer_ID_UNIQUE` (`customer_id`),
+  CONSTRAINT `fk_customer_account_15648` FOREIGN KEY (`customer_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -219,12 +198,12 @@ DROP TABLE IF EXISTS `employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `employee` (
-  `emp_ID` int NOT NULL AUTO_INCREMENT,
+  `emp_id` int NOT NULL AUTO_INCREMENT,
   `role` varchar(50) NOT NULL,
   `status` varchar(20) NOT NULL,
   PRIMARY KEY (`emp_ID`),
   UNIQUE KEY `idemployee_UNIQUE` (`emp_ID`),
-  CONSTRAINT `fk_employee_user_45698` FOREIGN KEY (`emp_ID`) REFERENCES `user` (`user_ID`) ON UPDATE CASCADE
+  CONSTRAINT `fk_employee_user_45698` FOREIGN KEY (`emp_ID`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -313,9 +292,9 @@ CREATE TABLE `message` (
   KEY `fk_message_user_45698_idx` (`sender_id`),
   KEY `fk_message_user_65878_idx` (`recipient_id`),
   KEY `fk_message_complaint_15698_idx` (`complaint_id`),
-  CONSTRAINT `fk_message_complaint_15698` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`compalint_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_message_user_recipient_65878` FOREIGN KEY (`recipient_id`) REFERENCES `user` (`user_ID`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `fk_message_user_sender_45698` FOREIGN KEY (`sender_id`) REFERENCES `user` (`user_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_message_complaint_15698` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_message_user_recipient_65878` FOREIGN KEY (`recipient_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_message_user_sender_45698` FOREIGN KEY (`sender_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -336,14 +315,14 @@ DROP TABLE IF EXISTS `payment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `payment` (
-  `payment_ID` int NOT NULL AUTO_INCREMENT,
-  `payment_Status` varchar(15) NOT NULL,
-  `payment_Due_Date` datetime NOT NULL,
+  `payment_id` int NOT NULL AUTO_INCREMENT,
+  `payment_status` varchar(15) NOT NULL,
+  `payment_due_date` datetime NOT NULL,
   `account_id` int NOT NULL,
   PRIMARY KEY (`payment_ID`),
   UNIQUE KEY `payment_ID_UNIQUE` (`payment_ID`),
   KEY `fk_payment_account_67464_idx` (`account_id`),
-  CONSTRAINT `fk_payment_account_67464` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_payment_account_67464` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -366,12 +345,12 @@ DROP TABLE IF EXISTS `response`;
 CREATE TABLE `response` (
   `response_id` int NOT NULL AUTO_INCREMENT,
   `response_date` datetime NOT NULL,
-  `response_detail` int NOT NULL,
+  `response_detail` varchar(1000) NOT NULL,
   `complaint_id` int NOT NULL,
   PRIMARY KEY (`response_id`),
   UNIQUE KEY `response_ID_UNIQUE` (`response_id`),
   KEY `fk_response_complaint_47898_idx` (`complaint_id`),
-  CONSTRAINT `fk_response_complaint_47898` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`compalint_id`)
+  CONSTRAINT `fk_response_complaint_47898` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -392,15 +371,15 @@ DROP TABLE IF EXISTS `service`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `service` (
-  `service_ID` int NOT NULL AUTO_INCREMENT,
-  `type_Of_Service` varchar(50) NOT NULL,
+  `service_id` int NOT NULL AUTO_INCREMENT,
+  `type_of_service` varchar(50) NOT NULL,
   `date_initiated` datetime NOT NULL,
   `status` varchar(15) DEFAULT NULL,
   `account_id` int NOT NULL,
   PRIMARY KEY (`service_ID`),
   UNIQUE KEY `service_ID_UNIQUE` (`service_ID`),
   KEY `fk_service_account_38481_idx` (`account_id`),
-  CONSTRAINT `fk_service_account_38481` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_ID`)
+  CONSTRAINT `fk_service_account_38481` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -421,16 +400,15 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `user_ID` int NOT NULL AUTO_INCREMENT,
-  `contact_Num` int NOT NULL,
+  `user_id` int NOT NULL AUTO_INCREMENT,
   `password` varchar(500) NOT NULL,
-  `first_Name` varchar(15) NOT NULL,
-  `last_Name` varchar(15) NOT NULL,
-  `middle_Name` varchar(15) NOT NULL,
+  `first_name` varchar(15) NOT NULL,
+  `last_name` varchar(15) NOT NULL,
+  `middle_name` varchar(15) NOT NULL,
   `age` int NOT NULL,
   `gender` varchar(5) NOT NULL,
-  PRIMARY KEY (`user_ID`),
-  UNIQUE KEY `user_ID_UNIQUE` (`user_ID`)
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_id_UNIQUE` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
