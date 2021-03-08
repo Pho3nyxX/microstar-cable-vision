@@ -97,9 +97,9 @@ CREATE TABLE `complaint` (
   `status` varchar(15) NOT NULL,
   `account_id` int NOT NULL,
   PRIMARY KEY (`complaint_id`),
-  UNIQUE KEY `compalint_ID_UNIQUE` (`complaint_id`),
-  KEY `fk_compaint_account_idx` (`account_id`),
-  CONSTRAINT `fk_compaint_account_65563` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
+  UNIQUE KEY `complaint_ID_UNIQUE` (`complaint_id`),
+  KEY `fk_complaint_account_idx` (`account_id`),
+  CONSTRAINT `fk_complaint_account_65563` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -231,7 +231,7 @@ CREATE TABLE `employeecomplaint` (
   UNIQUE KEY `emp_Complaint_ID_UNIQUE` (`emp_complaint_id`),
   KEY `fk_employeecomplaint_complaint_85469_idx` (`emp_id`),
   KEY `fk_employeecomplaint_employee_85469_idx` (`complaint_id`),
-  CONSTRAINT `fk_employeecomplaint_employee_25154` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`compalint_id`),
+  CONSTRAINT `fk_employeecomplaint_employee_25154` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`),
   CONSTRAINT `fk_employeecomplaint_employee_85469` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
