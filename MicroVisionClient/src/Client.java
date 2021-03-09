@@ -21,7 +21,7 @@ public class Client {
         String command;
 
         while (true) {
-            System.out.println("Eneter Data to sent to server or EXIT to leave.");
+            System.out.println("Enter Data to sent to server or EXIT to leave.");
             System.out.println("Input: ");
             command = keyboardInput.readLine();
 
