@@ -1,16 +1,37 @@
 package users;
 
-public class User{
+import javax.persistence.*;
+
+// Annotations
+@Entity
+@Table(name = "user")
+public abstract class _User{
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="user_id")
     int userID;
+
+    @Column(name="first_Name")
     String firstName;
+    
+    @Column(name="last_Name")
     String lastName;
+
+    @Column(name="middle_Name")
     String middleName;
+
+    @Column(name="password")
     String password;
+
+    @Column(name="age")
     int age;
+
+    @Column(name="gender")
     String gender;
 
     //default constructor
-    public User() {
+    public _User() {
         this.userID = 0;
         this.firstName = "";
         this.lastName = "";
@@ -20,8 +41,15 @@ public class User{
         this.gender = "";
     }
 
+    //abstract methods
+    public abstract boolean login(String username, String password);
+    
+    public abstract boolean logout(String userid);
+
+    public abstract boolean register();
+
     //primary constructor
-    public User(int userID, String firstName, String lastName, String middleName, String password, int age,
+    public _User(int userID, String firstName, String lastName, String middleName, String password, int age,
             String gender) {
         this.userID = userID;
         this.firstName = firstName;
@@ -33,7 +61,7 @@ public class User{
     }
 
     //copy constructor
-    public User(User client) {
+    public _User(_User client) {
         this.userID = client.userID;
         this.firstName = client.firstName;
         this.lastName = client.lastName;

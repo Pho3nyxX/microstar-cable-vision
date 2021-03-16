@@ -1,18 +1,31 @@
 package users;
 
-public class Customer extends User{
+import javax.persistence.*;
+
+// Annotations
+@Entity
+@Table(name = "customer")
+public abstract class _Customer extends _User{
+
+    // @id
+    // @GeneratedValue(strategy=GenerationType.IDENTITY)
+    // @Column(name="customer_id")
+
+    @Column(name="email")
     String email;
+
+    @Column(name="address")
     String address;
 
     // default constructor
-    public Customer() {
+    public _Customer() {
         super();
         this.email = "";
         this.address = "";
     }
 
     // primary constructor
-    public Customer(int userID, String firstName, String lastName, String middleName, String password, int age,
+    public _Customer(int userID, String firstName, String lastName, String middleName, String password, int age,
             String gender, String email, String address) {
         super(userID, firstName, lastName, middleName, password, age, gender);
         this.email = email;
@@ -20,7 +33,7 @@ public class Customer extends User{
     }
 
     // copy constructor
-    public Customer(Customer client) {
+    public _Customer(_Customer client) {
         super(client);
         this.email = client.email;
         this.address = client.address;
