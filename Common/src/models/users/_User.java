@@ -1,5 +1,6 @@
 package models.users;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 
-public abstract class _User {
+public abstract class _User implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="user_id")

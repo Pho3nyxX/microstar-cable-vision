@@ -1,5 +1,6 @@
 package models.complaints;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.persistence.*;
 // Annotations
 @Entity
 @Table(name = "user")
-public abstract class _Complaint {
+public abstract class _Complaint implements Serializable {
 
     @Column(name="complaint_id")
     int complaintId;

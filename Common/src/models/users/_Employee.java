@@ -1,12 +1,14 @@
 package models.users;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 
 // Annotations
 @Entity
 @Table(name = "employee")
-public abstract class _Employee extends _User {
+public abstract class _Employee extends _User implements Serializable {
 
     // @id
     // @GeneratedValue(strategy=GenerationType.IDENTITY)

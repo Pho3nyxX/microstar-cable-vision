@@ -1,11 +1,13 @@
 package models.users;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 // Annotations
 @Entity
 @Table(name = "user")
-public abstract  class _Address {
+public abstract  class _Address implements Serializable {
     @Column(name="parish")
     String parish;
     @Column(name="town")
