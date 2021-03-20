@@ -1,0 +1,11 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar",
+            "c:\\Users\\hummi\\Documents\\MicroStarCableVision\\Common\\Common.jar"
+        ],
+        "exclude": [
+            "lib/Common.jar"
+        ]
+    }
+}

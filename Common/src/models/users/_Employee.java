@@ -1,17 +1,34 @@
-package users;
+package models.users;
 
-public class Employee extends User {
+import java.io.Serializable;
+
+import javax.persistence.*;
+
+
+// Annotations
+@Entity
+@Table(name = "employee")
+public abstract class _Employee extends _User implements Serializable {
+
+    // @id
+    // @GeneratedValue(strategy=GenerationType.IDENTITY)
+    // @Column(name="emp_id")
+
+    @Column(name="role")
     String role;
+
+    @Column(name="status")
     String status;
 
     // default constructor
-    public Employee() {
+    public _Employee() {
+        super();
         this.role = "";
         this.status = "";
     }
 
     // primary constructor
-    public Employee(int userID, String firstName, String lastName, String middleName, String password, int age,
+    public _Employee(int userID, String firstName, String lastName, String middleName, String password, int age,
             String gender, String role, String status) {
         super(userID, firstName, lastName, middleName, password, age, gender);
         this.role = role;
@@ -19,7 +36,7 @@ public class Employee extends User {
     }
 
     // copy constructor
-    public Employee(Employee client) {
+    public _Employee(_Employee client) {
         super(client);
         this.role = client.role;
         this.status = client.status;
