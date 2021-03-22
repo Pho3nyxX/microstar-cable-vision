@@ -27,7 +27,7 @@ public class Server {
     private void createConnection() {
         try {
             //New instance of the ServerSocket listening on port 8888
-            serverSocket = new ServerSocket(8888);
+            serverSocket = new ServerSocket(9097);
             //Information logger saying Server waiting for client connection
         }catch (IOException ex) {
             ex.printStackTrace();

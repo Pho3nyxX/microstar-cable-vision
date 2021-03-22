@@ -1,45 +1,69 @@
 /* For all Client Related Communication */
 
-import java.io.BufferedReader;
+import javax.swing.*;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class Client {
 
     private static final String SERVERIP = "127.0.0.1";
     private static final int SERVERPORT = 9097;
+    private static ObjectOutputStream objOs;
+    private ObjectInputStream objIs;
+    private Socket connectionSocket;
+    String action = "";
 
-    public static void main(String[] args) throws IOException {
-        Socket socket = new Socket(SERVERIP, SERVERPORT);
-
-        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        BufferedReader keyboardInput = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        String command;
-
-        while (true) {
-            System.out.println("Enter Data to sent to server or EXIT to leave.");
-            System.out.println("Input: ");
-            command = keyboardInput.readLine();
-
-            if (command.equals("EXIT")) {
-                break;
-            }
-
-            out.println(command);
-
-            String serverResponse = input.readLine();
-            System.out.println("Server says: " + serverResponse);
-        }
-        out.println(command);
-        //JOptionPane.showMessageDialog(null, serverResponse);
-
-        input.close();
-        keyboardInput.close();
-        out.close();
-        socket.close();
-        System.exit(0);
+    public Client() {
+        this.createConnection();
+        this.configureStreams();
     }
+
+    private void createConnection() {
+        try {
+            //Create a socket to connect to the server
+            connectionSocket = new Socket(SERVERIP, SERVERPORT);
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void configureStreams() {
+        try {
+            //Create an input stream to receive data from the server
+            objIs = new ObjectInputStream(connectionSocket.getInputStream());
+            //Create an output stream to send data to the server
+            objOs = new ObjectOutputStream(connectionSocket.getOutputStream());
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void sendAction(String action) {
+        this.action = action;
+        try {
+            objOs.writeObject(action);
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    //public void sentClient() {}
+
+    //public void sentClientId() {}
+
+    public void receiveResponse() { }
+
+    public void closeConnection() {
+        try {
+            objOs.close();
+            objIs.close();
+            connectionSocket.close();
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
 }
