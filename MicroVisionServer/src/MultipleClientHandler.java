@@ -4,12 +4,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClientHandler implements Runnable{
+public class MultipleClientHandler implements Runnable{
     private Socket client;
     private BufferedReader in;
     private PrintWriter out;
 
-    public ClientHandler(Socket clientSocket) throws IOException {
+    public MultipleClientHandler(Socket clientSocket) throws IOException {
         this.client = clientSocket;
         in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         out = new PrintWriter(client.getOutputStream(), true);
