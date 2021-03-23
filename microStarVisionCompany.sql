@@ -1,4 +1,25 @@
- DROP TABLE IF EXISTS `account`;
+-- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
+--
+-- Host: localhost    Database: microstarcablevision
+-- ------------------------------------------------------
+-- Server version	8.0.23
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `account`
+--
+
+DROP TABLE IF EXISTS `account`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `account` (
@@ -6,11 +27,11 @@ CREATE TABLE `account` (
   `account_Status` varchar(15) NOT NULL,
   `amount_due` float NOT NULL,
   `customer_id` int NOT NULL,
-  PRIMARY KEY (`account_ID`),
+  PRIMARY KEY (`account_id`),
   UNIQUE KEY `account_ID_UNIQUE` (`account_id`),
   KEY `fk_account_customer_45698_idx` (`customer_id`),
   CONSTRAINT `fk_account_customer_45698` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,11 +56,11 @@ CREATE TABLE `address` (
   `parish` varchar(45) NOT NULL,
   `street` varchar(45) NOT NULL,
   `customer_id` int NOT NULL,
-  PRIMARY KEY (`address_ID`),
+  PRIMARY KEY (`address_id`),
   UNIQUE KEY `address_ID_UNIQUE` (`address_id`),
   KEY `fk_address_customer_97657_idx` (`customer_id`),
   CONSTRAINT `fk_address_customer_97657` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +91,7 @@ CREATE TABLE `bill` (
   UNIQUE KEY `bill_ID_UNIQUE` (`bill_id`),
   KEY `fk_bill_service_65388_idx` (`service_id`),
   CONSTRAINT `fk_bill_service_65388` FOREIGN KEY (`service_id`) REFERENCES `service` (`service_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,10 +118,17 @@ CREATE TABLE `complaint` (
   `status` varchar(15) NOT NULL,
   `account_id` int NOT NULL,
   PRIMARY KEY (`complaint_id`),
+<<<<<<< Updated upstream
+  UNIQUE KEY `compalint_ID_UNIQUE` (`complaint_id`),
+  KEY `fk_compaint_account_idx` (`account_id`),
+  CONSTRAINT `fk_compaint_account_65563` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
   UNIQUE KEY `complaint_ID_UNIQUE` (`complaint_id`),
   KEY `fk_complaint_account_idx` (`account_id`),
   CONSTRAINT `fk_complaint_account_65563` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+>>>>>>> Stashed changes
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +156,7 @@ CREATE TABLE `complaintvisit` (
   KEY `fk_complaintvisit_complaint_75365_idx` (`complaint_id`),
   CONSTRAINT `fk_complaintvisit_complaint_75365` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_complaintvisit_visit_75689` FOREIGN KEY (`visit_id`) REFERENCES `visit` (`visit_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,7 +181,7 @@ CREATE TABLE `contactnum` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `contact_num_UNIQUE` (`contact_num`),
   CONSTRAINT `fk_contactnum_user_12564` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +206,7 @@ CREATE TABLE `customer` (
   `address` varchar(100) NOT NULL,
   UNIQUE KEY `customer_ID_UNIQUE` (`customer_id`),
   CONSTRAINT `fk_customer_account_15648` FOREIGN KEY (`customer_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,10 +229,10 @@ CREATE TABLE `employee` (
   `emp_id` int NOT NULL AUTO_INCREMENT,
   `role` varchar(50) NOT NULL,
   `status` varchar(20) NOT NULL,
-  PRIMARY KEY (`emp_ID`),
-  UNIQUE KEY `idemployee_UNIQUE` (`emp_ID`),
-  CONSTRAINT `fk_employee_user_45698` FOREIGN KEY (`emp_ID`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`emp_id`),
+  UNIQUE KEY `idemployee_UNIQUE` (`emp_id`),
+  CONSTRAINT `fk_employee_user_45698` FOREIGN KEY (`emp_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,9 +259,15 @@ CREATE TABLE `employeecomplaint` (
   UNIQUE KEY `emp_Complaint_ID_UNIQUE` (`emp_complaint_id`),
   KEY `fk_employeecomplaint_complaint_85469_idx` (`emp_id`),
   KEY `fk_employeecomplaint_employee_85469_idx` (`complaint_id`),
-  CONSTRAINT `fk_employeecomplaint_employee_25154` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`),
+<<<<<<< Updated upstream
+  CONSTRAINT `fk_employeecomplaint_employee_25154` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`compalint_id`),
   CONSTRAINT `fk_employeecomplaint_employee_85469` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+  CONSTRAINT `fk_employeecomplaint_employee_25154` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`),
+  CONSTRAINT `fk_employeecomplaint_employee_85469` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+>>>>>>> Stashed changes
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,9 +293,9 @@ CREATE TABLE `employeevisit` (
   PRIMARY KEY (`employeevisit_id`),
   KEY `fk_employeevisit_employee_85214_idx` (`emp_id`),
   KEY `fk_employeevisit_vist_15469_idx` (`visit_id`),
-  CONSTRAINT `fk_employeevisit_employee_85214` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_employeevisit_employee_85214` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_employeevisit_vist_15469` FOREIGN KEY (`visit_id`) REFERENCES `visit` (`visit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,7 +329,7 @@ CREATE TABLE `message` (
   CONSTRAINT `fk_message_complaint_15698` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_message_user_recipient_65878` FOREIGN KEY (`recipient_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_message_user_sender_45698` FOREIGN KEY (`sender_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,11 +353,11 @@ CREATE TABLE `payment` (
   `payment_status` varchar(15) NOT NULL,
   `payment_due_date` datetime NOT NULL,
   `account_id` int NOT NULL,
-  PRIMARY KEY (`payment_ID`),
-  UNIQUE KEY `payment_ID_UNIQUE` (`payment_ID`),
+  PRIMARY KEY (`payment_id`),
+  UNIQUE KEY `payment_ID_UNIQUE` (`payment_id`),
   KEY `fk_payment_account_67464_idx` (`account_id`),
   CONSTRAINT `fk_payment_account_67464` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,7 +385,7 @@ CREATE TABLE `response` (
   UNIQUE KEY `response_ID_UNIQUE` (`response_id`),
   KEY `fk_response_complaint_47898_idx` (`complaint_id`),
   CONSTRAINT `fk_response_complaint_47898` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,11 +410,11 @@ CREATE TABLE `service` (
   `date_initiated` datetime NOT NULL,
   `status` varchar(15) DEFAULT NULL,
   `account_id` int NOT NULL,
-  PRIMARY KEY (`service_ID`),
-  UNIQUE KEY `service_ID_UNIQUE` (`service_ID`),
+  PRIMARY KEY (`service_id`),
+  UNIQUE KEY `service_ID_UNIQUE` (`service_id`),
   KEY `fk_service_account_38481_idx` (`account_id`),
   CONSTRAINT `fk_service_account_38481` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -409,7 +443,7 @@ CREATE TABLE `user` (
   `gender` varchar(5) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -418,6 +452,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,' eauskrbdjrbvdkjbgvd,rbgidk','abi','mat','nao',10,'f');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,7 +470,7 @@ CREATE TABLE `visit` (
   `complete` bit(1) NOT NULL,
   PRIMARY KEY (`visit_id`),
   UNIQUE KEY `visit_ID_UNIQUE` (`visit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -456,4 +491,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-07 15:15:24
+-- Dump completed on 2021-03-23 16:57:33
