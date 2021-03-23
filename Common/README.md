@@ -1,6 +1,6 @@
 ## Getting Started
 
-This project serves as a base for the Microstar Cable Vision Client Complaint Application. It acts as a dependency for both applications - the client and the server.
+This project serves as a base for the MicroStar Cable Vision Client Complaint Application. It acts as a dependency for both applications - the client and the server.
 
 ## Folder Structure
 
@@ -10,7 +10,7 @@ The workspace contains two folders by default, where:
 - `lib`: the folder to maintain dependencies
 
 ## Conventions
-All classes in this library are abstract and are meant to be fully implement by the client and server respectively. As such the class names are prefixed with an uderscore to indicate their abstract state. 
+All classes in this library are abstract and are meant to be fully implemented by the client and server respectively. As such, the class names are prefixed with an underscore to indicate their abstract state. 
 
 ## Dependency Management
 
