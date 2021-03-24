@@ -1,4 +1,5 @@
-import users._Customer;
+import models.users._Customer;
+
 public class Customer extends _Customer {
 
     @Override
@@ -18,5 +19,9 @@ public class Customer extends _Customer {
         // TODO Auto-generated method stub
         return false;
     }
-    
+
+    @Override
+    public void LodgeComplaint() {
+
+    }
 }
