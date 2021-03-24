@@ -2,6 +2,7 @@ package models.complaints;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -10,22 +11,22 @@ import javax.persistence.*;
 @Table(name = "user")
 public abstract class _Complaint implements Serializable {
 
-    @Column(name="complaint_id")
+    @Column(name = "complaint_id")
     int complaintId;
 
-    @Column(name="status")
+    @Column(name = "status")
     String status;
 
-    @Column(name="details")
+    @Column(name = "details")
     String details;
 
-    @Column(name="type_of_issue")
+    @Column(name = "type_of_issue")
     String typeOfIssue;
 
-    @Column(name="date_raised")
+    @Column(name = "date_raised")
     LocalDateTime dateRaised;
 
-    @Column(name="account_id")
+    @Column(name = "account_id")
     int accountId;
 
     public _Complaint() {
@@ -126,7 +127,9 @@ public abstract class _Complaint implements Serializable {
             return false;
         }
         _Complaint _Complaint = (_Complaint) o;
-        return complaintId == _Complaint.complaintId && Objects.equals(status, _Complaint.status) && Objects.equals(details, _Complaint.details) && Objects.equals(typeOfIssue, _Complaint.typeOfIssue) && Objects.equals(dateRaised, _Complaint.dateRaised) && accountId == _Complaint.accountId;
+        return complaintId == _Complaint.complaintId && Objects.equals(status, _Complaint.status) && Objects.equals(details,
+                _Complaint.details) && Objects.equals(typeOfIssue, _Complaint.typeOfIssue) && Objects.equals(dateRaised,
+                _Complaint.dateRaised) && accountId == _Complaint.accountId;
     }
 
     @Override
@@ -137,11 +140,12 @@ public abstract class _Complaint implements Serializable {
     @Override
     public String toString() {
         return "{" +
-            " complaintId='" + getComplaintId() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", details='" + getDetails() + "'" +
-            ", typeOfIssue='" + getTypeOfIssue() + "'" +
-            ", dateRaised='" + getDateRaised() + "'" +
-            ", accountId='" + getAccountId() + "'" +
-            "}";
+                " complaintId='" + getComplaintId() + "'" +
+                ", status='" + getStatus() + "'" +
+                ", details='" + getDetails() + "'" +
+                ", typeOfIssue='" + getTypeOfIssue() + "'" +
+                ", dateRaised='" + getDateRaised() + "'" +
+                ", accountId='" + getAccountId() + "'" +
+                "}";
     }
+}
