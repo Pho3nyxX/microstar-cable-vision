@@ -31,17 +31,8 @@ CREATE TABLE `account` (
   UNIQUE KEY `account_ID_UNIQUE` (`account_id`),
   KEY `fk_account_customer_45698_idx` (`customer_id`),
   CONSTRAINT `fk_account_customer_45698` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `account`
---
-
-LOCK TABLES `account` WRITE;
-/*!40000 ALTER TABLE `account` DISABLE KEYS */;
-/*!40000 ALTER TABLE `account` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `address`
@@ -60,17 +51,8 @@ CREATE TABLE `address` (
   UNIQUE KEY `address_ID_UNIQUE` (`address_id`),
   KEY `fk_address_customer_97657_idx` (`customer_id`),
   CONSTRAINT `fk_address_customer_97657` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `address`
---
-
-LOCK TABLES `address` WRITE;
-/*!40000 ALTER TABLE `address` DISABLE KEYS */;
-/*!40000 ALTER TABLE `address` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `bill`
@@ -90,18 +72,9 @@ CREATE TABLE `bill` (
   PRIMARY KEY (`bill_id`),
   UNIQUE KEY `bill_ID_UNIQUE` (`bill_id`),
   KEY `fk_bill_service_65388_idx` (`service_id`),
-  CONSTRAINT `fk_bill_service_65388` FOREIGN KEY (`service_id`) REFERENCES `service` (`service_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  CONSTRAINT `fk_bill_service_65388` FOREIGN KEY (`service_id`) REFERENCES `service` (`service_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bill`
---
-
-LOCK TABLES `bill` WRITE;
-/*!40000 ALTER TABLE `bill` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bill` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `complaint`
@@ -118,27 +91,11 @@ CREATE TABLE `complaint` (
   `status` varchar(15) NOT NULL,
   `account_id` int NOT NULL,
   PRIMARY KEY (`complaint_id`),
-<<<<<<< Updated upstream
-  UNIQUE KEY `compalint_ID_UNIQUE` (`complaint_id`),
-  KEY `fk_compaint_account_idx` (`account_id`),
-  CONSTRAINT `fk_compaint_account_65563` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-=======
   UNIQUE KEY `complaint_ID_UNIQUE` (`complaint_id`),
   KEY `fk_complaint_account_idx` (`account_id`),
   CONSTRAINT `fk_complaint_account_65563` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
->>>>>>> Stashed changes
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `complaint`
---
-
-LOCK TABLES `complaint` WRITE;
-/*!40000 ALTER TABLE `complaint` DISABLE KEYS */;
-/*!40000 ALTER TABLE `complaint` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `complaintvisit`
@@ -156,17 +113,8 @@ CREATE TABLE `complaintvisit` (
   KEY `fk_complaintvisit_complaint_75365_idx` (`complaint_id`),
   CONSTRAINT `fk_complaintvisit_complaint_75365` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_complaintvisit_visit_75689` FOREIGN KEY (`visit_id`) REFERENCES `visit` (`visit_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `complaintvisit`
---
-
-LOCK TABLES `complaintvisit` WRITE;
-/*!40000 ALTER TABLE `complaintvisit` DISABLE KEYS */;
-/*!40000 ALTER TABLE `complaintvisit` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `contactnum`
@@ -181,17 +129,8 @@ CREATE TABLE `contactnum` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `contact_num_UNIQUE` (`contact_num`),
   CONSTRAINT `fk_contactnum_user_12564` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `contactnum`
---
-
-LOCK TABLES `contactnum` WRITE;
-/*!40000 ALTER TABLE `contactnum` DISABLE KEYS */;
-/*!40000 ALTER TABLE `contactnum` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `customer`
@@ -206,17 +145,8 @@ CREATE TABLE `customer` (
   `address` varchar(100) NOT NULL,
   UNIQUE KEY `customer_ID_UNIQUE` (`customer_id`),
   CONSTRAINT `fk_customer_account_15648` FOREIGN KEY (`customer_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customer`
---
-
-LOCK TABLES `customer` WRITE;
-/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `employee`
@@ -232,17 +162,8 @@ CREATE TABLE `employee` (
   PRIMARY KEY (`emp_id`),
   UNIQUE KEY `idemployee_UNIQUE` (`emp_id`),
   CONSTRAINT `fk_employee_user_45698` FOREIGN KEY (`emp_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `employee`
---
-
-LOCK TABLES `employee` WRITE;
-/*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-/*!40000 ALTER TABLE `employee` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `employeecomplaint`
@@ -259,25 +180,10 @@ CREATE TABLE `employeecomplaint` (
   UNIQUE KEY `emp_Complaint_ID_UNIQUE` (`emp_complaint_id`),
   KEY `fk_employeecomplaint_complaint_85469_idx` (`emp_id`),
   KEY `fk_employeecomplaint_employee_85469_idx` (`complaint_id`),
-<<<<<<< Updated upstream
-  CONSTRAINT `fk_employeecomplaint_employee_25154` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`compalint_id`),
-  CONSTRAINT `fk_employeecomplaint_employee_85469` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-=======
   CONSTRAINT `fk_employeecomplaint_employee_25154` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`),
   CONSTRAINT `fk_employeecomplaint_employee_85469` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
->>>>>>> Stashed changes
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `employeecomplaint`
---
-
-LOCK TABLES `employeecomplaint` WRITE;
-/*!40000 ALTER TABLE `employeecomplaint` DISABLE KEYS */;
-/*!40000 ALTER TABLE `employeecomplaint` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `employeevisit`
@@ -295,17 +201,8 @@ CREATE TABLE `employeevisit` (
   KEY `fk_employeevisit_vist_15469_idx` (`visit_id`),
   CONSTRAINT `fk_employeevisit_employee_85214` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_employeevisit_vist_15469` FOREIGN KEY (`visit_id`) REFERENCES `visit` (`visit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `employeevisit`
---
-
-LOCK TABLES `employeevisit` WRITE;
-/*!40000 ALTER TABLE `employeevisit` DISABLE KEYS */;
-/*!40000 ALTER TABLE `employeevisit` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `message`
@@ -329,17 +226,8 @@ CREATE TABLE `message` (
   CONSTRAINT `fk_message_complaint_15698` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_message_user_recipient_65878` FOREIGN KEY (`recipient_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_message_user_sender_45698` FOREIGN KEY (`sender_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `message`
---
-
-LOCK TABLES `message` WRITE;
-/*!40000 ALTER TABLE `message` DISABLE KEYS */;
-/*!40000 ALTER TABLE `message` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `payment`
@@ -357,17 +245,8 @@ CREATE TABLE `payment` (
   UNIQUE KEY `payment_ID_UNIQUE` (`payment_id`),
   KEY `fk_payment_account_67464_idx` (`account_id`),
   CONSTRAINT `fk_payment_account_67464` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `payment`
---
-
-LOCK TABLES `payment` WRITE;
-/*!40000 ALTER TABLE `payment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `payment` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `response`
@@ -385,17 +264,8 @@ CREATE TABLE `response` (
   UNIQUE KEY `response_ID_UNIQUE` (`response_id`),
   KEY `fk_response_complaint_47898_idx` (`complaint_id`),
   CONSTRAINT `fk_response_complaint_47898` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `response`
---
-
-LOCK TABLES `response` WRITE;
-/*!40000 ALTER TABLE `response` DISABLE KEYS */;
-/*!40000 ALTER TABLE `response` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `service`
@@ -414,17 +284,8 @@ CREATE TABLE `service` (
   UNIQUE KEY `service_ID_UNIQUE` (`service_id`),
   KEY `fk_service_account_38481_idx` (`account_id`),
   CONSTRAINT `fk_service_account_38481` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `service`
---
-
-LOCK TABLES `service` WRITE;
-/*!40000 ALTER TABLE `service` DISABLE KEYS */;
-/*!40000 ALTER TABLE `service` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -443,18 +304,8 @@ CREATE TABLE `user` (
   `gender` varchar(5) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,' eauskrbdjrbvdkjbgvd,rbgidk','abi','mat','nao',10,'f');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `visit`
@@ -470,17 +321,8 @@ CREATE TABLE `visit` (
   `complete` bit(1) NOT NULL,
   PRIMARY KEY (`visit_id`),
   UNIQUE KEY `visit_ID_UNIQUE` (`visit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `visit`
---
-
-LOCK TABLES `visit` WRITE;
-/*!40000 ALTER TABLE `visit` DISABLE KEYS */;
-/*!40000 ALTER TABLE `visit` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -491,4 +333,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-23 16:57:33
+-- Dump completed on 2021-03-24  8:39:40
