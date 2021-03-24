@@ -2,6 +2,7 @@ package models.complaints;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -145,3 +146,4 @@ public abstract class _Complaint implements Serializable {
             ", accountId='" + getAccountId() + "'" +
             "}";
     }
+}

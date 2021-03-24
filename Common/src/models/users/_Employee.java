@@ -36,10 +36,18 @@ public abstract class _Employee extends _User implements Serializable {
     }
 
     // copy constructor
-    public _Employee(_Employee client) {
-        super(client);
-        this.role = client.role;
-        this.status = client.status;
+    public _Employee(_Employee employee) {
+        super(
+            employee.getUserID(),
+            employee.getfirstName(),
+            employee.getlastName(),
+            employee.getmiddleName(),
+            employee.getPassword(),
+            employee.getAge(),
+            employee.getGender()
+        );
+        this.role = employee.role;
+        this.status = employee.status;
     }
 
     // getters & setters

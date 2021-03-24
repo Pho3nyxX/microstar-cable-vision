@@ -13,28 +13,28 @@ public abstract class _User implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="user_id")
-    int userID;
+    protected int userID;
 
     @Column(name="username")
-    String username;
+    protected String username;
 
     @Column(name="first_Name")
-    String firstName;
+    protected String firstName;
     
     @Column(name="last_Name")
-    String lastName;
+    protected String lastName;
 
     @Column(name="middle_Name")
-    String middleName;
+    protected String middleName;
 
     @Column(name="password")
-    String password;
+    protected String password;
 
     @Column(name="age")
-    int age;
+    protected int age;
 
     @Column(name="gender")
-    String gender;
+    protected String gender;
 
     _ContactNumber[] phone;
 
@@ -69,14 +69,23 @@ public abstract class _User implements Serializable {
     }
 
 
-    public _User(String username, String firstName, String lastName, String password, _ContactNumber[] phone, int age, String gender) {
+    public _User(String username, String firstName, String lastName, String middleName, String password, _ContactNumber[] phone, int age, String gender) {
         this.username = username;
         this.firstName = firstName;
+        this.middleName = middleName;
         this.lastName = lastName;
         this.password = password;
         this.phone = phone;
         this.age = age;
         this.gender = gender;
+    }
+
+    public int getUserID() {
+        return this.userID;
+    }
+
+    public void setUserID(int userid) {
+        this.userID = userid;
     }
 
     public String getUsername() {
@@ -97,6 +106,14 @@ public abstract class _User implements Serializable {
 
     public String getlastName() {
         return this.lastName;
+    }
+
+    public void setmiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getmiddleName() {
+        return this.middleName;
     }
 
     public void setlastName(String lastName) {

@@ -35,7 +35,15 @@ public abstract class _Customer extends _User implements Serializable {
 
     // copy constructor
     public _Customer(_Customer client) {
-        super(client);
+        super(
+            client.getUserID(),
+            client.getfirstName(),
+            client.getlastName(),
+            client.getmiddleName(),
+            client.getPassword(),
+            client.getAge(),
+            client.getGender()
+        );
         this.email = client.email;
         this.address = client.address;
     }

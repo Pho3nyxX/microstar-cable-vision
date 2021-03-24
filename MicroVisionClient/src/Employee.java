@@ -1,4 +1,4 @@
-import users._Employee;
+import models.users._Employee;
 
 public class Employee extends _Employee{
 
