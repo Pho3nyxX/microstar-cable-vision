@@ -15,10 +15,10 @@ public abstract class _Employee extends _User implements Serializable {
     // @Column(name="emp_id")
 
     @Column(name="role")
-    String role;
+    protected String role;
 
     @Column(name="status")
-    String status;
+    protected String status;
 
     // default constructor
     public _Employee() {

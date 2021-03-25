@@ -1,8 +1,15 @@
 import java.io.Serializable;
 
-import models.users._Employee;
+import models.users._Customer;
+import models.users._User;
 
-public class Employee extends _Employee implements Serializable{
+public class Customer extends _Customer implements Serializable {
+
+    @Override
+    public void LodgeComplaint() {
+        // TODO Auto-generated method stub
+        
+    }
 
     @Override
     public boolean login(String arg0, String arg1) {

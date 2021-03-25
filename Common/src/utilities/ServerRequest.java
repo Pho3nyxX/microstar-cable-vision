@@ -1,10 +1,16 @@
 package utilities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ServerRequest<T> {
+public class ServerRequest<T extends Serializable>  implements Serializable {
     String command;
     T data;
+
+
+    public static final String USER_LOGIN_COMMAND = "User-Login";
+    public static final String USER_LOGOUT_COMMAND = "User-Logout";
+    public static final String USER_REGISTER_COMMAND = "User-Register";
 
     public ServerRequest() {
     }

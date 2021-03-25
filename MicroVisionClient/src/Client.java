@@ -1,6 +1,9 @@
 /* For all Client Related Communication */
 
 import javax.swing.*;
+
+import utilities.ServerRequest;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -42,6 +45,15 @@ public class Client {
 
     public void sendAction(String action) {
         this.action = action;
+        try {
+            objOs.writeObject(action);
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void sendAction(ServerRequest action) {
+        //this.action = action;
         try {
             objOs.writeObject(action);
         }catch (IOException ex) {

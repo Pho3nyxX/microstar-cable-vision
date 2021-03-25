@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 // Annotations
 @Entity
-@Table(name = "user")
+@Table(name = "complaint")
 public abstract class _Complaint implements Serializable {
 
     @Column(name="complaint_id")
@@ -30,6 +30,12 @@ public abstract class _Complaint implements Serializable {
     int accountId;
 
     public _Complaint() {
+        this.complaintId = 0;
+        this.status = "";
+        this.details = "";
+        this.typeOfIssue = "";
+        this.dateRaised = LocalDateTime.now();
+        this.accountId = 0;
     }
 
     public _Complaint(int complaintId, String status, String details, String typeOfIssue, LocalDateTime dateRaised, int accountId) {
@@ -39,6 +45,15 @@ public abstract class _Complaint implements Serializable {
         this.typeOfIssue = typeOfIssue;
         this.dateRaised = dateRaised;
         this.accountId = accountId;
+    }
+
+    public _Complaint(_Complaint report) {
+        this.complaintId = report.complaintId;
+        this.status = report.status;
+        this.details = report.details;
+        this.typeOfIssue = report.typeOfIssue;
+        this.dateRaised = report.dateRaised;
+        this.accountId = report.accountId;
     }
 
     public int getComplaintId() {

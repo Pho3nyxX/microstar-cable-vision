@@ -5,9 +5,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.sql.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import utilities.*;
+// import models.users.*;
 
 public class Server {
     private ObjectOutputStream objOs;
@@ -66,8 +70,8 @@ public class Server {
     //private Student findClientById(String stuId) { }
 
     private void waitForRequests() {
-        String action = "";
-        getDatabaseConnection();
+        ServerRequest action;
+        //getDatabaseConnection();
         try {
             while (true) {
                 connectionSocket = serverSocket.accept();
@@ -78,17 +82,25 @@ public class Server {
                    /* if(rs.next()){
                         System.out.println(rs.getString(2));
                     } */
-                    action = (String) objIs.readObject();
+                    action = (ServerRequest) objIs.readObject();
+                    System.out.println(action.getClass());
                 }catch (ClassNotFoundException | ClassCastException ex) {
                     ex.printStackTrace();
+                    System.out.println(ex.getMessage());
+                }catch(SocketException ex){
+                    ex.printStackTrace();
+                    System.out.println(ex.getMessage());
+                }finally{
+                    this.closeConnection();
                 }
-                this.closeConnection();
             }
         }catch (EOFException ex) {
             System.out.println("Client has terminated connections with the server");
             ex.printStackTrace();
+            System.out.println(ex.getMessage());
         }catch (IOException ex) {
             ex.printStackTrace();
+            System.out.println(ex.getMessage());
         }
     }
 

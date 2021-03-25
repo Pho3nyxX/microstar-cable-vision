@@ -12,6 +12,7 @@ import javax.persistence.*;
 public abstract class _User implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+
     @Column(name="user_id")
     protected int userID;
 
@@ -45,7 +46,7 @@ public abstract class _User implements Serializable {
 
     public abstract boolean register();
 
-
+    // default constructor
     public _User() {
         this.username = "";
         this.firstName = "";
@@ -56,7 +57,7 @@ public abstract class _User implements Serializable {
         this.gender = "";
     }
 
-    //primary constructor
+    //primary constructor 1
     public _User(int userID, String firstName, String lastName, String middleName, String password, int age,
             String gender) {
         this.userID = userID;
@@ -68,7 +69,7 @@ public abstract class _User implements Serializable {
         this.gender = gender;
     }
 
-
+    // primary constructor 2
     public _User(String username, String firstName, String lastName, String middleName, String password, _ContactNumber[] phone, int age, String gender) {
         this.username = username;
         this.firstName = firstName;

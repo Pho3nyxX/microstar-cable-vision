@@ -9,23 +9,22 @@ import javax.persistence.*;
 @Entity
 @Table(name = "customer")
 public abstract class _Customer extends _User implements Serializable {
-    // @id
-    // @GeneratedValue(strategy=GenerationType.IDENTITY)
-    // @Column(name="customer_id")
 
     @Column(name = "email")
-    String email;
+    protected String email;
 
-    _Address address;
+    protected _Address address;
 
     public abstract void LodgeComplaint();
 
+    // default constructor
     public _Customer() {
         super();
         this.email = "";
         this.address = null;
     }
 
+    // primary constructor
     public _Customer(int userID, String firstName, String lastName, String middleName, String password, int age,
             String gender, String email, _Address address) {
         super(userID, firstName, lastName, middleName, password, age, gender);

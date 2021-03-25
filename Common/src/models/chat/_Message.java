@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 // Annotations
 @Entity
-@Table(name = "user")
+@Table(name = "message")
 public abstract class _Message {
 
     @Column(name = "text")
@@ -28,10 +28,17 @@ public abstract class _Message {
     @Column(name = "complaint_id")
     int complaintId;
 
-
+    // default constructor
     public _Message() {
+        this.text = "";
+        this.read = false;
+        this.date = LocalDateTime.now();
+        this.recipientId = 0;;
+        this.senderId = 0;
+        this.complaintId = 0;
     }
 
+    // primary constructor
     public _Message(String text, boolean read, LocalDateTime date, int recipientId, int senderId, int complaintId) {
         this.text = text;
         this.read = read;
@@ -39,6 +46,16 @@ public abstract class _Message {
         this.recipientId = recipientId;
         this.senderId = senderId;
         this.complaintId = complaintId;
+    }
+
+    // copy constructor
+    public _Message(_Message word) {
+        this.text = word.text;
+        this.read = word.read;
+        this.date = word.date;
+        this.recipientId = word.recipientId;
+        this.senderId = word.senderId;
+        this.complaintId = word.complaintId;
     }
 
     public String getText() {

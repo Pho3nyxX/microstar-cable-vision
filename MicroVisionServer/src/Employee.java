@@ -1,6 +1,8 @@
-import users._Employee;
+import java.io.Serializable;
 
-public class Employee extends _Employee{
+import models.users._Employee;
+
+public class Employee extends _Employee implements Serializable{
 
     @Override
     public boolean login(String arg0, String arg1) {
