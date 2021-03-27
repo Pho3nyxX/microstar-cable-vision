@@ -8,34 +8,28 @@ import javax.persistence.*;
 
 // Annotations
 @Entity
-@Table(name = "complaint")
+@Table(name = "user")
 public abstract class _Complaint implements Serializable {
 
-    @Column(name="complaint_id")
+    @Column(name = "complaint_id")
     int complaintId;
 
-    @Column(name="status")
+    @Column(name = "status")
     String status;
 
-    @Column(name="details")
+    @Column(name = "details")
     String details;
 
-    @Column(name="type_of_issue")
+    @Column(name = "type_of_issue")
     String typeOfIssue;
 
-    @Column(name="date_raised")
+    @Column(name = "date_raised")
     LocalDateTime dateRaised;
 
-    @Column(name="account_id")
+    @Column(name = "account_id")
     int accountId;
 
     public _Complaint() {
-        this.complaintId = 0;
-        this.status = "";
-        this.details = "";
-        this.typeOfIssue = "";
-        this.dateRaised = LocalDateTime.now();
-        this.accountId = 0;
     }
 
     public _Complaint(int complaintId, String status, String details, String typeOfIssue, LocalDateTime dateRaised, int accountId) {
@@ -45,15 +39,6 @@ public abstract class _Complaint implements Serializable {
         this.typeOfIssue = typeOfIssue;
         this.dateRaised = dateRaised;
         this.accountId = accountId;
-    }
-
-    public _Complaint(_Complaint report) {
-        this.complaintId = report.complaintId;
-        this.status = report.status;
-        this.details = report.details;
-        this.typeOfIssue = report.typeOfIssue;
-        this.dateRaised = report.dateRaised;
-        this.accountId = report.accountId;
     }
 
     public int getComplaintId() {
@@ -142,7 +127,9 @@ public abstract class _Complaint implements Serializable {
             return false;
         }
         _Complaint _Complaint = (_Complaint) o;
-        return complaintId == _Complaint.complaintId && Objects.equals(status, _Complaint.status) && Objects.equals(details, _Complaint.details) && Objects.equals(typeOfIssue, _Complaint.typeOfIssue) && Objects.equals(dateRaised, _Complaint.dateRaised) && accountId == _Complaint.accountId;
+        return complaintId == _Complaint.complaintId && Objects.equals(status, _Complaint.status) && Objects.equals(details,
+                _Complaint.details) && Objects.equals(typeOfIssue, _Complaint.typeOfIssue) && Objects.equals(dateRaised,
+                _Complaint.dateRaised) && accountId == _Complaint.accountId;
     }
 
     @Override
@@ -153,12 +140,12 @@ public abstract class _Complaint implements Serializable {
     @Override
     public String toString() {
         return "{" +
-            " complaintId='" + getComplaintId() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", details='" + getDetails() + "'" +
-            ", typeOfIssue='" + getTypeOfIssue() + "'" +
-            ", dateRaised='" + getDateRaised() + "'" +
-            ", accountId='" + getAccountId() + "'" +
-            "}";
+                " complaintId='" + getComplaintId() + "'" +
+                ", status='" + getStatus() + "'" +
+                ", details='" + getDetails() + "'" +
+                ", typeOfIssue='" + getTypeOfIssue() + "'" +
+                ", dateRaised='" + getDateRaised() + "'" +
+                ", accountId='" + getAccountId() + "'" +
+                "}";
     }
 }
