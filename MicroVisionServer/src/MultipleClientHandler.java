@@ -1,41 +1,41 @@
-import java.io.BufferedReader;
+import utilities.ServerRequest;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 
-public class MultipleClientHandler implements Runnable{
-    private Socket client;
-    private BufferedReader in;
-    private PrintWriter out;
+public class MultipleClientHandler extends Server implements Runnable {
 
-    public MultipleClientHandler(Socket clientSocket) throws IOException {
-        this.client = clientSocket;
-        in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        out = new PrintWriter(client.getOutputStream(), true);
+    public MultipleClientHandler(Socket socketObject) {
+        this.connectionSocket = socketObject;
     }
 
     @Override
     public void run() {
+        ServerRequest action;
         try {
-            String clientRequest = in.readLine();
-
-            while (clientRequest.compareTo("EXIT")!=0) {
-                if (clientRequest.contains("hi")) {
-                    out.println("Hello, I am a Server");
-                } else {
-                    out.println("Anything else to say?");
+            this.configureStreams();
+            //stmt = dBConn.createStatement();
+            //result = s.executeQuery("SELECT * FROM user");
+                   /* if(rs.next()){
+                        System.out.println(rs.getString(2));
+                    } */
+            connection.warn("Attempting to receive data from client");
+            action = (ServerRequest) objectInputStream.readObject();
+            connection.info("Data successfully received from client");
+            //System.out.println(action.getClass());
+            switch (action.getCommand()) {
+                case "User-Login" -> {
+                    //Actions for user login
                 }
-                clientRequest = in.readLine();
+                case "User-Logout" -> {
+                    //Actions for user logout
+                }
+                case "User-Register" -> {
+                    //Actions to register user
+                }
             }
-            //When the try block is closed or server is manually closed, it will jump into finally block to close resources.
-            System.out.println("Server sent message/s. Closing.");
-            in.close();
-            out.close();
-            client.close();
-        }catch (IOException ex) {
-            System.out.println("IO Exception in client handler");
-            ex.printStackTrace();
+        }catch (IOException | ClassNotFoundException ex) {
+            error.error(ex.getMessage());
         }
     }
 }
