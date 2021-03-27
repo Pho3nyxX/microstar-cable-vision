@@ -1,81 +1,50 @@
 /* For all Client Related Communication */
 
-import javax.swing.*;
-
+import utilities.communication._ClientServer;
 import utilities.ServerRequest;
+import utilities.ServerResponse;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class Client {
+public class Client extends _ClientServer {
+    String SERVERIP = "127.0.0.1";
 
-    private static final String SERVERIP = "127.0.0.1";
-    private static final int SERVERPORT = 9097;
-    private static ObjectOutputStream objOs;
-    private ObjectInputStream objIs;
-    private Socket connectionSocket;
-    String action = "";
 
     public Client() {
         this.createConnection();
         this.configureStreams();
     }
 
-    private void createConnection() {
+    public void createConnection() {
         try {
+            connection.warn("Attempting to setup client socket");
             //Create a socket to connect to the server
-            connectionSocket = new Socket(SERVERIP, SERVERPORT);
+            this.connectionSocket = new Socket(SERVERIP, SERVERPORT);
+            connection.info("Socket setup successful");
         }catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private void configureStreams() {
-        try {
-            //Create an input stream to receive data from the server
-            objIs = new ObjectInputStream(connectionSocket.getInputStream());
-            //Create an output stream to send data to the server
-            objOs = new ObjectOutputStream(connectionSocket.getOutputStream());
-        }catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void sendAction(String action) {
-        this.action = action;
-        try {
-            objOs.writeObject(action);
-        }catch (IOException ex) {
-            ex.printStackTrace();
+            error.error(ex.getMessage());
         }
     }
 
     public void sendAction(ServerRequest action) {
         //this.action = action;
         try {
-            objOs.writeObject(action);
+            connection.warn("Attempting to send action to the Server");
+            objectOutputStream.writeObject(action);
+            connection.info("Action successfully sent to Server");
         }catch (IOException ex) {
-            ex.printStackTrace();
+            error.warn("Action not sent to Server \n" + ex.getMessage());
         }
     }
 
-    //public void sentClient() {}
-
-    //public void sentClientId() {}
-
-    public void receiveResponse() { }
-
-    public void closeConnection() {
+    public void receiveResponse() {
+        ServerResponse response;
         try {
-            objOs.close();
-            objIs.close();
-            connectionSocket.close();
-        }catch (IOException ex) {
-            ex.printStackTrace();
+            connection.warn("Attempting to receive response from server");
+            response = (ServerResponse) objectInputStream.readObject();
+        }catch (IOException | ClassNotFoundException ex) {
+            error.error(ex.getMessage());
         }
     }
-
-
 }

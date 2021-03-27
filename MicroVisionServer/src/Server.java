@@ -1,51 +1,33 @@
 import javax.swing.*;
 import java.io.EOFException;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.SocketException;
 import java.sql.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import utilities.communication._ClientServer;
 import utilities.*;
 // import models.users.*;
 
-public class Server {
-    private ObjectOutputStream objOs;
-    private ObjectInputStream objIs;
+public class Server extends _ClientServer {
     private ServerSocket serverSocket;
-    private Socket connectionSocket;
-    private static Connection dBConn = null;
-    private Statement stmt;
-    private ResultSet result = null;
-    private static ExecutorService pool = Executors.newFixedThreadPool(4);
+    private static ExecutorService pool = Executors.newFixedThreadPool(10);
 
     public Server() {
         this.createConnection();
         this.waitForRequests();
     }
 
-    private void createConnection() {
+    public void createConnection() {
         try {
-            //New instance of the ServerSocket listening on port 8888
-            serverSocket = new ServerSocket(9097);
-            //Information logger saying Server waiting for client connection
+            //New instance of the ServerSocket listening on port 9097
+            connection.warn("Attempting to set up the Server Socket");
+            serverSocket = new ServerSocket(SERVERPORT);
+            connection.info("Server Socket set-up successfully");
         }catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private void configureStreams() {
-        try {
-            //Instantiate the output stream using the getOutputStream method of Socket object
-            objOs = new ObjectOutputStream(connectionSocket.getOutputStream());
-            //Instantiate the input stream using the getInputStream method od socket object
-            objIs = new ObjectInputStream(connectionSocket.getInputStream());
-        }catch (IOException ex) {
-            ex.printStackTrace();
+            error.error(ex.getMessage());
         }
     }
 
@@ -65,16 +47,14 @@ public class Server {
         return dBConn;
     }
 
-    //private void addClientToFile(Student student) { }
-
-    //private Student findClientById(String stuId) { }
-
     private void waitForRequests() {
         ServerRequest action;
         //getDatabaseConnection();
         try {
             while (true) {
+                connection.info("Server waiting for connections");
                 connectionSocket = serverSocket.accept();
+                connection.info("Client request accepted");
                 this.configureStreams();
                 try {
                     //stmt = dBConn.createStatement();
@@ -82,15 +62,25 @@ public class Server {
                    /* if(rs.next()){
                         System.out.println(rs.getString(2));
                     } */
-                    action = (ServerRequest) objIs.readObject();
-                    System.out.println(action.getClass());
-                }catch (ClassNotFoundException | ClassCastException ex) {
-                    ex.printStackTrace();
-                    System.out.println(ex.getMessage());
-                }catch(SocketException ex){
-                    ex.printStackTrace();
-                    System.out.println(ex.getMessage());
-                }finally{
+                    connection.warn("Attempting to receive data from client");
+                    action = (ServerRequest) objectInputStream.readObject();
+                    connection.info("Data successfully received from client");
+                    //System.out.println(action.getClass());
+                    switch (action.getCommand()) {
+                        case "User-Login" -> {
+                            //Actions for user login
+                        }
+                        case "User-Logout" -> {
+                            //Actions for user logout
+                        }
+                        case "User-Register" -> {
+                            //Actions to register user
+                        }
+                    }
+                }catch (ClassNotFoundException | ClassCastException | SocketException ex) {
+                    error.error(ex.getMessage());
+                    //System.out.println(ex.getMessage());
+                } finally{
                     this.closeConnection();
                 }
             }
@@ -101,16 +91,6 @@ public class Server {
         }catch (IOException ex) {
             ex.printStackTrace();
             System.out.println(ex.getMessage());
-        }
-    }
-
-    public void closeConnection() {
-        try {
-            objOs.close();
-            objIs.close();
-            connectionSocket.close();
-        }catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 }
