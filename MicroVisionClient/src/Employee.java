@@ -1,23 +1,28 @@
-import models.users._Employee;
+import java.io.Serializable;
 
-public class Employee extends _Employee {
+import models.users.*;
+import utilities.*;
 
-    @Override
-    public boolean login(String arg0, String arg1) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+public class Employee extends _Employee implements Serializable{
 
     @Override
-    public boolean logout(String arg0) {
+    public boolean registerUser(_User user) {
+        boolean userCreated = false; 
         // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean register() {
-        // TODO Auto-generated method stub
-        return false;
+        ServerRequest<_User> request = new ServerRequest<_User>(ServerRequest.USER_REGISTER_COMMAND, user); 
+        App.clientConnection.sendAction(request);
+        //App.clientConnection.closeConnection();
+        ServerResponse response = App.clientConnection.receiveResponse();
+        if (response.getCode() == ServerResponse.USER_SAVED_SUCCESSFUL_RESPONSE) {
+            userCreated = true; 
+            
+            //TODO handle user creation succeed
+        } else {
+            //TODO handle user creation failed 
+            
+        }
+        App.clientConnection.closeConnection();
+        return userCreated;
     }
     
 }
