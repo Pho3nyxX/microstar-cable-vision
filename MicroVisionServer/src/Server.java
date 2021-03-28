@@ -21,7 +21,7 @@ public class Server extends _ClientServer {
         this.createConnection();
         this.waitForRequests();
     }
-
+    
     public void createConnection() {
         try {
             //New instance of the ServerSocket listening on port 9097
@@ -29,33 +29,35 @@ public class Server extends _ClientServer {
             serverSocket = new ServerSocket(SERVERPORT);
             connection.info("Server Socket set-up successfully");
         }catch (IOException ex) {
+            System.out.println("Socket not created");
             error.error(ex.getMessage());
         }
     }
-
+    
     public static void getDatabaseConnection() {
         if (dBConn == null) {
             try {
                 String url = "jdbc:mysql://localhost:3306/microstarvision?useSSL=false";
                 dBConn = DriverManager.getConnection(url,"ap_project_user","&L&TM1nuT&$258");
-
+                
                 JOptionPane.showMessageDialog(null,"DB Connection Established", "Connection Status",
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.INFORMATION_MESSAGE);
             }catch (SQLException ex){
                 JOptionPane.showMessageDialog(null, "Could not connect to database\n" +
-                        ex,"Connection Failure",JOptionPane.ERROR_MESSAGE);
+                ex,"Connection Failure",JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-
+    
     private void waitForRequests() {
-        getDatabaseConnection();
+        //getDatabaseConnection();
         try {
             while (true) {
                 connection.info("Server waiting for connections");
                 connectionSocket = serverSocket.accept();
                 connection.info("Client request accepted");
                 clientCount++;
+                System.out.println("constructor");
                 connection.info("Clients currently on server: " + clientCount);
 
                 MultipleClientHandler clientHandler = new MultipleClientHandler(this.connectionSocket);
@@ -69,8 +71,52 @@ public class Server extends _ClientServer {
         }catch (IOException ex) {
             error.error(ex.getMessage());
             //System.out.println(ex.getMessage());
+        }catch (Exception ex) {
+            error.error(ex.getMessage());
+            System.out.println(ex.getMessage());
         }finally{
             this.closeConnection();
         }
     }
 }
+
+
+/*private void waitForRequests() {
+
+                    action = (ServerRequest) objIs.readObject();
+                    switch (action.getCommand()) {
+                        case ServerRequest.USER_LOGIN_COMMAND:
+                            System.out.println("Log user in");
+                            System.out.println(action.getData().toString());
+                            //TODO: generate sessionId 
+                            UUID sessionId = UUID.randomUUID();
+
+
+                            ServerResponse response = new ServerResponse<UUID>("Logged in successfully", ServerResponse.USER_LOGIN_SUCCESSFUL_RESPONSE, sessionId);
+                            objOs.writeObject(response);
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                    System.out.println(action.getCommand());
+                }catch (ClassNotFoundException | ClassCastException ex) {
+                    ex.printStackTrace();
+                    System.out.println(ex.getMessage());
+                }catch(SocketException ex){
+                    ex.printStackTrace();
+                    System.out.println(ex.getMessage());
+                }finally{
+                    //this.closeConnection();
+                }
+            }
+        }catch (EOFException ex) {
+            System.out.println("Client has terminated connections with the server");
+            ex.printStackTrace();
+            System.out.println(ex.getMessage());
+        }catch (IOException ex) {
+            ex.printStackTrace();
+            System.out.println(ex.getMessage());
+        }
+    }
+    */

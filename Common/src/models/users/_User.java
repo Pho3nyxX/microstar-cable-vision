@@ -40,11 +40,6 @@ public abstract class _User implements Serializable {
     _ContactNumber[] phone;
 
     //abstract methods
-    public abstract boolean login(String username, String password);
-    
-    public abstract boolean logout(String userid);
-
-    public abstract boolean register();
 
     // default constructor
     public _User() {
