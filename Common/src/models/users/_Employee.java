@@ -1,14 +1,14 @@
 package models.users;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
+
+import utilities.Validator;
 
 
 // Annotations
 @Entity
 @Table(name = "employee")
-public abstract class _Employee extends _User implements Serializable {
+public abstract class _Employee extends _User {
 
     // @id
     // @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -19,6 +19,26 @@ public abstract class _Employee extends _User implements Serializable {
 
     @Column(name="status")
     protected String status;
+
+
+    // public abstract boolean registerUser(_User user);
+
+
+    @Override
+    public boolean validate() {
+        //TODO implement individual validators
+        boolean valid = super.validate();
+
+        // check if each fields data is valid
+        if( !( Validator.validate(this.role, Validator.EMAIL) ) ){
+            this.validation_errors.add("Invalid email entered.");
+            valid = false;
+        }
+        return valid;
+    }
+    
+    
+    /**---------------------------------------------------------------------------------- */
 
     // default constructor
     public _Employee() {

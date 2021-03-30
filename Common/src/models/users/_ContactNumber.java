@@ -16,6 +16,12 @@ public class _ContactNumber implements Serializable{
     @Column(name="user_id")
     int userId;
 
+    public boolean validate(){
+        boolean valid = false;
+        
+        return valid;
+    }
+    /**------------------------------------------------------------- */
     // default constructor
     public _ContactNumber() {
         this.contactNum = "";

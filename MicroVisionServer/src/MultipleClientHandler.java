@@ -40,14 +40,22 @@ public class MultipleClientHandler implements Runnable {
             switch (action.getCommand()) {
                 case ServerRequest.USER_LOGIN_COMMAND -> {
                     //Actions for user login
+                    boolean loggedIn = false;
+                    int code = ServerResponse.REQUEST_FAILED;
+                    UUID sessionId = null;
+                    ServerResponse response;
                     //System.out.println(action.getData().toString());
                     //TODO: generate sessionId 
-                    UUID sessionId = UUID.randomUUID();
-
-                    // TODO: update database - user session 
-
+                    
+                    // TODO: check database to match credentials, update database - user session 
+                    
                     //send response to client
-                    ServerResponse response = new ServerResponse<UUID>("Logged in successfully", ServerResponse.USER_LOGIN_SUCCESSFUL_RESPONSE, sessionId);
+                    if(true){// TODO: test if user data is corrects
+                        loggedIn = true;
+                        sessionId = UUID.randomUUID();
+                        code = ServerResponse.REQUEST_SUCCEEDED;
+                    }
+                    response = new ServerResponse<UUID>("Logged in successfully", ServerResponse.REQUEST_SUCCEEDED, sessionId);
                     objectOutputStream.writeObject(response);
                 }
                 case "User-Logout" -> {
