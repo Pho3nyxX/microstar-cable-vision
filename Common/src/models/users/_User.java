@@ -1,9 +1,11 @@
 package models.users;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.persistence.*;
+import utilities.Validator;
 
 // Annotations
 @Entity
@@ -37,9 +39,56 @@ public abstract class _User implements Serializable {
     @Column(name="gender")
     protected String gender;
 
-    _ContactNumber[] phone;
+    protected _ContactNumber[] phone;
+
+
+    protected ArrayList<String> validation_errors;
 
     //abstract methods
+    public abstract boolean save();
+    public abstract boolean delete();
+
+
+    public boolean validate() {
+        //TODO implement individual validators and remove email
+        boolean valid = false;
+
+        // check if each fields data is valid
+        // validate username
+        if( !( Validator.validate(this.username, Validator.USERNAME) ) ){
+            this.validation_errors.add("Invalid email entered.");
+            valid = false;
+        }
+        // validate password
+        if( !( Validator.validate(this.password, Validator.PASSWORD) ) ){
+            this.validation_errors.add("Invalid email entered.");
+            valid = false;
+        }
+        // validate gender
+        if( !(this.gender.equals("M")) && !(this.gender.equals("F")) ){
+            this.validation_errors.add("Invalid email entered.");
+            valid = false;
+        }
+
+        /*// validate firstName
+        if( !( Validator.validate(this.firstName, Validator.EMAIL) ) ){
+            this.validation_errors.add("Invalid email entered.");
+            valid = false;
+        }
+        // validate middleName
+        if( !( Validator.validate(this.middleName, Validator.EMAIL) ) ){
+            this.validation_errors.add("Invalid email entered.");
+            valid = false;
+        }
+        // validate lastName
+        if( !( Validator.validate(this.lastName, Validator.EMAIL) ) ){
+            this.validation_errors.add("Invalid email entered.");
+            valid = false;
+        }*/
+
+
+        return valid;
+    }
 
     // default constructor
     public _User() {
@@ -62,6 +111,7 @@ public abstract class _User implements Serializable {
         this.password = password;
         this.age = age;
         this.gender = gender;
+
     }
 
     // primary constructor 2
@@ -146,6 +196,14 @@ public abstract class _User implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public ArrayList<String> getValidation_errors() {
+        return this.validation_errors;
+    }
+
+    public void setValidation_errors(ArrayList<String> validation_errors) {
+        this.validation_errors = validation_errors;
     }
 
     public _User username(String username) {

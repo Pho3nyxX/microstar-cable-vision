@@ -5,12 +5,19 @@ import java.util.Objects;
 
 public class ServerRequest<T extends Serializable>  implements Serializable {
     String command;
+    String sessionId;
     T data;
 
+    /**------------------------------------------------------------------------------ */
 
     public static final String USER_LOGIN_COMMAND = "User-Login";
     public static final String USER_LOGOUT_COMMAND = "User-Logout";
+    public static final String USER_LOAD_COMMAND = "User-Login";
+    public static final String USER_LOAD_MANY_COMMAND = "User-Logout";
     public static final String USER_REGISTER_COMMAND = "User-Register";
+    public static final String USER_UPDATE_COMMAND = "User-Update";
+    public static final String USER_FORGET_PASSWORD_COMMAND = "User-Forget-Password";
+    public static final String USER_GET_LOGGED_IN_COMMAND = "User-get-Logged-in-user";
 
     public ServerRequest() {
     }
@@ -36,12 +43,12 @@ public class ServerRequest<T extends Serializable>  implements Serializable {
         this.data = data;
     }
 
-    public ServerRequest command(String command) {
+    public ServerRequest<T> command(String command) {
         setCommand(command);
         return this;
     }
 
-    public ServerRequest data(T data) {
+    public ServerRequest<T> data(T data) {
         setData(data);
         return this;
     }
@@ -53,7 +60,7 @@ public class ServerRequest<T extends Serializable>  implements Serializable {
         if (!(o instanceof ServerRequest)) {
             return false;
         }
-        ServerRequest serverRequest = (ServerRequest) o;
+        ServerRequest<T> serverRequest = (ServerRequest) o;
         return Objects.equals(command, serverRequest.command) && Objects.equals(data, serverRequest.data);
     }
 

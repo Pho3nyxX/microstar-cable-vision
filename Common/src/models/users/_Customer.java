@@ -1,14 +1,15 @@
 package models.users;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.*;
 
+import utilities.Validator;
+
 // Annotations
 @Entity
 @Table(name = "customer")
-public abstract class _Customer extends _User implements Serializable {
+public abstract class _Customer extends _User {
 
     @Column(name = "email")
     protected String email;
@@ -16,6 +17,21 @@ public abstract class _Customer extends _User implements Serializable {
     protected _Address address;
 
     public abstract void LodgeComplaint();
+
+
+    @Override
+    public boolean validate() {
+        //TODO implement individual validators
+        boolean valid = super.validate();
+
+        // check if each fields data is valid
+        if( !( Validator.validate(this.email, Validator.EMAIL) ) ){
+            this.validation_errors.add("Invalid email entered.");
+            valid = false;
+        }
+        return valid;
+    }
+    
 
     // default constructor
     public _Customer() {
