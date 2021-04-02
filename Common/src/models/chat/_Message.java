@@ -1,5 +1,6 @@
 package models.chat;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 // Annotations
 @Entity
 @Table(name = "message")
-public abstract class _Message {
+public abstract class _Message implements Serializable {
 
     @Column(name = "text")
     String text;
@@ -33,7 +34,7 @@ public abstract class _Message {
         this.text = "";
         this.read = false;
         this.date = LocalDateTime.now();
-        this.recipientId = 0;;
+        this.recipientId = 0;
         this.senderId = 0;
         this.complaintId = 0;
     }
