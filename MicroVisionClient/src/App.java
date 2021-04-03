@@ -1,6 +1,7 @@
 import utilities.*;
 
 import java.net.Authenticator;
+import java.util.ArrayList;
 
 import models.users.*;
 
@@ -14,7 +15,10 @@ public class App {
         System.out.println("Hello, World!");
         clientConnection = new Client();
         Authentication auth =  new Authentication();
-        auth.login("Marvin", "Gordon"); 
-        System.out.println("Hello, World!");
+        auth.login("Abi", "Gordon"); 
+        ArrayList<Customer> customers = Customer.loadCustomers();
+
+        Customer customer = new Customer();
+        customer.save();
     }
 }
