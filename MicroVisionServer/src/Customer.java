@@ -3,6 +3,7 @@ import models.users._Customer;
 import models.users._User;
 
 public class Customer extends _Customer{
+    private static final long serialVersionUID = -7122240510909524901L;
 
     @Override
     public void LodgeComplaint() {

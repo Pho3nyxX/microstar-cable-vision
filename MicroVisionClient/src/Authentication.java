@@ -15,12 +15,15 @@ public class Authentication extends _Authethication {
         App.clientConnection.sendAction(request);
         // TODO: Check if user was logged in
         ServerResponse response = App.clientConnection.receiveResponse();
-        if(response.getCode().equals(ServerResponse.USER_LOGIN_SUCCESSFUL_RESPONSE)){
+        if(response.getCode() == ServerResponse.REQUEST_SUCCEEDED){
             //request.setCommand(ServerRequest.USER_GET_LOGGED_IN_COMMAND);
             //App.clientConnection.sendAction(request);
             App.sessionId = response.getData().toString(); 
             loggedIn = true;
             System.out.println(response);
+        }else{
+            System.out.println(response);
+            // System.err.println("Failed");
         }
         App.clientConnection.closeConnection();
 
@@ -28,9 +31,22 @@ public class Authentication extends _Authethication {
     }
 
     @Override
-    public boolean logout(String arg0) {
+    public boolean logout(String sessionId) {
         // TODO Auto-generated method stub
-        return false;
+        boolean loggedOut = false;
+        // send logout request to server to update database        
+        ServerRequest<String> request = new ServerRequest<String>(ServerRequest.USER_LOGOUT_COMMAND, sessionId); 
+        App.clientConnection.sendAction(request);
+        
+        // Check if user was logged out successfully
+        ServerResponse response = App.clientConnection.receiveResponse();
+        if(response.getCode() == ServerResponse.REQUEST_SUCCEEDED){
+            App.sessionId = null; 
+            loggedOut = true;
+        }
+        App.clientConnection.closeConnection();
+
+        return loggedOut;
     }
     
 }
