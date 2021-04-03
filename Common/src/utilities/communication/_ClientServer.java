@@ -18,14 +18,15 @@ public abstract class _ClientServer {
 
     public abstract void createConnection();
 
-    protected void configureStreams() {
+    public void configureStreams() {
         try {
+            System.out.println("configuring");
             //Create an input stream to receive data from the server and client
             connection.warn("Attempting to setup streams");
             objectInputStream = new ObjectInputStream(connectionSocket.getInputStream());
             //Create an output stream to send data to the server and client
             objectOutputStream = new ObjectOutputStream(connectionSocket.getOutputStream());
-            connection.info("Streams setup successful");
+            connection.info("Streams setup successfully");
         }catch (IOException ex) {
             error.error(ex.getMessage());
         }
@@ -39,6 +40,7 @@ public abstract class _ClientServer {
             connection.info("Streams closed successfully");
         }catch (IOException ex) {
             error.error(ex.getMessage());
+            System.out.println("Error closing");
         }
     }
 }

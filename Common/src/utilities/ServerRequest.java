@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class ServerRequest<T extends Serializable>  implements Serializable {
+     /**
+     *
+     */
     String command;
     String sessionId;
     T data;
@@ -12,10 +15,11 @@ public class ServerRequest<T extends Serializable>  implements Serializable {
 
     public static final String USER_LOGIN_COMMAND = "User-Login";
     public static final String USER_LOGOUT_COMMAND = "User-Logout";
-    public static final String USER_LOAD_COMMAND = "User-Login";
-    public static final String USER_LOAD_MANY_COMMAND = "User-Logout";
+    public static final String USER_LOAD_COMMAND = "User-Load";
+    public static final String USER_LOAD_MANY_COMMAND = "User-Load-List";
     public static final String USER_REGISTER_COMMAND = "User-Register";
     public static final String USER_UPDATE_COMMAND = "User-Update";
+    public static final String USER_DELETE_COMMAND = "User-Update";
     public static final String USER_FORGET_PASSWORD_COMMAND = "User-Forget-Password";
     public static final String USER_GET_LOGGED_IN_COMMAND = "User-get-Logged-in-user";
     public static final String USER_LIVE_CHAT_COMMAND = "Initiate Live Chat";
