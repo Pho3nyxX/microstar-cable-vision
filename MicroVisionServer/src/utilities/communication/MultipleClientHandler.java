@@ -1,3 +1,5 @@
+package utilities.communication;
+
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 
@@ -5,6 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import models.users._User;
+import models.users.Customer;
+import models.users.Employee;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

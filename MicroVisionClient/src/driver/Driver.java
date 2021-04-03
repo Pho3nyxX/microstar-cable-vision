@@ -1,11 +1,13 @@
+package driver; 
 import utilities.*;
 
-import java.net.Authenticator;
+import controllers.Authentication;
 import java.util.ArrayList;
 
 import models.users.*;
+import utilities.communication.*;
 
-public class App {
+public class Driver {
     public static Client clientConnection; //socket connection for general purpose use in the app
     public static Client messageConnection; //socket connection for use with chat
     public static _User user; // the currently logged in user
