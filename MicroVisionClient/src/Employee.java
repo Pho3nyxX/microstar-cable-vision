@@ -1,9 +1,11 @@
 import java.io.Serializable;
 
+import models.chat._Message;
 import models.users.*;
 import utilities.*;
 
 public class Employee extends _Employee implements Serializable{
+
 
     @Override
     public boolean registerUser(_User user) {
@@ -24,5 +26,22 @@ public class Employee extends _Employee implements Serializable{
         App.clientConnection.closeConnection();
         return userCreated;
     }
-    
+
+    public void liveChat (_Message message) {
+        //Login to live chat
+
+        ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_LIVE_CHAT_COMMAND, ) {
+        });
+        App.messageConnection.sendAction(request);
+    }
+
+    @Override
+    public boolean save() {
+        return false;
+    }
+
+    @Override
+    public boolean delete() {
+        return false;
+    }
 }

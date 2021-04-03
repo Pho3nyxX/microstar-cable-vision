@@ -1,0 +1,11 @@
+Client & Server
+
+1. Client ----> Server
+    *Login / Logoff
+
+2. Server ---> Client
+    *Online / Offline
+
+3. Client ---> Client
+    *Direct Messages
+    *Broadcast Messages

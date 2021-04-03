@@ -3,6 +3,8 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -15,11 +17,16 @@ public class Server extends _ClientServer {
     private static Connection dBConn = null;
     private Statement stmt;
     private ResultSet result = null;
-    private static ExecutorService pool = Executors.newFixedThreadPool(10);
+    private static ExecutorService pool = Executors.newFixedThreadPool(10); //Limit users to 10
+    private static ArrayList<MultipleClientHandler> clientHandlerArrayList = new ArrayList<>();
 
     public Server() {
         this.createConnection();
         this.waitForRequests();
+    }
+
+    public static List<MultipleClientHandler> getClientHandlerList() {
+        return clientHandlerArrayList;
     }
     
     public void createConnection() {
@@ -61,6 +68,7 @@ public class Server extends _ClientServer {
                 connection.info("Clients currently on server: " + clientCount);
 
                 MultipleClientHandler clientHandler = new MultipleClientHandler(this.connectionSocket);
+                clientHandlerArrayList.add(clientHandler);
                 Thread thread = new Thread(clientHandler);
                 thread.start();
             }

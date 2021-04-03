@@ -25,12 +25,12 @@ public abstract class _ClientServer {
             objectInputStream = new ObjectInputStream(connectionSocket.getInputStream());
             //Create an output stream to send data to the server and client
             objectOutputStream = new ObjectOutputStream(connectionSocket.getOutputStream());
-            connection.info("Streams setup successfulyy");
+            connection.info("Streams setup successful");
         }catch (IOException ex) {
             error.error(ex.getMessage());
         }
     }
-    protected void closeConnection() {
+    public void closeConnection() {
         try {
             connection.warn("Attempting to close streams");
             objectOutputStream.close();

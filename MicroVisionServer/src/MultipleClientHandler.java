@@ -8,12 +8,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 import java.util.UUID;
 
 public class MultipleClientHandler implements Runnable {
     protected Logger connection = LogManager.getLogger("Connection");
     protected Logger error = LogManager.getLogger("Error");
     protected Socket connectionSocket;
+    protected UUID sessionId = null;
+    protected ServerResponse response;
+    protected int code;
 
     public MultipleClientHandler(Socket socketObject) {
         this.connectionSocket = socketObject;
@@ -41,16 +45,15 @@ public class MultipleClientHandler implements Runnable {
                 case ServerRequest.USER_LOGIN_COMMAND -> {
                     //Actions for user login
                     boolean loggedIn = false;
-                    int code = ServerResponse.REQUEST_FAILED;
-                    UUID sessionId = null;
-                    ServerResponse response;
+                    code = ServerResponse.REQUEST_FAILED;
+
                     //System.out.println(action.getData().toString());
                     //TODO: generate sessionId 
                     
                     // TODO: check database to match credentials, update database - user session 
                     
                     //send response to client
-                    if(true){// TODO: test if user data is corrects
+                    if(true) {// TODO: test if user data is corrects
                         loggedIn = true;
                         sessionId = UUID.randomUUID();
                         code = ServerResponse.REQUEST_SUCCEEDED;
@@ -58,15 +61,29 @@ public class MultipleClientHandler implements Runnable {
                     response = new ServerResponse<UUID>("Logged in successfully", ServerResponse.REQUEST_SUCCEEDED, sessionId);
                     objectOutputStream.writeObject(response);
                 }
-                case "User-Logout" -> {
+                case ServerRequest.USER_LOGOUT_COMMAND -> {
                     //Actions for user logout
                 }
-                case "User-Register" -> {
+                case ServerRequest.USER_REGISTER_COMMAND -> {
                     //Actions to register user
+                }
+                case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
+
+                    sessionId = UUID.randomUUID();
+
+                    //Actions to run live chat
+                    while (!ServerRequest.USER_END_CHAT_COMMAND) {
+                        List<MultipleClientHandler> clientHandlerList = Server.getClientHandlerList();
+                        for (MultipleClientHandler client: clientHandlerList) {
+                            //response = new ServerResponse<UUID>(action.getData())
+                        }
+                    }
                 }
             }
         }catch (IOException | ClassNotFoundException ex) {
             error.error(ex.getMessage());
         }
     }
+
+
 }
