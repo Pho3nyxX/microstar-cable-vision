@@ -4,13 +4,18 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class ServerResponse<T> implements Serializable{
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1216288619378276877L;
+
     /**---------------------RESPONSE CODES------------------------ */
     public static final int DELETE_FAILED = 1;
     public static final int DELETE_SUCCEEDED = 2;
     public static final int SAVE_FAILED = 1;
     public static final int SAVE_SUCCEEDED = 1;
-    public static final int REQUEST_FAILED = 200;
-    public static final int REQUEST_SUCCEEDED = 404;
+    public static final int REQUEST_FAILED = 404;
+    public static final int REQUEST_SUCCEEDED = 200;
     public static final int ONLINE_AVAILABLE = 500;
 
     

@@ -15,9 +15,9 @@ public class MultipleClientHandler implements Runnable {
     protected Logger connection = LogManager.getLogger("Connection");
     protected Logger error = LogManager.getLogger("Error");
     protected Socket connectionSocket;
-    protected UUID sessionId = null;
-    protected ServerResponse response;
-    protected int code;
+    protected UUID sessionId = null; //TODO:: remove this is a client side data
+    protected ServerResponse response; //TODO:: remove these will spawn randomly based on the client-server communication 
+    protected int code; //TODO:: remove these will spawn randomly based on the client-server communication 
 
     public MultipleClientHandler(Socket socketObject) {
         this.connectionSocket = socketObject;
@@ -41,35 +41,72 @@ public class MultipleClientHandler implements Runnable {
             System.out.println("Log user in");
             connection.info("Data successfully received from client");
             //System.out.println(action.getClass());
+
+            System.out.println(action);
             switch (action.getCommand()) {
                 case ServerRequest.USER_LOGIN_COMMAND -> {
                     //Actions for user login
                     boolean loggedIn = false;
-                    code = ServerResponse.REQUEST_FAILED;
-
+                    int code = ServerResponse.REQUEST_FAILED;
+                    UUID sessionId = null;
+                    String message = "Login Failed.";
+                    ServerResponse response;
+                    _User user = (_User)action.getData(); 
+                    // System.out.println(user.get);
+                    
                     //System.out.println(action.getData().toString());
                     //TODO: generate sessionId 
                     
                     // TODO: check database to match credentials, update database - user session 
                     
                     //send response to client
-                    if(true) {// TODO: test if user data is corrects
+                    if(true){// TODO: test if user data is corrects
                         loggedIn = true;
                         sessionId = UUID.randomUUID();
                         code = ServerResponse.REQUEST_SUCCEEDED;
+                        message = "Logged in successfully";
                     }
-                    response = new ServerResponse<UUID>("Logged in successfully", ServerResponse.REQUEST_SUCCEEDED, sessionId);
+                    response = new ServerResponse<UUID>(message, code, sessionId);
                     objectOutputStream.writeObject(response);
                 }
-                case ServerRequest.USER_LOGOUT_COMMAND -> {
+                case ServerRequest.USER_LOAD_COMMAND -> {
                     //Actions for user logout
                 }
-                case ServerRequest.USER_REGISTER_COMMAND -> {
+                case ServerRequest.USER_LOAD_MANY_COMMAND ->{
+                    int code = ServerResponse.REQUEST_FAILED;
+                    String message = "No users found.";
+                    ServerResponse response;
+                    ArrayList<_User> userList = new ArrayList();
+                    // TODO: load users
+                    if (true) {//TODO: check if users found
+                        message = "Users found"; //TODO: add user count to message
+                        code = ServerResponse.REQUEST_SUCCEEDED;
+                        userList.add(new Customer());
+                        userList.add(new Customer());
+                    } else {
+                        message = "No users found"; //TODO: add user count to message
+                        code = ServerResponse.REQUEST_FAILED;                       
+                    }
+                    response = new ServerResponse<ArrayList<_User>>(message, code, userList);
+                    objectOutputStream.writeObject(response);
+                }
+                case ServerRequest.USER_UPDATE_COMMAND -> {
+                    int code = ServerResponse.REQUEST_FAILED;
+                    String message = "No users found.";
+                    ServerResponse response;
+                    _User user = (_User)action.getData();
+
+                    // TODO:: Handle user save
+                    
+                    response = new ServerResponse<_User>(message, code, user);
+                    objectOutputStream.writeObject(response);
+                }
+                case "User-Register" -> {
                     //Actions to register user
                 }
                 case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
 
-                    sessionId = UUID.randomUUID();
+                    //sessionId = UUID.randomUUID(); //TODO:: remove not necessary here
 
                     //Actions to run live chat
                     while (!ServerRequest.USER_END_CHAT_COMMAND) {

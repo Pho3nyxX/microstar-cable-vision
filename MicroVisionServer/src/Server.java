@@ -69,7 +69,7 @@ public class Server extends _ClientServer {
 
                 MultipleClientHandler clientHandler = new MultipleClientHandler(this.connectionSocket);
                 clientHandlerArrayList.add(clientHandler);
-                Thread thread = new Thread(clientHandler);
+                Thread thread = new Thread(clientHandler); //TODO:: change to use executor service
                 thread.start();
             }
         }catch (EOFException ex) {
