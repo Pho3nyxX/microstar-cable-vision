@@ -1,7 +1,9 @@
+package models.users;
 
 import models.users.*;
 import utilities.*;
 import models.chat._Message;
+import driver.Driver;
 
 public class Employee extends _Employee{
 
@@ -11,9 +13,9 @@ public class Employee extends _Employee{
         boolean userCreated = false; 
         // Create request with user data
         ServerRequest<_User> request = new ServerRequest<_User>(ServerRequest.USER_REGISTER_COMMAND, this); 
-        App.clientConnection.sendAction(request);
+        Driver.clientConnection.sendAction(request);
         //App.clientConnection.closeConnection();
-        ServerResponse response = App.clientConnection.receiveResponse();
+        ServerResponse response = Driver.clientConnection.receiveResponse();
         if (response.getCode() == ServerResponse.SAVE_SUCCEEDED) {
             userCreated = true; 
             
@@ -23,16 +25,16 @@ public class Employee extends _Employee{
             //Add error returned from server to validation errors array
             this.validation_errors.add(response.getMessage());
         }
-        App.clientConnection.closeConnection();
+        Driver.clientConnection.closeConnection();
         return userCreated;
     }
 
     public void refresh() throws Exception{ //TODO update with custom exceptions
         //TODO: refresh userdata from server
         ServerRequest<Employee> request = new ServerRequest<Employee>(ServerRequest.USER_LOAD_COMMAND, this); 
-        App.clientConnection.sendAction(request);
+        Driver.clientConnection.sendAction(request);
         //App.clientConnection.closeConnection();
-        ServerResponse<Employee> response = App.clientConnection.receiveResponse();
+        ServerResponse<Employee> response = Driver.clientConnection.receiveResponse();
         if (response.getCode() == ServerResponse.REQUEST_SUCCEEDED) {
             this.userID = ((Employee)response.getData()).getUserID();
             this.age = ((Employee)response.getData()).getAge();
@@ -48,7 +50,7 @@ public class Employee extends _Employee{
             //TODO handle user creation failed
             throw new Exception("Unable to refresh user");
         }
-        App.clientConnection.closeConnection();
+        Driver.clientConnection.closeConnection();
     }
 
     @Override
@@ -56,8 +58,8 @@ public class Employee extends _Employee{
         // TODO Auto-generated method stub
         boolean userDeleted = false;
         ServerRequest<Employee> request = new ServerRequest<Employee>(ServerRequest.USER_DELETE_COMMAND , this); 
-        App.clientConnection.sendAction(request);
-        ServerResponse<Integer> response = App.clientConnection.receiveResponse();
+        Driver.clientConnection.sendAction(request);
+        ServerResponse<Integer> response = Driver.clientConnection.receiveResponse();
         if (response.getCode() == ServerResponse.DELETE_SUCCEEDED) {
             userDeleted = true;
             //TODO handle user creation succeed

@@ -1,5 +1,6 @@
 /* For all Client Related Communication */
-
+package utilities.communication;
+ 
 import utilities.communication._ClientServer;
 import utilities.ServerRequest;
 import utilities.ServerResponse;

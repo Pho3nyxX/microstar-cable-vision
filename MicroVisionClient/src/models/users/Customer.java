@@ -1,3 +1,5 @@
+package models.users;
+
 import java.util.ArrayList;
 
 import models.users._Customer;
@@ -7,6 +9,8 @@ import models.chat._Message;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 import utilities.Validator;
+
+import driver.*;
 
 public class Customer extends _Customer{
     private static final long serialVersionUID = -7122240510909524901L;
@@ -25,11 +29,11 @@ public class Customer extends _Customer{
         if( this.validate()){
             // Create request with user data
             ServerRequest<Customer> request = new ServerRequest<Customer>(ServerRequest.USER_UPDATE_COMMAND, this); 
-            App.clientConnection.createConnection();
-            App.clientConnection.configureStreams();
-            App.clientConnection.sendAction(request);
+            Driver.clientConnection.createConnection();
+            Driver.clientConnection.configureStreams();
+            Driver.clientConnection.sendAction(request);
             //App.clientConnection.closeConnection();
-            ServerResponse response = App.clientConnection.receiveResponse();
+            ServerResponse response = Driver.clientConnection.receiveResponse();
             if (response.getCode() == ServerResponse.SAVE_SUCCEEDED) {
                 userCreated = true;
                 System.out.println(response);
@@ -40,7 +44,7 @@ public class Customer extends _Customer{
                 System.out.println(response);
                 this.validation_errors.add(response.getMessage());
             }
-            App.clientConnection.closeConnection();
+            Driver.clientConnection.closeConnection();
         }
         return userCreated;
     }
@@ -61,9 +65,9 @@ public class Customer extends _Customer{
     public void refresh() throws Exception{ //TODO update with custom exceptions
         //TODO: refresh userdata from server
         ServerRequest<Customer> request = new ServerRequest<Customer>(ServerRequest.USER_LOAD_COMMAND, this); 
-        App.clientConnection.sendAction(request);
+        Driver.clientConnection.sendAction(request);
         //App.clientConnection.closeConnection();
-        ServerResponse<Customer> response = App.clientConnection.receiveResponse();
+        ServerResponse<Customer> response = Driver.clientConnection.receiveResponse();
         if (response.getCode() == ServerResponse.REQUEST_SUCCEEDED) {
             this.userID = ((Customer)response.getData()).getUserID();
             this.age = ((Customer)response.getData()).getAge();
@@ -79,7 +83,7 @@ public class Customer extends _Customer{
             //TODO handle user creation failed
             throw new Exception("Unable to refresh user");
         }
-        App.clientConnection.closeConnection();
+        Driver.clientConnection.closeConnection();
     }
     
     public static ArrayList<Customer> loadCustomers(){
@@ -87,11 +91,11 @@ public class Customer extends _Customer{
         ArrayList<Customer> customers = null;
         Integer page = 100;
         ServerRequest<Integer> request = new ServerRequest<Integer>(ServerRequest.USER_LOAD_MANY_COMMAND, page); 
-        App.clientConnection.createConnection();
-        App.clientConnection.configureStreams();
-        App.clientConnection.sendAction(request);
+        Driver.clientConnection.createConnection();
+        Driver.clientConnection.configureStreams();
+        Driver.clientConnection.sendAction(request);
         //App.clientConnection.closeConnection();
-        ServerResponse<ArrayList<Customer>> response = App.clientConnection.receiveResponse();
+        ServerResponse<ArrayList<Customer>> response = Driver.clientConnection.receiveResponse();
         if (response.getCode() == ServerResponse.REQUEST_SUCCEEDED) {
             customers = response.getData();
             System.out.println(customers);
@@ -100,7 +104,7 @@ public class Customer extends _Customer{
             //TODO handle user creation failed 
             
         }
-        App.clientConnection.closeConnection();
+        Driver.clientConnection.closeConnection();
 
         return customers;
     }
@@ -110,10 +114,10 @@ public class Customer extends _Customer{
         // TODO Auto-generated method stub
         boolean userDeleted = false;
         ServerRequest<Customer> request = new ServerRequest<Customer>(ServerRequest.USER_REGISTER_COMMAND, this); 
-        App.clientConnection.createConnection();
-        App.clientConnection.configureStreams();
-        App.clientConnection.sendAction(request);
-        ServerResponse<Integer> response = App.clientConnection.receiveResponse();
+        Driver.clientConnection.createConnection();
+        Driver.clientConnection.configureStreams();
+        Driver.clientConnection.sendAction(request);
+        ServerResponse<Integer> response = Driver.clientConnection.receiveResponse();
         if (response.getCode() == ServerResponse.DELETE_SUCCEEDED) {
             userDeleted = true;
             //TODO handle user creation succeed
@@ -138,6 +142,6 @@ public class Customer extends _Customer{
     public void liveChat (_Message message) {
         //Login to live chat
         ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_LIVE_CHAT_COMMAND, message);
-        App.messageConnection.sendAction(request);
+        Driver.messageConnection.sendAction(request);
     }
 }

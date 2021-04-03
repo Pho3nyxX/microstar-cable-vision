@@ -1,3 +1,5 @@
+package utilities.communication;
+
 import javax.swing.*;
 import java.io.EOFException;
 import java.io.IOException;

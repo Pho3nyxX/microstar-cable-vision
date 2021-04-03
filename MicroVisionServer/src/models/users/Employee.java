@@ -1,15 +1,9 @@
+package models.users;
 
-import models.users._Customer;
+import models.users._Employee;
 import models.users._User;
 
-public class Customer extends _Customer{
-    private static final long serialVersionUID = -7122240510909524901L;
-
-    @Override
-    public void LodgeComplaint() {
-        // TODO Auto-generated method stub
-        
-    }
+public class Employee extends _Employee{
 
     @Override
     public boolean save() {
@@ -17,6 +11,7 @@ public class Customer extends _Customer{
         return false;
     }
 
+    
     @Override
     public boolean delete() {
         // TODO Auto-generated method stub

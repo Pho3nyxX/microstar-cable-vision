@@ -1,7 +1,13 @@
+package controllers;
+
 import models.users._Authethication;
 import models.users._User;
+import models.users.Customer;
+import models.users.Employee;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
+
+import driver.*;
 
 public class Authentication extends _Authethication {
     @Override
@@ -12,20 +18,20 @@ public class Authentication extends _Authethication {
         user.setPassword(password);
         //cerate request object to send to server
         ServerRequest<_User> request = new ServerRequest<_User>(ServerRequest.USER_LOGIN_COMMAND, user); 
-        App.clientConnection.sendAction(request);
+        Driver.clientConnection.sendAction(request);
         // TODO: Check if user was logged in
-        ServerResponse response = App.clientConnection.receiveResponse();
+        ServerResponse response = Driver.clientConnection.receiveResponse();
         if(response.getCode() == ServerResponse.REQUEST_SUCCEEDED){
             //request.setCommand(ServerRequest.USER_GET_LOGGED_IN_COMMAND);
             //App.clientConnection.sendAction(request);
-            App.sessionId = response.getData().toString(); 
+            Driver.sessionId = response.getData().toString(); 
             loggedIn = true;
             System.out.println(response);
         }else{
             System.out.println(response);
             // System.err.println("Failed");
         }
-        App.clientConnection.closeConnection();
+        Driver.clientConnection.closeConnection();
 
         return loggedIn;
     }
@@ -36,15 +42,15 @@ public class Authentication extends _Authethication {
         boolean loggedOut = false;
         // send logout request to server to update database        
         ServerRequest<String> request = new ServerRequest<String>(ServerRequest.USER_LOGOUT_COMMAND, sessionId); 
-        App.clientConnection.sendAction(request);
+        Driver.clientConnection.sendAction(request);
         
         // Check if user was logged out successfully
-        ServerResponse response = App.clientConnection.receiveResponse();
+        ServerResponse response = Driver.clientConnection.receiveResponse();
         if(response.getCode() == ServerResponse.REQUEST_SUCCEEDED){
-            App.sessionId = null; 
+            Driver.sessionId = null; 
             loggedOut = true;
         }
-        App.clientConnection.closeConnection();
+        Driver.clientConnection.closeConnection();
 
         return loggedOut;
     }
