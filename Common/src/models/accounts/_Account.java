@@ -12,6 +12,11 @@ import javax.persistence.Table;
 @Table(name = "account")
 public class _Account implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8513410526093736170L;
+
     @Column(name="account_id")
     int accountID;
 
