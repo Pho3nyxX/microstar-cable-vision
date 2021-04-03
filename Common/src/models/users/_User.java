@@ -99,6 +99,7 @@ public abstract class _User implements Serializable {
         // this.phone = [""];
         this.age = 0;
         this.gender = "";
+        this.validation_errors = new ArrayList();
     }
 
     //primary constructor 1
@@ -111,9 +112,10 @@ public abstract class _User implements Serializable {
         this.password = password;
         this.age = age;
         this.gender = gender;
-
+        this.validation_errors = new ArrayList();
+        
     }
-
+    
     // primary constructor 2
     public _User(String username, String firstName, String lastName, String middleName, String password, _ContactNumber[] phone, int age, String gender) {
         this.username = username;
@@ -124,6 +126,7 @@ public abstract class _User implements Serializable {
         this.phone = phone;
         this.age = age;
         this.gender = gender;
+        this.validation_errors = new ArrayList();
     }
 
     public int getUserID() {

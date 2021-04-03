@@ -13,6 +13,11 @@ import javax.persistence.Table;
 @Table(name = "bill")
 public class _Bill implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8129064095859270050L;
+
     @Column(name="bill_id")
     int billID;
 
