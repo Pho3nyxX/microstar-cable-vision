@@ -69,12 +69,13 @@ public class Employee extends _Employee{
 
 /**------------------------THIS NEEDS TO MOVE TO A LIVECHAT CONTROLLER
 */
+/*
     public void liveChat (_Message message) {
         //Login to live chat
-
         ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_LIVE_CHAT_COMMAND, ) {
         });
         App.messageConnection.sendAction(request);
     }
+    */
 
 }
