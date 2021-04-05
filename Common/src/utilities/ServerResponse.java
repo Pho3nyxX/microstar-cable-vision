@@ -16,9 +16,7 @@ public class ServerResponse<T> implements Serializable{
     public static final int SAVE_SUCCEEDED = 1;
     public static final int REQUEST_FAILED = 404;
     public static final int REQUEST_SUCCEEDED = 200;
-    public static final int ONLINE_AVAILABLE = 500;
 
-    
     /**----------------------DATA MEMBERS------------------------ */
     String message;
     int code;

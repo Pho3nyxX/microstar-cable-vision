@@ -136,12 +136,4 @@ public class Customer extends _Customer{
     String gender, String email, _Address address){
         super(userID, firstName, lastName, middleName, password, age, gender, email, address);
     }
-
-/**------------------------THIS NEEDS TO MOVE TO A LIVECHAT CONTROLLER
-*/
-    public void liveChat (_Message message) {
-        //Login to live chat
-        ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_LIVE_CHAT_COMMAND, message);
-        Driver.messageConnection.sendAction(request);
-    }
 }

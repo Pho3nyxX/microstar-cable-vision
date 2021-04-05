@@ -20,17 +20,12 @@ public class Server extends _ClientServer {
     private Statement stmt;
     private ResultSet result = null;
     private static ExecutorService pool = Executors.newFixedThreadPool(10); //Limit users to 10
-    private static ArrayList<MultipleClientHandler> clientHandlerArrayList = new ArrayList<>();
 
     public Server() {
         this.createConnection();
         this.waitForRequests();
     }
 
-    public static List<MultipleClientHandler> getClientHandlerList() {
-        return clientHandlerArrayList;
-    }
-    
     public void createConnection() {
         try {
             //New instance of the ServerSocket listening on port 9097
@@ -70,7 +65,6 @@ public class Server extends _ClientServer {
                 connection.info("Clients currently on server: " + clientCount);
 
                 MultipleClientHandler clientHandler = new MultipleClientHandler(this.connectionSocket);
-                clientHandlerArrayList.add(clientHandler);
                 Thread thread = new Thread(clientHandler); //TODO:: change to use executor service
                 thread.start();
             }
