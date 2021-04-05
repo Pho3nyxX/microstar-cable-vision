@@ -1,5 +1,6 @@
 package utilities.communication;
 
+import models.chat._Message;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 
@@ -15,16 +16,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class MultipleClientHandler implements Runnable {
     protected Logger connection = LogManager.getLogger("Connection");
     protected Logger error = LogManager.getLogger("Error");
     protected Socket connectionSocket;
-    protected UUID sessionId = null; //TODO:: remove this is a client side data
-    protected ServerResponse response; //TODO:: remove these will spawn randomly based on the client-server communication 
-    protected int code; //TODO:: remove these will spawn randomly based on the client-server communication 
 
     public MultipleClientHandler(Socket socketObject) {
         this.connectionSocket = socketObject;
@@ -58,14 +55,14 @@ public class MultipleClientHandler implements Runnable {
                     UUID sessionId = null;
                     String message = "Login Failed.";
                     ServerResponse response;
-                    _User user = (_User)action.getData(); 
+                    _User user = (_User)action.getData();
                     // System.out.println(user.get);
-                    
+
                     //System.out.println(action.getData().toString());
-                    //TODO: generate sessionId 
-                    
-                    // TODO: check database to match credentials, update database - user session 
-                    
+                    //TODO: generate sessionId
+
+                    // TODO: check database to match credentials, update database - user session
+
                     //send response to client
                     if(true){// TODO: test if user data is corrects
                         loggedIn = true;
@@ -92,7 +89,7 @@ public class MultipleClientHandler implements Runnable {
                         userList.add(new Customer());
                     } else {
                         message = "No users found"; //TODO: add user count to message
-                        code = ServerResponse.REQUEST_FAILED;                       
+                        code = ServerResponse.REQUEST_FAILED;
                     }
                     response = new ServerResponse<ArrayList<_User>>(message, code, userList);
                     objectOutputStream.writeObject(response);
@@ -104,7 +101,7 @@ public class MultipleClientHandler implements Runnable {
                     _User user = (_User)action.getData();
 
                     // TODO:: Handle user save
-                    
+
                     response = new ServerResponse<_User>(message, code, user);
                     objectOutputStream.writeObject(response);
                 }
@@ -112,14 +109,45 @@ public class MultipleClientHandler implements Runnable {
                     //Actions to register user
                 }
                 case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
-
-                    //sessionId = UUID.randomUUID(); //TODO:: remove not necessary here
-
                     //Actions to run live chat
-                    while (!ServerRequest.USER_END_CHAT_COMMAND) {
-                        List<MultipleClientHandler> clientHandlerList = Server.getClientHandlerList();
-                        for (MultipleClientHandler client: clientHandlerList) {
-                            //response = new ServerResponse<UUID>(action.getData())
+
+                    //Check if user is a Customer or an Employee of type
+                    _User user = (_User) action.getData();
+                    //Array to save all users who log on
+                    ArrayList<Customer> customerArrayList = new ArrayList<>();
+                    ArrayList<Employee> employeeArrayList = new ArrayList<>();
+
+                    //if Customer
+                    if (user.getClass().getSimpleName().equals("Customer")) {
+                        //Add customer to current list of online customers
+                        customerArrayList.add((Customer) user);
+
+                        ServerResponse response;
+                        String message = "Login Successful";
+                        int code = ServerResponse.REQUEST_SUCCEEDED;
+                        response = new ServerResponse<ArrayList<Employee>>(message,code,employeeArrayList);
+                        objectOutputStream.writeObject(response);
+
+                    }else if (user.getClass().getSimpleName().equals("Employee")) {
+                        //Check for the type of Employee, It should be a Technician
+                        Employee employee = (Employee) user;
+
+                        if (employee.getRole().equals("Technician")) {
+                            //Add Technician to current list of online technicians
+                            employeeArrayList.add(employee);
+
+                            ServerResponse response;
+                            String message = "Login Successful";
+                            int code = ServerResponse.REQUEST_SUCCEEDED;
+                            response = new ServerResponse<ArrayList<Customer>>(message,code,customerArrayList);
+                            objectOutputStream.writeObject(response);
+                        }else if (employee.getRole().equals("Customer Service Rep") || employee.getRole().equals("Admin")) {
+                            //Don't allow them to log on to live chat
+                            ServerResponse response;
+                            String message = "Login Failed";
+                            int code = ServerResponse.REQUEST_FAILED;
+                            response = new ServerResponse<_User>(message,code,user);
+                            objectOutputStream.writeObject(response);
                         }
                     }
                 }
