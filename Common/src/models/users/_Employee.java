@@ -9,18 +9,10 @@ import utilities.Validator;
 @Entity
 @Table(name = "employee")
 public abstract class _Employee extends _User {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 3820461434905932966L;
-    private static final String ROLL_CUSTOMER_REP = "Customer Service Rep";
-    private static final String ROLL_TECH = "Technician";
-    private static final String ROLL_ADMIN = "Admin";
 
     // @id
     // @GeneratedValue(strategy=GenerationType.IDENTITY)
     // @Column(name="emp_id")
-
 
     @Column(name="role")
     protected String role;

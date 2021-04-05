@@ -11,11 +11,6 @@ import utilities.Validator;
 @Table(name = "customer")
 public abstract class _Customer extends _User {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -7122240510909524901L;
-
     @Column(name = "email")
     protected String email;
 
