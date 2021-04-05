@@ -1,6 +1,8 @@
 package controllers;
 
+import Sound.Mp3;
 import driver.Driver;
+import javazoom.jl.decoder.JavaLayerException;
 import models.users.Customer;
 import models.users.Employee;
 import models.users._User;
@@ -33,17 +35,26 @@ public class LiveChat {
                 //play an mp3 sound - maybe a ping
                 for (Employee employee: employeeArrayList) {
                     System.out.println("Technician " + employee.getfirstName() + " is online");
+                    try {
+                        Mp3.playMp3("1");
+                    }catch (JavaLayerException ex) {
+                        System.out.println("Error message to be logged");
+                    }
                 }
-
             }else if (user.getClass().getSimpleName().equals("Employee")) {
                     //Send a message to all Technicians the customers that are online
                     //play an mp3 sound - maybe a ping
                     for (Customer customer: customerArrayList) {
                         System.out.println("Customer " + customer.getfirstName() + " is online");
+                        try {
+                            Mp3.playMp3("1");
+                        }catch (JavaLayerException ex) {
+                            System.out.println("Error message to be logged");
+                        }
                     }
                 }
         }else if (response.getMessage().equals("Login Failed")) {
-
+            System.out.println("Failed to Login");
         }
     }
 }

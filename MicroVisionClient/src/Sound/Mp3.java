@@ -1,3 +1,5 @@
+package Sound;
+
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
@@ -10,11 +12,11 @@ public class Mp3 {
 
     public Mp3() { }
 
-    java.io.BufferedInputStream BufferedInputStream;
-    java.io.FileInputStream FileInputStream;
-    Player player;
+    static java.io.BufferedInputStream BufferedInputStream;
+    static java.io.FileInputStream FileInputStream;
+    static Player player;
 
-    public void playMp3(String name) throws JavaLayerException {
+    public static void playMp3(String name) throws JavaLayerException {
         try {
             setSound(name);
         }catch (FileNotFoundException ex) {
@@ -26,7 +28,7 @@ public class Mp3 {
 
     }
 
-    public void setSound(String option) throws FileNotFoundException{
+    public static void setSound(String option) throws FileNotFoundException{
         switch (option){
             case "1": FileInputStream = new FileInputStream("ping sound");
                 BufferedInputStream = new BufferedInputStream(FileInputStream);
