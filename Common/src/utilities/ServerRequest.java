@@ -24,7 +24,7 @@ public class ServerRequest<T extends Serializable>  implements Serializable {
     public static final String USER_GET_LOGGED_IN_COMMAND = "User-get-Logged-in-user";
 
     public static final String USER_LIVE_CHAT_COMMAND = "Initiate Live Chat";
-    public static final String USER_END_CHAT_COMMAND = " ";
+    public static final String USER_END_CHAT_COMMAND = "Log Off Live Chat";
 
     public ServerRequest() {
     }
