@@ -7,15 +7,24 @@ import java.util.Objects;
 import javax.persistence.*;
 
 // Annotations
-@Entity
-@Table(name = "message")
+@MappedSuperclass
 public abstract class _Message implements Serializable {
+    
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5793953649770283394L;
 
+    /**----------------------------DATA MEMBERS-------------------------------------------- */
+    @Id
+    @Column(name="message_id")
+    int message_id;
+
+    @Column(name = "is_read")
+    boolean read;
+    
     @Column(name = "text")
     String text;
-
-    @Column(name = "read")
-    boolean read;
 
     @Column(name = "date")
     LocalDateTime date;
@@ -37,23 +46,26 @@ public abstract class _Message implements Serializable {
         this.recipientId = 0;
         this.senderId = 0;
         this.complaintId = 0;
+        this.message_id = 0;
     }
 
     // primary constructor
-    public _Message(String text, boolean read, LocalDateTime date, int recipientId, int senderId, int complaintId) {
+    public _Message(int messageId, String text, boolean read, LocalDateTime date, int recipientId, int senderId, int complaintId) {
         this.text = text;
         this.read = read;
         this.date = date;
         this.recipientId = recipientId;
+        this.message_id = messageId;
         this.senderId = senderId;
         this.complaintId = complaintId;
     }
-
+    
     // copy constructor
     public _Message(_Message word) {
         this.text = word.text;
         this.read = word.read;
         this.date = word.date;
+        this.message_id = word.message_id;
         this.recipientId = word.recipientId;
         this.senderId = word.senderId;
         this.complaintId = word.complaintId;

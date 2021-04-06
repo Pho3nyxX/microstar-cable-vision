@@ -4,20 +4,19 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 // Annotations
-@Entity
-@Table(name = "bill")
+@MappedSuperclass
 public class _Bill implements Serializable {
 
     /**
      *
      */
     private static final long serialVersionUID = 8129064095859270050L;
-
+    
+    /**----------------------------DATA MEMBERS-------------------------------------------- */
+    @Id
     @Column(name="bill_id")
     int billID;
 

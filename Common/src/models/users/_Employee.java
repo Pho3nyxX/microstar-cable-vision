@@ -17,9 +17,9 @@ public abstract class _Employee extends _User {
     private static final String ROLL_TECH = "Technician";
     private static final String ROLL_ADMIN = "Admin";
 
-    // @id
-    // @GeneratedValue(strategy=GenerationType.IDENTITY)
-    // @Column(name="emp_id")
+    @Id
+    @Column(name="emp_id")
+    int user_id;
 
 
     @Column(name="role")

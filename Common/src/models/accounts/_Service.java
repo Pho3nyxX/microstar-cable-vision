@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 
 // Annotations
-@Entity
-@Table(name = "service")
+@MappedSuperclass
 public class _Service implements Serializable {
 
     /**
@@ -18,6 +16,8 @@ public class _Service implements Serializable {
      */
     private static final long serialVersionUID = -6525110385549761655L;
 
+    /**----------------------------DATA MEMBERS-------------------------------------------- */
+    @Id
     @Column(name="service_id")
     int serviceID;
 

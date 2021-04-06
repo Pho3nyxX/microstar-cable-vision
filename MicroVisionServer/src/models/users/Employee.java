@@ -1,7 +1,10 @@
 package models.users;
 
+
 import models.users._Employee;
 import models.users._User;
+
+import javax.persistence.*;
 
 public class Employee extends _Employee{
 

@@ -3,13 +3,10 @@ package models.accounts;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 // Annotations
-@Entity
-@Table(name = "account")
+@MappedSuperclass
 public class _Account implements Serializable {
 
     /**
@@ -17,6 +14,8 @@ public class _Account implements Serializable {
      */
     private static final long serialVersionUID = 8513410526093736170L;
 
+    /**----------------------------DATA MEMBERS-------------------------------------------- */
+    @Id
     @Column(name="account_id")
     int accountID;
 
@@ -29,6 +28,8 @@ public class _Account implements Serializable {
     @Column(name="customer_id")
     int customerID;
 
+
+    /**----------------------------CONSTRUCTORS-------------------------------------------- */
     //default constructor
     public _Account() {
         this.accountID = 0;
@@ -53,6 +54,7 @@ public class _Account implements Serializable {
         this.customerID = ac.customerID;
     }
         
+    /**----------------------------GETTERS/SETTERS-------------------------------------------- */
 
     public int getAccountID() {
         return this.accountID;

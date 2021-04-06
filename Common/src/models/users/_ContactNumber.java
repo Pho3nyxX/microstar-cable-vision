@@ -6,8 +6,7 @@ import java.util.Objects;
 import javax.persistence.*;
 
 // Annotations
-@Entity
-@Table(name = "contactnumber")
+@MappedSuperclass
 public class _ContactNumber implements Serializable{
 
     /**
@@ -17,7 +16,8 @@ public class _ContactNumber implements Serializable{
 
     @Column(name="contact_num")
     String contactNum;
-
+    
+    @Id
     @Column(name="user_id")
     int userId;
 
@@ -43,7 +43,7 @@ public class _ContactNumber implements Serializable{
     public _ContactNumber(_ContactNumber num) {
         this.contactNum = num.contactNum;
         this.userId = num.userId;
-    }    
+    }
 
     public String getContactNum() {
         return this.contactNum;
@@ -94,7 +94,5 @@ public class _ContactNumber implements Serializable{
             ", userId='" + getUserId() + "'" +
             "}";
     }
-
-
-    
+        
 }

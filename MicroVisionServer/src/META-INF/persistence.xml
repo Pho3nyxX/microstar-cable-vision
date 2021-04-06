@@ -1,0 +1,31 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <persistence-unit name="Microstarcablevision">
+        <!-- Persistence provider -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!-- Entity classes -->
+        <class>models.accounts.Account</class>
+        <class>models.accounts.Bill</class>
+        <class>models.accounts.Payment</class>
+        <class>models.accounts.Service</class>
+        <class>models.users.Address</class>
+        <class>models.users.ContactNumber</class>
+        <!--<class>models.users.Employee</class>
+        <class>models.users.Customer</class>-->
+        <class>models.chat.Message</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url"    value="jdbc:mysql://localhost:3306/microstarcablevision" />
+            <property name="javax.persistence.jdbc.user" value="ap_project_user" />
+            <property name="javax.persistence.jdbc.password" value="&amp;L&amp;cTM1nuT&amp;$258" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="none" />
+            <property name="show_sql" value="true"/>
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

@@ -4,13 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 // Annotations
-@Entity
-@Table(name = "payment")
+@MappedSuperclass
 public class _Payment implements Serializable {
 
     /**
@@ -18,6 +15,7 @@ public class _Payment implements Serializable {
      */
     private static final long serialVersionUID = -8844351185740139751L;
 
+    @Id
     @Column(name="payment_id")
     int paymentID;
 
