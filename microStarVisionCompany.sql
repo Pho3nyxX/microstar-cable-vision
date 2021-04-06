@@ -33,6 +33,9 @@ CREATE TABLE `account` (
   CONSTRAINT `fk_account_customer_45698` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `account` (`account_id`, `account_Status`, `amount_due`, `customer_id`) VALUES
+(1, 'Active', 0, 1);
+
 
 --
 -- Table structure for table `address`
@@ -53,6 +56,8 @@ CREATE TABLE `address` (
   CONSTRAINT `fk_address_customer_97657` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `address` (`address_id`, `town`, `parish`, `street`, `customer_id`) VALUES
+(1, 'city', 'Street', 'Country', 1);
 
 --
 -- Table structure for table `bill`
@@ -96,6 +101,8 @@ CREATE TABLE `complaint` (
   CONSTRAINT `fk_complaint_account_65563` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+INSERT INTO `complaint` (`complaint_id`, `type_of_issue`, `details_of_issue`, `date_raised`, `status`, `account_id`) VALUES
+(1, 'No connection', 'red light on router', '2021-04-05 21:52:56', 'unresolved', 1);
 
 --
 -- Table structure for table `complaintvisit`
@@ -124,13 +131,16 @@ DROP TABLE IF EXISTS `contactnum`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contactnum` (
-  `contact_num` int NOT NULL AUTO_INCREMENT,
+  `contact_num` varchar(15) NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `contact_num_UNIQUE` (`contact_num`),
   CONSTRAINT `fk_contactnum_user_12564` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `contactnum` (`contact_num`, `user_id`) VALUES
+('1876564736', 1);
 
 --
 -- Table structure for table `customer`
@@ -147,6 +157,9 @@ CREATE TABLE `customer` (
   CONSTRAINT `fk_customer_account_15648` FOREIGN KEY (`customer_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `customer` (`customer_id`, `email`, `address`) VALUES
+(1, 'customer@mail.com', '');
 
 --
 -- Table structure for table `employee`
@@ -213,9 +226,9 @@ DROP TABLE IF EXISTS `message`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `message` (
   `message_id` int NOT NULL AUTO_INCREMENT,
-  `read` bit(1) NOT NULL,
+  `is_read` bit(1) NOT NULL,
   `text` varchar(500) NOT NULL,
-  `date` datetime NOT NULL,
+  `date` timestamp NOT NULL,
   `sender_id` int NOT NULL,
   `recipient_id` int NOT NULL,
   `complaint_id` int DEFAULT NULL,
@@ -228,6 +241,9 @@ CREATE TABLE `message` (
   CONSTRAINT `fk_message_user_sender_45698` FOREIGN KEY (`sender_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `message` (`message_id`, `is_read`, `text`, `date`, `sender_id`, `recipient_id`, `complaint_id`) VALUES
+(1, b'1', 'text', '2021-04-05 19:56:30', 1, 1, 1);
 
 --
 -- Table structure for table `payment`
@@ -306,6 +322,9 @@ CREATE TABLE `user` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `user` (`user_id`, `password`, `first_name`, `last_name`, `middle_name`, `age`, `gender`) VALUES
+(1, 'vseovbseirbvleik', 'Abi', 'Matthews', 'Na', 20, 'F');
 
 --
 -- Table structure for table `visit`

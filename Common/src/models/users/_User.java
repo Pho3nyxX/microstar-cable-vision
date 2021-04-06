@@ -10,11 +10,9 @@ import utilities.Validator;
 // Annotations
 @Entity
 @Table(name = "user")
-
+// @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class _User implements Serializable {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-
     @Column(name="user_id")
     protected int userID;
 
@@ -51,7 +49,7 @@ public abstract class _User implements Serializable {
 
     public boolean validate() {
         //TODO implement individual validators and remove email
-        boolean valid = false;
+        boolean valid = true;
 
         // check if each fields data is valid
         // validate username

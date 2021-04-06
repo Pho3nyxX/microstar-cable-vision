@@ -9,6 +9,7 @@ import utilities.Validator;
 // Annotations
 @Entity
 @Table(name = "customer")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class _Customer extends _User {
 
     /**

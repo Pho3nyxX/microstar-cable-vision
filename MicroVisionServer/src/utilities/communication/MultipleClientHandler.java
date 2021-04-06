@@ -55,14 +55,14 @@ public class MultipleClientHandler implements Runnable {
                     UUID sessionId = null;
                     String message = "Login Failed.";
                     ServerResponse response;
-                    _User user = (_User)action.getData();
+                    _User user = (_User)action.getData(); 
                     // System.out.println(user.get);
-
+                    
                     //System.out.println(action.getData().toString());
-                    //TODO: generate sessionId
-
-                    // TODO: check database to match credentials, update database - user session
-
+                    //TODO: generate sessionId 
+                    
+                    // TODO: check database to match credentials, update database - user session 
+                    
                     //send response to client
                     if(true){// TODO: test if user data is corrects
                         loggedIn = true;
@@ -73,9 +73,22 @@ public class MultipleClientHandler implements Runnable {
                     response = new ServerResponse<UUID>(message, code, sessionId);
                     objectOutputStream.writeObject(response);
                 }
+
                 case ServerRequest.USER_LOAD_COMMAND -> {
-                    //Actions for user logout
+                    int code = ServerResponse.REQUEST_FAILED;
+                    String message = "User doesn't exist.";
+                    ServerResponse response;
+                    _User user = (_User)action.getData();
+
+                    // TODO:: Handle user load
+                    if (true) {//TODO: check if users found
+                        message = "User found";
+                        code = ServerResponse.REQUEST_SUCCEEDED;
+                    }
+                    response = new ServerResponse<_User>(message, code, user);
+                    objectOutputStream.writeObject(response);
                 }
+
                 case ServerRequest.USER_LOAD_MANY_COMMAND ->{
                     int code = ServerResponse.REQUEST_FAILED;
                     String message = "No users found.";
@@ -89,11 +102,12 @@ public class MultipleClientHandler implements Runnable {
                         userList.add(new Customer());
                     } else {
                         message = "No users found"; //TODO: add user count to message
-                        code = ServerResponse.REQUEST_FAILED;
+                        code = ServerResponse.REQUEST_FAILED;                       
                     }
                     response = new ServerResponse<ArrayList<_User>>(message, code, userList);
                     objectOutputStream.writeObject(response);
                 }
+
                 case ServerRequest.USER_UPDATE_COMMAND -> {
                     int code = ServerResponse.REQUEST_FAILED;
                     String message = "No users found.";
@@ -101,13 +115,15 @@ public class MultipleClientHandler implements Runnable {
                     _User user = (_User)action.getData();
 
                     // TODO:: Handle user save
-
+                    
                     response = new ServerResponse<_User>(message, code, user);
                     objectOutputStream.writeObject(response);
                 }
+
                 case "User-Register" -> {
                     //Actions to register user
                 }
+
                 case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
                     //Actions to run live chat
 
