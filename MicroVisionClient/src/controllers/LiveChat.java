@@ -1,6 +1,6 @@
 package controllers;
 
-import Sound.Mp3;
+import sound.Mp3;
 import driver.Driver;
 import javazoom.jl.decoder.JavaLayerException;
 import models.users.Customer;
