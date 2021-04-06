@@ -193,6 +193,9 @@ public class MultipleClientHandler implements Runnable {
                         objectOutputStream.writeObject(response);
                     }
                 }
+                case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
+
+                }
             }
         }catch (IOException | ClassNotFoundException ex) {
             error.error(ex.getMessage());

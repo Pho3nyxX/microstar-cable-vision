@@ -25,6 +25,7 @@ public class ServerRequest<T extends Serializable>  implements Serializable {
 
     public static final String USER_LIVE_CHAT_COMMAND = "Initiate Live Chat";
     public static final String USER_END_CHAT_COMMAND = "Log Off Live Chat";
+    public static final String USER_SEND_MESSAGE_LIVE_CHAT_COMMAND = "Send Message";
 
     public ServerRequest() {
     }

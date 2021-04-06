@@ -1,5 +1,6 @@
 package controllers;
 
+import models.chat._Message;
 import sound.Mp3;
 import driver.Driver;
 import javazoom.jl.decoder.JavaLayerException;
@@ -80,5 +81,11 @@ public class LiveChat {
 
         //Close the message connection socket for the user who wishes to log off
         Driver.messageConnection.closeConnection();
+    }
+
+    public void sendMessage(_Message message) {
+        //Send messages through live chat
+        ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,message);
+
     }
 }
