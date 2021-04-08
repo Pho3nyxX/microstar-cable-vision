@@ -3,6 +3,11 @@ package models.users;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.security.NoSuchAlgorithmException; //For SHA-512
+import java.security.MessageDigest;
+import java.security.SecureRandom;
+import java.math.BigInteger;
+
 
 import javax.persistence.*;
 import utilities.Validator;
@@ -68,7 +73,7 @@ public abstract class _User implements Serializable {
             valid = false;
         }
 
-        /*// validate firstName
+        /* // validate firstName
         if( !( Validator.validate(this.firstName, Validator.EMAIL) ) ){
             this.validation_errors.add("Invalid email entered.");
             valid = false;
@@ -88,10 +93,39 @@ public abstract class _User implements Serializable {
         return valid;
     }
 
-    public  void Testing()
+    public String sha512 (String input) throws NoSuchAlgorithmException
     {
-        System.out.println("some");
-        System.out.println("Hello");
+        try{
+            //getInstance() method is called with algorithm
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+
+            //digest () method is called
+            //calculate message digest of password passed by the user
+            //returned as an array of bytes
+
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            //Convert byte array into "sigum" representation
+            BigInteger num = new BigInteger(1,messageDigest);
+
+            //Convert message digest into hex value
+            String hashtext = num.toString(16);
+
+            //If less than 32 bits, this will add 0s to the hashtext
+            while (hashtext.length() < 32)
+            {
+                hashtext = "0" + hashtext;
+            }
+
+
+        }catch (NoSuchAlgorithmException ex)
+        {
+            new RuntimeException(ex);
+        }
+        //byte[] salt = getSalt();
+
+        //return hashed password
+        return hashtext;
     }
 
     // default constructor
