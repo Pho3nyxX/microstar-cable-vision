@@ -117,7 +117,6 @@ public abstract class _User implements Serializable {
                 hashtext = "0" + hashtext;
             }
 
-
         }catch (NoSuchAlgorithmException ex)
         {
             new RuntimeException(ex);
