@@ -7,10 +7,10 @@ import java.util.Objects;
 import javax.persistence.*;
 
 // Annotations
-@Entity
-@Table(name = "user")
+@MappedSuperclass
 public abstract class _Complaint implements Serializable {
 
+    @Id
     @Column(name = "complaint_id")
     int complaintId;
 

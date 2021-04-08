@@ -12,4 +12,8 @@ public class ContactNumber extends _ContactNumber{
     public ContactNumber(String contactNum, int userId) {
         super(contactNum, userId);
     }
+
+    public ContactNumber() {
+        super();
+    }
 }

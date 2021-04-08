@@ -5,24 +5,24 @@ import javax.persistence.*;
 import models.users._Customer;
 import models.users._User;
 
-@Entity
-@Table(name = "customer")
+// @Entity
+// @Table(name = "customer")
 public class Customer extends _Customer{
     private static final long serialVersionUID = -7122240510909524901L;
 
-    @Override
+    //@Override
     public void LodgeComplaint() {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
+   // @Override
     public boolean save() {
         // TODO Auto-generated method stub
         return false;
     }
 
-    @Override
+   // @Override
     public boolean delete() {
         // TODO Auto-generated method stub
         return false;

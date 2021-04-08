@@ -10,9 +10,10 @@ import utilities.Validator;
 // Annotations
 @Entity
 @Table(name = "user")
-// @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class _User implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class _User implements Serializable {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="user_id")
     protected int userID;
 
@@ -37,14 +38,15 @@ public abstract class _User implements Serializable {
     @Column(name="gender")
     protected String gender;
 
-    protected _ContactNumber[] phone;
+    @Transient
+    protected _ContactNumber phone;
 
-
+    @Transient
     protected ArrayList<String> validation_errors;
 
     //abstract methods
-    public abstract boolean save();
-    public abstract boolean delete();
+    // public abstract boolean save();
+    // public abstract boolean delete();
 
 
     public boolean validate() {
@@ -115,7 +117,7 @@ public abstract class _User implements Serializable {
     }
     
     // primary constructor 2
-    public _User(String username, String firstName, String lastName, String middleName, String password, _ContactNumber[] phone, int age, String gender) {
+    public _User(String username, String firstName, String lastName, String middleName, String password, _ContactNumber phone, int age, String gender) {
         this.username = username;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -175,11 +177,11 @@ public abstract class _User implements Serializable {
         this.password = password;
     }
 
-    public _ContactNumber[] getPhone() {
+    public _ContactNumber getPhone() {
         return this.phone;
     }
 
-    public void setPhone(_ContactNumber[] phone) {
+    public void setPhone(_ContactNumber phone) {
         this.phone = phone;
     }
 
@@ -227,7 +229,7 @@ public abstract class _User implements Serializable {
         return this;
     }
 
-    public _User phone(_ContactNumber[] phone) {
+    public _User phone(_ContactNumber phone) {
         setPhone(phone);
         return this;
     }

@@ -4,15 +4,14 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 
 // Annotations
-@Entity
-@Table(name = "response")
+@MappedSuperclass
 public class _Response implements Serializable {
 
+    @Id
     @Column(name="response_id")
     int responseID;
 
