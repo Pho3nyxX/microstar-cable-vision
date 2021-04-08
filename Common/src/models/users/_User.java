@@ -88,6 +88,12 @@ public abstract class _User implements Serializable {
         return valid;
     }
 
+    public  void Testing()
+    {
+        System.out.println("some");
+        System.out.println("Hello");
+    }
+
     // default constructor
     public _User() {
         this.username = "";
