@@ -85,7 +85,25 @@ public class LiveChat {
 
     public void sendMessage(_Message message) {
         //Send messages through live chat
-        ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,message);
+
+        for (Employee employee: employeeArrayList) {
+            if (message.getRecipientId() == employee.getUserID() ) {
+                //Send message to that employee
+                ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
+                        message);
+            }
+        }
+
+        for (Customer customer: customerArrayList) {
+            if (message.getRecipientId() == customer.getUserID() ) {
+                //Send message to that customer
+                ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
+                        message);
+            }
+        }
+
+
+
 
     }
 }
