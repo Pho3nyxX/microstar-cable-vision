@@ -29,8 +29,7 @@ public class RepDashboard extends JPanel {
 
     // these are menu drop downs
     JLabel signOutLabel; // TODO:: should be when "menu" is clicked, it drops this down
-    JLabel profileLabel; // TODO:: should be when "menu" is clicked, it drops this down
-
+    
     // JTextFields
     JTextField resolved1TxtField;
     JTextField resolved2TxtField;
@@ -52,9 +51,10 @@ public class RepDashboard extends JPanel {
     // JButtons
     JButton viewBtn;
     JButton assignComplaintBtn;
-    // JButton viewLiveChatRequestsBtn;
     JButton startLiveChatBtn;
 
+
+    /** -------------------------CONSTRUCTORS------------------------------- */
     public RepDashboard() {
 
         // JLabel objects
@@ -68,9 +68,8 @@ public class RepDashboard extends JPanel {
         resolved5TxtField = new JTextField(); // TODO:: add "view" button on this
 
         // button objects
-        JButton viewBtn = new JButton("View");
+        //JButton viewBtn = new JButton("View");
         JButton assignComplaintBtn = new JButton("Assign");
-        // JButton viewLiveChatRequestsBtn = new JButton("View LiveChat Requests");
         JButton startLiveChatBtn = new JButton("Start LiveChat");
 
         // JLabel objects

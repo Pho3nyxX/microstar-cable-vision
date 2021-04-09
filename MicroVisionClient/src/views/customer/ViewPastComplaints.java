@@ -37,7 +37,7 @@ public class ViewPastComplaints extends JPanel {
 
         // JLabel objects
         MicroStarLabel = new JLabel("Micro-Star Cable-Vision");
-        PastComplaintsLabel = new JLabel("Complaint Form");
+        PastComplaintsLabel = new JLabel("Complaint History");
 
         // button objects
         JButton viewBtn = new JButton("View");
@@ -73,8 +73,8 @@ public class ViewPastComplaints extends JPanel {
         lastResponseDateLabelField.setBounds(150, 190, 200, 40);
         RespondeeLabelField.setBounds(150, 240, 200, 40);
 
-        viewBtn.setBounds(150, 300, 95, 40);
-        DashboardBtn.setBounds(255, 300, 95, 40);
+        viewBtn.setBounds(150, 300, 80, 40);
+        DashboardBtn.setBounds(245, 300, 100, 40);
 
         // adding action listener to View Button button because it requires an action if
         // it is selected
