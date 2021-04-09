@@ -89,10 +89,10 @@ public class LiveChat {
         Driver.messageConnection.sendAction(request);
     }
 
-    public ServerResponse receiveMessage() {
+    public void receiveMessage() {
             ServerResponse response;
             response = Driver.messageConnection.receiveResponse();
 
-            return response;
+            //Would output the message to the GUI
     }
 }
