@@ -23,6 +23,8 @@ public class MultipleClientHandler implements Runnable {
     protected Logger connection = LogManager.getLogger("Connection");
     protected Logger error = LogManager.getLogger("Error");
     protected Socket connectionSocket;
+    protected ObjectOutputStream objectOutputStream;
+    protected ObjectInputStream objectInputStream;
 
     public MultipleClientHandler(Socket socketObject) {
         this.connectionSocket = socketObject;
@@ -32,8 +34,8 @@ public class MultipleClientHandler implements Runnable {
     public void run() {
         try {
             ServerRequest action;
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(connectionSocket.getOutputStream());
-            ObjectInputStream objectInputStream = new ObjectInputStream(connectionSocket.getInputStream());
+            objectOutputStream = new ObjectOutputStream(connectionSocket.getOutputStream());
+            objectInputStream = new ObjectInputStream(connectionSocket.getInputStream());
 
             //this.configureStreams();
             //stmt = dBConn.createStatement();
@@ -139,7 +141,7 @@ public class MultipleClientHandler implements Runnable {
                         ServerResponse response;
                         String message = "Login Successful";
                         int code = ServerResponse.REQUEST_SUCCEEDED;
-                        response = new ServerResponse<ArrayList<Employee>>(message,code, LiveChat.employeeArrayList);
+                        response = new ServerResponse<>(message,code, user);
                         objectOutputStream.writeObject(response);
 
                     }else if (user.getClass().getSimpleName().equals("Employee")) {
@@ -153,7 +155,7 @@ public class MultipleClientHandler implements Runnable {
                             ServerResponse response;
                             String message = "Login Successful";
                             int code = ServerResponse.REQUEST_SUCCEEDED;
-                            response = new ServerResponse<ArrayList<Customer>>(message,code,LiveChat.customerArrayList);
+                            response = new ServerResponse<>(message,code,user);
                             objectOutputStream.writeObject(response);
                         }else if (employee.getRole().equals("Customer Service Rep") || employee.getRole().equals("Admin")) {
                             //Don't allow them to log on to live chat
@@ -179,10 +181,10 @@ public class MultipleClientHandler implements Runnable {
                         ServerResponse response;
                         String message = "Log Out Successful";
                         int code = ServerResponse.REQUEST_SUCCEEDED;
-                        response = new ServerResponse<ArrayList<Customer>>(message,code,LiveChat.customerArrayList);
+                        response = new ServerResponse<>(message,code,user);
                         objectOutputStream.writeObject(response);
 
-                    }else if (user.getClass().getSimpleName().equals("Employee")) {
+                    }else if (user.getClass().getSimpleName().equals("Employee")) { //If Employee
 
                         //Remove Technician from current list of online technicians
                         LiveChat.employeeArrayList.remove((Employee) user);
@@ -190,31 +192,43 @@ public class MultipleClientHandler implements Runnable {
                         ServerResponse response;
                         String message = "Log Out Successful";
                         int code = ServerResponse.REQUEST_SUCCEEDED;
-                        response = new ServerResponse<ArrayList<Employee>>(message,code, LiveChat.employeeArrayList);
+                        response = new ServerResponse<>(message,code, user);
                         objectOutputStream.writeObject(response);
                     }
                 }
                 case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
                     _Message message = (_Message) action.getData();
                     //Actions to send message
-                    for (Employee employee: LiveChat.employeeArrayList) {
-                        if (message.getRecipientId() == employee.getUserID() ) {
-                            //Send message to that employee
-                            ServerResponse response;
-                            String responseMessage = "Incoming message";
-                            int code = ServerResponse.REQUEST_SUCCEEDED;
-                            response = new ServerResponse<_Message>(responseMessage,code,message);
-                            objectOutputStream.writeObject(response);
+
+                    //Search for the recipient of the message in the connected clients list
+                    for (MultipleClientHandler client:Server.activeClients) {
+                        //Check if the recipient is an employee
+                        for (Employee employee: LiveChat.employeeArrayList) {
+                            if (message.getRecipientId() == employee.getUserID() ) {
+                                //Send message to that employee
+                                ServerResponse response;
+                                String responseMessage = "Incoming message";
+                                int code = ServerResponse.REQUEST_SUCCEEDED;
+                                response = new ServerResponse<_Message>(responseMessage,code,message);
+                                client.objectOutputStream.writeObject(response);
+                                break;
+                            }
                         }
-                    }
-
-                    for (Customer customer: LiveChat.customerArrayList) {
-                        if (message.getRecipientId() == customer.getUserID() ) {
-                            //Send message to that customer
-
+                        //Check if the recipient is a customer
+                        for (Customer customer: LiveChat.customerArrayList) {
+                            if (message.getRecipientId() == customer.getUserID() ) {
+                                //Send message to that customer
+                                ServerResponse response;
+                                String responseMessage = "Incoming message";
+                                int code = ServerResponse.REQUEST_SUCCEEDED;
+                                response = new ServerResponse<_Message>(responseMessage,code,message);
+                                client.objectOutputStream.writeObject(response);
+                                break;
+                            }
                         }
                     }
                     //Save the message to the database
+                    //Driver.messageRepository.save(message);
                 }
             }
         }catch (IOException | ClassNotFoundException ex) {

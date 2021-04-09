@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,6 +21,7 @@ public class Server extends _ClientServer {
     private Statement stmt;
     private ResultSet result = null;
     private static ExecutorService pool = Executors.newFixedThreadPool(10); //Limit users to 10
+    public static Vector<MultipleClientHandler> activeClients = new Vector<>();
 
     public Server() {
         this.createConnection();
@@ -66,6 +68,7 @@ public class Server extends _ClientServer {
 
                 MultipleClientHandler clientHandler = new MultipleClientHandler(this.connectionSocket);
                 Thread thread = new Thread(clientHandler); //TODO:: change to use executor service
+                activeClients.add(clientHandler);
                 thread.start();
             }
         }catch (EOFException ex) {
