@@ -97,6 +97,7 @@ public class _User implements Serializable {
 
     public String sha512 (String input) throws NoSuchAlgorithmException
     {
+        String hashtext = "";
         try{
             //getInstance() method is called with algorithm
             MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -111,7 +112,7 @@ public class _User implements Serializable {
             BigInteger num = new BigInteger(1,messageDigest);
 
             //Convert message digest into hex value
-            String hashtext = num.toString(16);
+            hashtext = num.toString(16);
 
             //If less than 32 bits, this will add 0s to the hashtext
             while (hashtext.length() < 32)
