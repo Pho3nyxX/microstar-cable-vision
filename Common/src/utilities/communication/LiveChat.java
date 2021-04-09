@@ -1,4 +1,4 @@
-package controllers;
+package utilities.communication;
 
 import models.chat._Message;
 import sound.Mp3;
@@ -24,9 +24,6 @@ public class LiveChat {
 
         ServerResponse response;
         response = Driver.messageConnection.receiveResponse();
-
-        customerArrayList = (ArrayList<Customer>) response.getData();
-        employeeArrayList = (ArrayList<Employee>) response.getData();
 
         if (response.getMessage().equals("Login Successful")) {
 
@@ -67,43 +64,35 @@ public class LiveChat {
         response = Driver.messageConnection.receiveResponse();
 
         //Inform all Employees and Customers who are online who has logged off
-        //If it was a customer who wanted to log off, notify the Technicians that the customer is offline
-        if (user.getClass().getSimpleName().equals("Customer")) {
-            for (Customer customer: customerArrayList) {
-                System.out.println("Customer " + customer.getfirstName() + " is offline");
+        if (response.getMessage().equals("Log Out Successful")) {
+            //If it was a customer who wanted to log off, notify the Technicians that the customer is offline
+            if (user.getClass().getSimpleName().equals("Customer")) {
+                for (Customer customer : customerArrayList) {
+                    System.out.println("Customer " + customer.getfirstName() + " is offline");
+                }
+            } else if (user.getClass().getSimpleName().equals("Employee")) {
+                //If it was an Employee who wanted to log off, notify the Customers that the technician is offline
+                for (Employee employee : employeeArrayList) {
+                    System.out.println("Technician " + employee.getfirstName() + " is offline");
+                }
             }
-        }else if (user.getClass().getSimpleName().equals("Employee")) {
-            //If it was an Employee who wanted to log off, notify the Customers that the technician is offline
-            for (Employee employee: employeeArrayList) {
-                System.out.println("Technician " + employee.getfirstName() + " is offline");
-            }
-        }
 
-        //Close the message connection socket for the user who wishes to log off
-        Driver.messageConnection.closeConnection();
+            //Close the message connection socket for the user who wishes to log off
+            Driver.messageConnection.closeConnection();
+        }
     }
 
     public void sendMessage(_Message message) {
         //Send messages through live chat
+        ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
+                message);
+        Driver.messageConnection.sendAction(request);
+    }
 
-        for (Employee employee: employeeArrayList) {
-            if (message.getRecipientId() == employee.getUserID() ) {
-                //Send message to that employee
-                ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
-                        message);
-            }
-        }
+    public void receiveMessage() {
+            ServerResponse response;
+            response = Driver.messageConnection.receiveResponse();
 
-        for (Customer customer: customerArrayList) {
-            if (message.getRecipientId() == customer.getUserID() ) {
-                //Send message to that customer
-                ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
-                        message);
-            }
-        }
-
-
-
-
+            //Would output the message to the GUI
     }
 }
