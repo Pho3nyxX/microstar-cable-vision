@@ -1,6 +1,8 @@
 package models.users;
 
 import javax.persistence.EntityManager;
+
+import java.util.List;
 import java.util.Optional;
 
 public class ContactNumberRepository {
@@ -21,5 +23,14 @@ public class ContactNumberRepository {
             System.err.println(e.getMessage());
         }
         return Optional.empty();
+    }
+
+    public Optional<ContactNumber> findById(Integer id) {
+        ContactNumber contactNumber = entityManager.find(ContactNumber.class, id);
+        return contactNumber != null ? Optional.of(contactNumber) : Optional.empty();
+    }
+
+    public List<ContactNumber> findAll() {
+        return entityManager.createQuery("from ContactNumber").getResultList();
     }
 }

@@ -9,10 +9,11 @@ public class CustomerRepository {
         this.entityManager = entityManager;
     }
     
-    public Optional<_User> save(_User customer) {
+    public Optional<Customer> save(Customer customer) {
+        _Customer cust = new _Customer(customer);
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(customer);
+            entityManager.persist(cust);
             entityManager.getTransaction().commit();
             return Optional.of(customer);
         } catch (Exception e) {

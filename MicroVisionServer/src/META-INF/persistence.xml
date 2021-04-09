@@ -12,9 +12,13 @@
         <class>models.accounts.Service</class>
         <class>models.users.Address</class>
         <class>models.users.ContactNumber</class>
-        <!--<class>models.users.Employee</class>
-        <class>models.users.Customer</class>-->
+        <class>models.users._User</class>
+        <class>models.users._Employee</class>
+        <class>models.users._Customer</class>
         <class>models.chat.Message</class>
+        <class>models.complaints.Complaint</class>
+        <class>models.complaints.Response</class>
+        <class>models.complaints.Visit</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url"    value="jdbc:mysql://localhost:3306/microstarcablevision" />

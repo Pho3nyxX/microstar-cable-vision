@@ -1,6 +1,6 @@
 package utilities.communication;
 
-import models.chat._Message;
+import controllers.LiveChat;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 
@@ -129,19 +129,16 @@ public class MultipleClientHandler implements Runnable {
 
                     //Check if user is a Customer or an Employee of type
                     _User user = (_User) action.getData();
-                    //Array to save all users who log on
-                    ArrayList<Customer> customerArrayList = new ArrayList<>();
-                    ArrayList<Employee> employeeArrayList = new ArrayList<>();
 
                     //if Customer
                     if (user.getClass().getSimpleName().equals("Customer")) {
                         //Add customer to current list of online customers
-                        customerArrayList.add((Customer) user);
+                        LiveChat.customerArrayList.add((Customer) user);
 
                         ServerResponse response;
                         String message = "Login Successful";
                         int code = ServerResponse.REQUEST_SUCCEEDED;
-                        response = new ServerResponse<ArrayList<Employee>>(message,code,employeeArrayList);
+                        response = new ServerResponse<ArrayList<Employee>>(message,code,LiveChat.employeeArrayList);
                         objectOutputStream.writeObject(response);
 
                     }else if (user.getClass().getSimpleName().equals("Employee")) {
@@ -150,12 +147,12 @@ public class MultipleClientHandler implements Runnable {
 
                         if (employee.getRole().equals("Technician")) {
                             //Add Technician to current list of online technicians
-                            employeeArrayList.add(employee);
+                            LiveChat.employeeArrayList.add(employee);
 
                             ServerResponse response;
                             String message = "Login Successful";
                             int code = ServerResponse.REQUEST_SUCCEEDED;
-                            response = new ServerResponse<ArrayList<Customer>>(message,code,customerArrayList);
+                            response = new ServerResponse<ArrayList<Customer>>(message,code,LiveChat.customerArrayList);
                             objectOutputStream.writeObject(response);
                         }else if (employee.getRole().equals("Customer Service Rep") || employee.getRole().equals("Admin")) {
                             //Don't allow them to log on to live chat
@@ -166,6 +163,38 @@ public class MultipleClientHandler implements Runnable {
                             objectOutputStream.writeObject(response);
                         }
                     }
+                }
+                case ServerRequest.USER_END_CHAT_COMMAND -> {
+                    //Actions to log the user off the live chat
+
+                    //Check if user is a Customer or an Employee of type
+                    _User user = (_User) action.getData();
+
+                    //if Customer
+                    if (user.getClass().getSimpleName().equals("Customer")) {
+                        //Remove customer from current list of online customers
+                        LiveChat.customerArrayList.remove( (Customer) user);
+
+                        ServerResponse response;
+                        String message = "Log Out Successful";
+                        int code = ServerResponse.REQUEST_SUCCEEDED;
+                        response = new ServerResponse<ArrayList<Customer>>(message,code,LiveChat.customerArrayList);
+                        objectOutputStream.writeObject(response);
+
+                    }else if (user.getClass().getSimpleName().equals("Employee")) {
+
+                        //Remove Technician from current list of online technicians
+                        LiveChat.employeeArrayList.remove((Employee) user);
+
+                        ServerResponse response;
+                        String message = "Log Out Successful";
+                        int code = ServerResponse.REQUEST_SUCCEEDED;
+                        response = new ServerResponse<ArrayList<Employee>>(message,code,LiveChat.employeeArrayList);
+                        objectOutputStream.writeObject(response);
+                    }
+                }
+                case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
+
                 }
             }
         }catch (IOException | ClassNotFoundException ex) {

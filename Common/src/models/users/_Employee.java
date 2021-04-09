@@ -8,7 +8,9 @@ import utilities.Validator;
 // Annotations
 @Entity
 @Table(name = "employee")
-public abstract class _Employee extends _User {
+@PrimaryKeyJoinColumn(name = "emp_id")
+public class _Employee extends _User {
+    // @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
     /**
      *
      */
@@ -17,10 +19,10 @@ public abstract class _Employee extends _User {
     private static final String ROLL_TECH = "Technician";
     private static final String ROLL_ADMIN = "Admin";
 
-    @Id
-    @Column(name="emp_id")
-    int user_id;
-
+    // @GeneratedValue(strategy=GenerationType.AUTO)
+    // @Id
+    // @Column(name="emp_id")
+    // int emp_id;
 
     @Column(name="role")
     protected String role;

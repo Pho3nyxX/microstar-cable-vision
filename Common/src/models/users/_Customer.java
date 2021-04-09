@@ -9,20 +9,26 @@ import utilities.Validator;
 // Annotations
 @Entity
 @Table(name = "customer")
+@PrimaryKeyJoinColumn(name = "customer_id")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class _Customer extends _User {
+public class _Customer extends _User {
 
     /**
      *
      */
     private static final long serialVersionUID = -7122240510909524901L;
 
+    // @Id
+    // @Column(name = "customer_id")
+    // protected int customer_id;
+    
     @Column(name = "email")
     protected String email;
-
+    
+    @Transient
     protected _Address address;
 
-    public abstract void LodgeComplaint();
+    // public abstract void LodgeComplaint();
 
 
     @Override

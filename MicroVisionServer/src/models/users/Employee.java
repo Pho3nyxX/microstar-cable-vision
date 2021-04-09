@@ -8,14 +8,14 @@ import javax.persistence.*;
 
 public class Employee extends _Employee{
 
-    @Override
+    //@Override
     public boolean save() {
         // TODO Auto-generated method stub
         return false;
     }
 
     
-    @Override
+    //@Override
     public boolean delete() {
         // TODO Auto-generated method stub
         return false;
