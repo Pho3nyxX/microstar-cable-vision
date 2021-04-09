@@ -1,4 +1,4 @@
-package controllers;
+package utilities.communication;
 
 import models.chat._Message;
 import sound.Mp3;
@@ -85,25 +85,15 @@ public class LiveChat {
 
     public void sendMessage(_Message message) {
         //Send messages through live chat
+        ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
+                message);
+        Driver.messageConnection.sendAction(request);
+    }
 
-        for (Employee employee: employeeArrayList) {
-            if (message.getRecipientId() == employee.getUserID() ) {
-                //Send message to that employee
-                ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
-                        message);
-            }
-        }
+    public ServerResponse receiveMessage() {
+            ServerResponse response;
+            response = Driver.messageConnection.receiveResponse();
 
-        for (Customer customer: customerArrayList) {
-            if (message.getRecipientId() == customer.getUserID() ) {
-                //Send message to that customer
-                ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
-                        message);
-            }
-        }
-
-
-
-
+            return response;
     }
 }

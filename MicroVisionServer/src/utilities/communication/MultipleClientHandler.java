@@ -1,6 +1,7 @@
 package utilities.communication;
 
-import controllers.LiveChat;
+import driver.Driver;
+import models.chat._Message;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 
@@ -138,7 +139,7 @@ public class MultipleClientHandler implements Runnable {
                         ServerResponse response;
                         String message = "Login Successful";
                         int code = ServerResponse.REQUEST_SUCCEEDED;
-                        response = new ServerResponse<ArrayList<Employee>>(message,code,LiveChat.employeeArrayList);
+                        response = new ServerResponse<ArrayList<Employee>>(message,code, LiveChat.employeeArrayList);
                         objectOutputStream.writeObject(response);
 
                     }else if (user.getClass().getSimpleName().equals("Employee")) {
@@ -189,12 +190,31 @@ public class MultipleClientHandler implements Runnable {
                         ServerResponse response;
                         String message = "Log Out Successful";
                         int code = ServerResponse.REQUEST_SUCCEEDED;
-                        response = new ServerResponse<ArrayList<Employee>>(message,code,LiveChat.employeeArrayList);
+                        response = new ServerResponse<ArrayList<Employee>>(message,code, LiveChat.employeeArrayList);
                         objectOutputStream.writeObject(response);
                     }
                 }
                 case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
+                    _Message message = (_Message) action.getData();
+                    //Actions to send message
+                    for (Employee employee: LiveChat.employeeArrayList) {
+                        if (message.getRecipientId() == employee.getUserID() ) {
+                            //Send message to that employee
+                            ServerResponse response;
+                            String responseMessage = "Incoming message";
+                            int code = ServerResponse.REQUEST_SUCCEEDED;
+                            response = new ServerResponse<_Message>(responseMessage,code,message);
+                            objectOutputStream.writeObject(response);
+                        }
+                    }
 
+                    for (Customer customer: LiveChat.customerArrayList) {
+                        if (message.getRecipientId() == customer.getUserID() ) {
+                            //Send message to that customer
+
+                        }
+                    }
+                    //Save the message to the database
                 }
             }
         }catch (IOException | ClassNotFoundException ex) {
