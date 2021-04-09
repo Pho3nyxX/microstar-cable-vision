@@ -3,11 +3,6 @@ package models.users;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.security.NoSuchAlgorithmException; //For SHA-512
-import java.security.MessageDigest;
-import java.security.SecureRandom;
-import java.math.BigInteger;
-
 
 import javax.persistence.*;
 import utilities.Validator;
@@ -18,7 +13,7 @@ import utilities.Validator;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class _User implements Serializable {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="user_id")
     protected int userID;
 
@@ -43,8 +38,6 @@ public class _User implements Serializable {
     @Column(name="gender")
     protected String gender;
 
-    @Transient
-    protected _ContactNumber phone;
 
     @Transient
     protected ArrayList<String> validation_errors;
@@ -75,7 +68,7 @@ public class _User implements Serializable {
             valid = false;
         }
 
-        /* // validate firstName
+        /*// validate firstName
         if( !( Validator.validate(this.firstName, Validator.EMAIL) ) ){
             this.validation_errors.add("Invalid email entered.");
             valid = false;
@@ -95,41 +88,6 @@ public class _User implements Serializable {
         return valid;
     }
 
-    public String sha512 (String input) throws NoSuchAlgorithmException
-    {
-        String hashtext = "";
-        try{
-            //getInstance() method is called with algorithm
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-
-            //digest () method is called
-            //calculate message digest of password passed by the user
-            //returned as an array of bytes
-
-            byte[] messageDigest = md.digest(input.getBytes());
-
-            //Convert byte array into "sigum" representation
-            BigInteger num = new BigInteger(1,messageDigest);
-
-            //Convert message digest into hex value
-            hashtext = num.toString(16);
-
-            //If less than 32 bits, this will add 0s to the hashtext
-            while (hashtext.length() < 32)
-            {
-                hashtext = "0" + hashtext;
-            }
-
-        }catch (NoSuchAlgorithmException ex)
-        {
-            new RuntimeException(ex);
-        }
-        //byte[] salt = getSalt();
-
-        //return hashed password
-        return hashtext;
-    }
-
     // default constructor
     public _User() {
         this.username = "";
@@ -143,8 +101,9 @@ public class _User implements Serializable {
     }
 
     //primary constructor 1
-    public _User(int userID, String firstName, String lastName, String middleName, String password, int age,
-            String gender) {
+    public _User(int userID, String username, String firstName, String lastName, String middleName, String password, int age,
+    String gender) {
+        this.username = username;
         this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -157,13 +116,13 @@ public class _User implements Serializable {
     }
     
     // primary constructor 2
-    public _User(String username, String firstName, String lastName, String middleName, String password, _ContactNumber phone, int age, String gender) {
+    public _User(String username, String firstName, String lastName, String middleName, String password, int age, String gender) {
         this.username = username;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.password = password;
-        this.phone = phone;
+        // this.phone = phone;
         this.age = age;
         this.gender = gender;
         this.validation_errors = new ArrayList();
@@ -217,13 +176,13 @@ public class _User implements Serializable {
         this.password = password;
     }
 
-    public _ContactNumber getPhone() {
-        return this.phone;
-    }
+    // public _ContactNumber getPhone() {
+    //     return this.phone;
+    // }
 
-    public void setPhone(_ContactNumber phone) {
-        this.phone = phone;
-    }
+    // public void setPhone(_ContactNumber phone) {
+    //     this.phone = phone;
+    // }
 
     public int getAge() {
         return this.age;
@@ -269,10 +228,10 @@ public class _User implements Serializable {
         return this;
     }
 
-    public _User phone(_ContactNumber phone) {
-        setPhone(phone);
-        return this;
-    }
+    // public _User phone(_ContactNumber phone) {
+    //     setPhone(phone);
+    //     return this;
+    // }
 
     public _User age(int age) {
         setAge(age);
@@ -292,12 +251,12 @@ public class _User implements Serializable {
             return false;
         }
         _User _User = (_User) o;
-        return Objects.equals(username, _User.username) && Objects.equals(firstName, _User.firstName) && Objects.equals(lastName, _User.lastName) && Objects.equals(password, _User.password) && Objects.equals(phone, _User.phone) && age == _User.age && Objects.equals(gender, _User.gender);
+        return Objects.equals(username, _User.username) && Objects.equals(firstName, _User.firstName) && Objects.equals(lastName, _User.lastName) && Objects.equals(password, _User.password) && age == _User.age && Objects.equals(gender, _User.gender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, firstName, lastName, password, phone, age, gender);
+        return Objects.hash(username, firstName, lastName, password, age, gender);
     }
 
     @Override
@@ -307,7 +266,7 @@ public class _User implements Serializable {
             ", firstName='" + getfirstName() + "'" +
             ", lastName='" + getlastName() + "'" +
             ", password='" + getPassword() + "'" +
-            ", phone='" + getPhone() + "'" +
+            // ", phone='" + getPhone() + "'" +
             ", age='" + getAge() + "'" +
             ", gender='" + getGender() + "'" +
             "}";

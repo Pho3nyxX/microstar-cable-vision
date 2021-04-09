@@ -13,8 +13,8 @@
         <class>models.users.Address</class>
         <class>models.users.ContactNumber</class>
         <class>models.users._User</class>
-        <class>models.users._Employee</class>
-        <class>models.users._Customer</class>
+        <class>models.users.Employee</class>
+        <class>models.users.Customer</class>
         <class>models.chat.Message</class>
         <class>models.complaints.Complaint</class>
         <class>models.complaints.Response</class>

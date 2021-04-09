@@ -5,12 +5,15 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
-public class BillRepository {
-        
-    private EntityManager entityManager;
+import models.BaseRepository;
+
+public class BillRepository extends BaseRepository{
+
     public BillRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
+        //TODO Auto-generated constructor stub
     }
+
     public Optional<Bill> save(Bill bill) {
         try {
             entityManager.getTransaction().begin();

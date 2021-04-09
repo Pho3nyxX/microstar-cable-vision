@@ -1,6 +1,8 @@
 package models.users;
 
 import javax.persistence.EntityManager;
+
+import java.util.List;
 import java.util.Optional;
 
 public class CustomerRepository {
@@ -10,15 +12,30 @@ public class CustomerRepository {
     }
     
     public Optional<Customer> save(Customer customer) {
-        _Customer cust = new _Customer(customer);
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(cust);
+            entityManager.persist(customer);
             entityManager.getTransaction().commit();
             return Optional.of(customer);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    public Optional<Customer> findById(Integer id) {
+        Customer customer = entityManager.find(Customer.class, id);
+        return customer != null ? Optional.of(customer) : Optional.empty();
+    }
+    
+    public List<Customer> findAll() {
+        return entityManager.createQuery("from Customer").getResultList();
+    }
+    
+    public Optional<Customer> findByUsername(String username){
+        Customer customer = entityManager.createNamedQuery("Customer.findByUsername", Customer.class)
+        .setParameter("username", username)
+        .getSingleResult();
+        return customer != null ? Optional.of(customer) : Optional.empty();
     }
 }

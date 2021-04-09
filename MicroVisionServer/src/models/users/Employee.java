@@ -6,7 +6,14 @@ import models.users._User;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "employee")
+@PrimaryKeyJoinColumn(name = "emp_id")
 public class Employee extends _Employee{
+
+    @OneToOne(mappedBy="customer")
+    protected ContactNumber phone;
+
 
     //@Override
     public boolean save() {

@@ -25,8 +25,8 @@ public class _Account implements Serializable {
     @Column(name="amount_due")
     double amountDue;
 
-    @Column(name="customer_id")
-    int customerID;
+    // @Column(name="customer_id")
+    // int customerID;
 
 
     /**----------------------------CONSTRUCTORS-------------------------------------------- */
@@ -35,15 +35,15 @@ public class _Account implements Serializable {
         this.accountID = 0;
         this.accountStatus = "";
         this.amountDue = 0.0;
-        this.customerID = 0;
+        // this.customerID = 0;
     }
 
     // primary constructor
-    public _Account(int accountID, String accountStatus, double amountDue, int customerID) {
+    public _Account(int accountID, String accountStatus, double amountDue) {
         this.accountID = accountID;
         this.accountStatus = accountStatus;
         this.amountDue = amountDue;
-        this.customerID = customerID;
+        // this.customerID = customerID;
     }
 
     // copy constructor
@@ -51,7 +51,7 @@ public class _Account implements Serializable {
         this.accountID = ac.accountID;
         this.accountStatus = ac.accountStatus;
         this.amountDue = ac.amountDue;
-        this.customerID = ac.customerID;
+        // this.customerID = ac.customerID;
     }
         
     /**----------------------------GETTERS/SETTERS-------------------------------------------- */
@@ -80,13 +80,13 @@ public class _Account implements Serializable {
         this.amountDue = amountDue;
     }
 
-    public int getCustomerID() {
-        return this.customerID;
-    }
+    // public int getCustomerID() {
+    //     return this.customerID;
+    // }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
-    }
+    // public void setCustomerID(int customerID) {
+    //     this.customerID = customerID;
+    // }
 
     public _Account accountID(int accountID) {
         setAccountID(accountID);
@@ -103,10 +103,10 @@ public class _Account implements Serializable {
         return this;
     }
 
-    public _Account customerID(int customerID) {
-        setCustomerID(customerID);
-        return this;
-    }
+    // public _Account customerID(int customerID) {
+    //     setCustomerID(customerID);
+    //     return this;
+    // }
 
     @Override
     public boolean equals(Object o) {
@@ -116,12 +116,12 @@ public class _Account implements Serializable {
             return false;
         }
         _Account _Account = (_Account) o;
-        return accountID == _Account.accountID && Objects.equals(accountStatus, _Account.accountStatus) && amountDue == _Account.amountDue && customerID == _Account.customerID;
+        return accountID == _Account.accountID && Objects.equals(accountStatus, _Account.accountStatus) && amountDue == _Account.amountDue;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountID, accountStatus, amountDue, customerID);
+        return Objects.hash(accountID, accountStatus, amountDue);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class _Account implements Serializable {
             " accountID='" + getAccountID() + "'" +
             ", accountStatus='" + getAccountStatus() + "'" +
             ", amountDue='" + getAmountDue() + "'" +
-            ", customerID='" + getCustomerID() + "'" +
+            // ", customerID='" + getCustomerID() + "'" +
             "}";
     }
     

@@ -5,12 +5,16 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
-public class AccountRepository {
+import models.BaseRepository;
+
+public class AccountRepository extends BaseRepository{
     
-    private EntityManager entityManager;
+
     public AccountRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
+        //TODO Auto-generated constructor stub
     }
+
     public Optional<Account> save(Account account) {
         try {
             entityManager.getTransaction().begin();
