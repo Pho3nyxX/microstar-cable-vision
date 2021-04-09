@@ -15,7 +15,7 @@ public class ChatMessage extends JPanel{
     JTextField typeMessageTextField;
     JButton sendMessageButton;
     JPanel topPanel;
-    JTextArea chatTextArea;
+    static JTextArea chatTextArea;
 
     ChatMessage() {
         backArrowImageLabel = new JLabel(new ImageIcon("image/BackArrow.png"));
@@ -66,8 +66,8 @@ public class ChatMessage extends JPanel{
         sendMessageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String out = typeMessageTextField.getText();
-                chatTextArea.setText(chatTextArea.getText() + " \n\t\t\t" + out);
+                String messageToBeSent = typeMessageTextField.getText();
+                chatTextArea.setText(chatTextArea.getText() + " \n\t\t" + messageToBeSent);
                 typeMessageTextField.setText("");
             }
         });
