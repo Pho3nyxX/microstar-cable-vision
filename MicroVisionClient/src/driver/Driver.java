@@ -4,10 +4,12 @@ import utilities.*;
 import controllers.Authentication;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import models.users.*;
 import utilities.communication.*;
 
-public class Driver {
+public class Driver extends JFrame{
     public static Client clientConnection; //socket connection for general purpose use in the app
     public static Client messageConnection; //socket connection for use with chat
     public static _User user; // the currently logged in user

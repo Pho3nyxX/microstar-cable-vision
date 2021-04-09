@@ -15,13 +15,13 @@ import driver.*;
 public class Customer extends _Customer{
     private static final long serialVersionUID = -7122240510909524901L;
 
-    @Override
+    // @Override
     public void LodgeComplaint() {
         // TODO Auto-generated method stub
         
     }
 
-    @Override
+    // @Override
     public boolean save() {
         boolean userCreated = false; 
 
@@ -72,7 +72,7 @@ public class Customer extends _Customer{
             this.userID = ((Customer)response.getData()).getUserID();
             this.age = ((Customer)response.getData()).getAge();
             this.email = ((Customer)response.getData()).getEmail();
-            this.phone = ((Customer)response.getData()).getPhone();
+            // this.phone = ((Customer)response.getData()).getPhone();
             this.username = ((Customer)response.getData()).getUsername();
             this.firstName = ((Customer)response.getData()).getfirstName();
             this.lastName = ((Customer)response.getData()).getlastName();
@@ -109,7 +109,7 @@ public class Customer extends _Customer{
         return customers;
     }
 
-    @Override
+    // @Override
     public boolean delete() {
         // TODO Auto-generated method stub
         boolean userDeleted = false;
@@ -132,8 +132,8 @@ public class Customer extends _Customer{
     public Customer(){
 
     }
-    public Customer(int userID, String firstName, String lastName, String middleName, String password, int age,
+    public Customer(int userID, String username, String firstName, String lastName, String middleName, String password, int age,
     String gender, String email, _Address address){
-        super(userID, firstName, lastName, middleName, password, age, gender, email, address);
+        super(userID, username, firstName, lastName, middleName, password, age, gender, email, address);
     }
 }
