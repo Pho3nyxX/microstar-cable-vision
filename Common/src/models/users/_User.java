@@ -38,6 +38,8 @@ public class _User implements Serializable {
     @Column(name="gender")
     protected String gender;
 
+    @Column(name="online_status")
+    protected boolean isOnline;
 
     @Transient
     protected ArrayList<String> validation_errors;
@@ -97,6 +99,7 @@ public class _User implements Serializable {
         // this.phone = [""];
         this.age = 0;
         this.gender = "";
+        this.isOnline = false;
         this.validation_errors = new ArrayList();
     }
 
@@ -111,6 +114,7 @@ public class _User implements Serializable {
         this.password = password;
         this.age = age;
         this.gender = gender;
+        this.isOnline = false;
         this.validation_errors = new ArrayList();
         
     }
@@ -125,6 +129,7 @@ public class _User implements Serializable {
         // this.phone = phone;
         this.age = age;
         this.gender = gender;
+        this.isOnline = false;
         this.validation_errors = new ArrayList();
     }
 
@@ -199,6 +204,10 @@ public class _User implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    public boolean getisOnline() { return this.isOnline; }
+
+    public void setisOnline(boolean online) { this.isOnline = online; }
 
     public ArrayList<String> getValidation_errors() {
         return this.validation_errors;
