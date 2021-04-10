@@ -141,7 +141,7 @@ public class MultipleClientHandler implements Runnable {
 
                     //Search for the recipient of the message in the connected clients list
                     for (MultipleClientHandler client:Server.activeClients) {
-                        //Check if the recipient is an employee
+                        //Check if the recipient is an emplotyyee
                         for (_User onlineUser: Server.activeLiveChatUsers) {
                             if (message.getRecipientId() == onlineUser.getUserID() ) {
                                 //Send message to that employee

@@ -23,7 +23,7 @@ public class ChatMessage extends JPanel{
     JTextField typeMessageTextField;
     JButton sendMessageButton;
     JPanel topPanel;
-    static JTextArea chatTextArea;
+    public static JTextArea chatTextArea;
 
     static int messageID = 0;
 
@@ -76,13 +76,9 @@ public class ChatMessage extends JPanel{
         sendMessageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ServerRequest request = new ServerRequest(ServerRequest.USER_GET_RECIPIENT_COMMAND, nameLabel.getText());
-                Driver.messageConnection.sendAction(request);
-
-
-
                 String messageToBeSent = typeMessageTextField.getText();
                 chatTextArea.setText(chatTextArea.getText() + " \n\t\t" + messageToBeSent);
+                //To Do Set a colour for the message to be sent
                 LiveChat.sendMessage(new Message(messageID+1,messageToBeSent,false, LocalDateTime.now(),
                         recipient.getUserID(), Driver.CURRENT_USER.getUserID(), complaint.getComplaintId()));
                 typeMessageTextField.setText("");

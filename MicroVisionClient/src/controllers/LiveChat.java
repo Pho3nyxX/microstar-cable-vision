@@ -10,6 +10,7 @@ import models.users._User;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 import views.livechat.ChatHome;
+import views.livechat.ChatMessage;
 
 import java.util.ArrayList;
 
@@ -109,6 +110,10 @@ public class LiveChat {
             ServerResponse response;
             response = Driver.messageConnection.receiveResponse();
 
-            //Would output the message to the GUI
+            _Message message = (_Message) response.getData();
+
+        //Would output the message to the GUI
+            ChatMessage.chatTextArea.setText(ChatMessage.chatTextArea.getText() + "\n" + message.getText());
+            //Set this text to another colour
     }
 }
