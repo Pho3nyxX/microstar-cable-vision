@@ -102,7 +102,7 @@ public class _User implements Serializable {
         this.isOnline = false;
         this.validation_errors = new ArrayList();
     }
-
+    
     //primary constructor 1
     public _User(int userID, String username, String firstName, String lastName, String middleName, String password, int age,
     String gender) {
@@ -127,9 +127,9 @@ public class _User implements Serializable {
         this.lastName = lastName;
         this.password = password;
         // this.phone = phone;
+        this.isOnline = false;
         this.age = age;
         this.gender = gender;
-        this.isOnline = false;
         this.validation_errors = new ArrayList();
     }
 
@@ -205,9 +205,13 @@ public class _User implements Serializable {
         this.gender = gender;
     }
 
-    public boolean getisOnline() { return this.isOnline; }
+    public boolean getIsOnline() {
+        return this.isOnline;
+    }
 
-    public void setisOnline(boolean online) { this.isOnline = online; }
+    public void setIsOnline(boolean online) {
+        this.isOnline = online;
+    }
 
     public ArrayList<String> getValidation_errors() {
         return this.validation_errors;

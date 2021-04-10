@@ -57,7 +57,8 @@ CREATE TABLE `address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `address` (`address_id`, `town`, `parish`, `street`, `customer_id`) VALUES
-(1, 'city', 'Street', 'Country', 1);
+(1, 'city', 'Street', 'Country', 1),
+(2, 'town', 'parish', 'street', 2);
 
 --
 -- Table structure for table `bill`
@@ -102,7 +103,7 @@ CREATE TABLE `complaint` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `complaint` (`complaint_id`, `type_of_issue`, `details_of_issue`, `date_raised`, `status`, `account_id`) VALUES
-(1, 'No connection', 'red light on router', '2021-04-05 21:52:56', 'unresolved', 1);
+(1, 'No connection', 'red light on router', '2021-04-05 21:52:56', 'unresolved', 2);
 
 --
 -- Table structure for table `complaintvisit`
@@ -140,7 +141,8 @@ CREATE TABLE `contactnum` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `contactnum` (`contact_num`, `user_id`) VALUES
-('1876564736', 1);
+('876-256-2384', 1),
+('1876564736', 2);
 
 --
 -- Table structure for table `customer`
@@ -159,7 +161,7 @@ CREATE TABLE `customer` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `customer` (`customer_id`, `email`, `address`) VALUES
-(1, 'customer@mail.com', '');
+(2, 'customer@mail.com', '');
 
 --
 -- Table structure for table `employee`
@@ -177,6 +179,10 @@ CREATE TABLE `employee` (
   CONSTRAINT `fk_employee_user_45698` FOREIGN KEY (`emp_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO `employee` (`emp_id`, `role`, `status`) VALUES
+(1, 'Admin', 'Active');
+
 
 --
 -- Table structure for table `employeecomplaint`
@@ -243,7 +249,7 @@ CREATE TABLE `message` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `message` (`message_id`, `is_read`, `text`, `date`, `sender_id`, `recipient_id`, `complaint_id`) VALUES
-(1, b'1', 'text', '2021-04-05 19:56:30', 1, 1, 1);
+(1, b'1', 'text', '2021-04-05 19:56:30', 1, 2, 1);
 
 --
 -- Table structure for table `payment`
@@ -312,20 +318,22 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
+   `username` varchar(60) NOT NULL,
   `password` varchar(500) NOT NULL,
-  `username` varchar(60) NOT NULL,
   `first_name` varchar(15) NOT NULL,
   `last_name` varchar(15) NOT NULL,
   `middle_name` varchar(15) NOT NULL,
   `age` int NOT NULL,
   `gender` varchar(5) NOT NULL,
+  `online_status` bit(1) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `user` (`user_id`, `username`, `password`, `first_name`, `last_name`, `middle_name`, `age`, `gender`) VALUES
-(1, 'abi','P@ssword1', 'Abi', 'Matthews', 'Na', 20, 'F');
+INSERT INTO `user` (`user_id`, `password`, `username`, `first_name`, `last_name`, `middle_name`, `age`, `gender`, `online_status`) VALUES
+(1, 'P@ssword123', 'Admin', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
+(2, 'P@ssword1', 'abi', 'Abi', 'Matthews', 'Na', 20, 'F', b'0');
 
 --
 -- Table structure for table `visit`

@@ -3,14 +3,14 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2021 at 10:00 PM
+-- Generation Time: Apr 10, 2021 at 05:56 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+05:00";-- 
+SET time_zone = "+00:00";
 
 --
 -- Database: `microstarcablevision`
@@ -59,7 +59,8 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`address_id`, `town`, `parish`, `street`, `customer_id`) VALUES
-(1, 'city', 'Street', 'Country', 1);
+(1, 'city', 'Street', 'Country', 6),
+(8, 'town', 'parish', 'street', 30);
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,8 @@ CREATE TABLE `contactnum` (
 --
 
 INSERT INTO `contactnum` (`contact_num`, `user_id`) VALUES
-('1876564736', 1);
+('1876564736', 1),
+('876-256-2384', 30);
 
 -- --------------------------------------------------------
 
@@ -143,7 +145,7 @@ DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `customer_id` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `address` varchar(100) NOT NULL
+  `address` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -151,7 +153,11 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `email`, `address`) VALUES
-(1, 'customer@mail.com', '');
+(1, 'customer@mail.com', ''),
+(6, 'email@server.com', NULL),
+(8, 'email@server.com', NULL),
+(9, 'email@server.com', NULL),
+(30, 'email2@server.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -165,6 +171,13 @@ CREATE TABLE `employee` (
   `role` varchar(50) NOT NULL,
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`emp_id`, `role`, `status`) VALUES
+(31, 'Admin', 'Active');
 
 -- --------------------------------------------------------
 
@@ -269,19 +282,26 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
   `password` varchar(500) NOT NULL,
+  `username` varchar(60) DEFAULT NULL,
   `first_name` varchar(15) NOT NULL,
   `last_name` varchar(15) NOT NULL,
   `middle_name` varchar(15) NOT NULL,
   `age` int(11) NOT NULL,
-  `gender` varchar(5) NOT NULL
+  `gender` varchar(5) NOT NULL,
+  `online_status` bit(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `password`, `first_name`, `last_name`, `middle_name`, `age`, `gender`) VALUES
-(1, 'vseovbseirbvleik', 'Abi', 'Matthews', 'Na', 20, 'F');
+INSERT INTO `user` (`user_id`, `password`, `username`, `first_name`, `last_name`, `middle_name`, `age`, `gender`, `online_status`) VALUES
+(1, 'P@ssword1', 'abi', 'Abi', 'Matthews', 'Na', 20, 'F', b'0'),
+(6, 'P@ssword123', 'abi1', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
+(8, 'P@ssword123', 'abi2', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
+(9, 'P@ssword123', 'abi3', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
+(30, 'P@ssword123', 'abi5', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
+(31, 'P@ssword123', 'Admin', 'abi', 'gordon', 'middleName', 10, 'F', b'0');
 
 -- --------------------------------------------------------
 
@@ -415,7 +435,8 @@ ALTER TABLE `service`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `user_id_UNIQUE` (`user_id`);
+  ADD UNIQUE KEY `user_id_UNIQUE` (`user_id`),
+  ADD UNIQUE KEY `username_unique_index_38455` (`username`);
 
 --
 -- Indexes for table `visit`
@@ -432,13 +453,13 @@ ALTER TABLE `visit`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `bill`
@@ -456,13 +477,13 @@ ALTER TABLE `complaint`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `employeecomplaint`
@@ -498,7 +519,7 @@ ALTER TABLE `service`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `visit`

@@ -10,6 +10,11 @@ import models.users.Customer;
 @Entity
 @Table(name = "account")
 public class Account extends _Account{
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1553523207317986640L;
+
     @ManyToOne
     @JoinColumn(name="customer_id")
     Customer customer;

@@ -25,7 +25,7 @@ public class Customer extends _Customer{
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     // @JoinColumn(name = "customer_id", referencedColumnName="customer_id")
-    protected List<Address> address;
+    protected List<Address> addresses;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     // @JoinColumn(name = "customer_id", referencedColumnName="customer_id")
@@ -59,27 +59,28 @@ public class Customer extends _Customer{
     }
 
     public Customer(){
-        this.address = new ArrayList<>();
+        super();
+        this.addresses = new ArrayList<>();
         this.accounts = new ArrayList<>();
     }
     public Customer(int userID, String username, String firstName, String lastName, String middleName, String password, int age,
     String gender, String email, Address address){
         super(userID, username, firstName, lastName, middleName, password, age, gender, email, address);
         this.accounts = new ArrayList<>();
-        this.address = new ArrayList<>();
+        this.addresses = new ArrayList<>();
         this.addAddress(address);
     }
 
     public List<Address> getAddress() {
-        return address;
+        return addresses;
     }
 
     public void setAddress(List<Address> address) {
-        this.address = address;
+        this.addresses = address;
     }
 
     public void addAddress(Address address) {
-        this.address.add(address);
+        this.addresses.add(address);
         address.setCustomer(this);
     }
 

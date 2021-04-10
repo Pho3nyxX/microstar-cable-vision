@@ -1,6 +1,7 @@
 package models.accounts;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -13,6 +14,11 @@ public class _Account implements Serializable {
      *
      */
     private static final long serialVersionUID = 8513410526093736170L;
+
+    public static final String ACCOUNT_PAST_DUE = "PAST DUE";
+    public static final String ACCOUNT_UPTODATE = "UPTODATE";
+    public static final String ACCOUNT_DEACTIVATED = "DEACTIVATED";
+
 
     /**----------------------------DATA MEMBERS-------------------------------------------- */
     @Id
@@ -28,6 +34,20 @@ public class _Account implements Serializable {
     // @Column(name="customer_id")
     // int customerID;
 
+    @Transient
+    protected ArrayList<String> validation_errors;
+
+    
+    public boolean validate() {
+        boolean valid = true;
+
+        // check if each fields data is valid
+        if( !( this.accountStatus.equals(_Account.ACCOUNT_DEACTIVATED) ) && !( this.accountStatus.equals(_Account.ACCOUNT_PAST_DUE) ) && !( this.accountStatus.equals(_Account.ACCOUNT_PAST_DUE) )){
+            this.validation_errors.add("Invalid account status entered.");
+            valid = false;
+        }
+        return valid;
+    }
 
     /**----------------------------CONSTRUCTORS-------------------------------------------- */
     //default constructor
