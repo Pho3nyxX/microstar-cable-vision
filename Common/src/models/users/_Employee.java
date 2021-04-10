@@ -6,9 +6,12 @@ import utilities.Validator;
 
 
 // Annotations
-@Entity
-@Table(name = "employee")
-public abstract class _Employee extends _User {
+// @Entity
+// @Table(name = "employee")
+// @PrimaryKeyJoinColumn(name = "emp_id")
+@MappedSuperclass
+public class _Employee extends _User {
+    // @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
     /**
      *
      */
@@ -17,10 +20,10 @@ public abstract class _Employee extends _User {
     private static final String ROLL_TECH = "Technician";
     private static final String ROLL_ADMIN = "Admin";
 
-    @Id
-    @Column(name="emp_id")
-    int user_id;
-
+    // @GeneratedValue(strategy=GenerationType.AUTO)
+    // @Id
+    // @Column(name="emp_id")
+    // int emp_id;
 
     @Column(name="role")
     protected String role;
@@ -56,9 +59,9 @@ public abstract class _Employee extends _User {
     }
 
     // primary constructor
-    public _Employee(int userID, String firstName, String lastName, String middleName, String password, int age,
+    public _Employee(int userID, String username, String firstName, String lastName, String middleName, String password, int age,
             String gender, String role, String status) {
-        super(userID, firstName, lastName, middleName, password, age, gender);
+        super(userID, username, firstName, lastName, middleName, password, age, gender);
         this.role = role;
         this.status = status;
     }
@@ -67,6 +70,7 @@ public abstract class _Employee extends _User {
     public _Employee(_Employee employee) {
         super(
             employee.getUserID(),
+            employee.getUsername(),
             employee.getfirstName(),
             employee.getlastName(),
             employee.getmiddleName(),

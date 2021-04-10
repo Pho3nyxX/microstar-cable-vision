@@ -9,11 +9,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import driver.Driver;
+
 public class RepDashboard extends JPanel {
 
     /** -------------------------MEMBERS------------------------------- */
 
     // labels
+    JLabel welcomeLabel;
+    JLabel weekDayLabel; // TODO:: auto generate weekday
+    JLabel dateLabel; // TODO:: auto generate date
+    JLabel microStarLabel;
     JLabel complaintsLabel;
     JLabel resolvedLabel; // TODO:: display number of resolved
     JLabel unresolvedLabel; // TODO:: display number of unresolved
@@ -23,13 +29,9 @@ public class RepDashboard extends JPanel {
     JLabel liveChatRequestsLabel;
     JLabel liveChatRequestsTxtLabel;
     JLabel menuLabel;
-    JLabel weekDayLabel; // TODO:: auto generate weekday
-    JLabel dateLabel; // TODO:: auto generate date
-    JLabel microStarLabel;
 
     // these are menu drop downs
     JLabel signOutLabel; // TODO:: should be when "menu" is clicked, it drops this down
-    JLabel profileLabel; // TODO:: should be when "menu" is clicked, it drops this down
 
     // JTextFields
     JTextField resolved1TxtField;
@@ -52,9 +54,9 @@ public class RepDashboard extends JPanel {
     // JButtons
     JButton viewBtn;
     JButton assignComplaintBtn;
-    // JButton viewLiveChatRequestsBtn;
     JButton startLiveChatBtn;
 
+    /** -------------------------CONSTRUCTORS------------------------------- */
     public RepDashboard() {
 
         // JLabel objects
@@ -68,12 +70,12 @@ public class RepDashboard extends JPanel {
         resolved5TxtField = new JTextField(); // TODO:: add "view" button on this
 
         // button objects
-        JButton viewBtn = new JButton("View");
-        JButton assignComplaintBtn = new JButton("Assign");
-        // JButton viewLiveChatRequestsBtn = new JButton("View LiveChat Requests");
-        JButton startLiveChatBtn = new JButton("Start LiveChat");
+        assignComplaintBtn = new JButton("Assign");
+        startLiveChatBtn = new JButton("Start LiveChat");
 
         // JLabel objects
+        welcomeLabel = new JLabel(
+                "Welcome: " + Driver.CURRENT_USER.getfirstName() + " " + Driver.CURRENT_USER.getlastName());
         complaintsLabel = new JLabel("Complaints");
         resolvedLabel = new JLabel("Resolved");
         unresolvedLabel = new JLabel("Unresolved");
@@ -100,8 +102,9 @@ public class RepDashboard extends JPanel {
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
         menuLabel.setBounds(150, 0, 350, 50);
-        weekDayLabel.setBounds(450, 0, 150, 50);
-        dateLabel.setBounds(450, 20, 150, 50);
+        welcomeLabel.setBounds(450, 0, 200, 50);
+        weekDayLabel.setBounds(450, 20, 100, 50);
+        dateLabel.setBounds(500, 20, 150, 50);
         complaintsLabel.setBounds(10, 60, 150, 50);
         internetCheckbox.setBounds(5, 100, 70, 50);
         phoneCheckbox.setBounds(90, 100, 70, 50);
@@ -150,6 +153,7 @@ public class RepDashboard extends JPanel {
         // adding attributes
         this.add(microStarLabel);
         this.add(menuLabel);
+        this.add(welcomeLabel);
         this.add(weekDayLabel);
         this.add(dateLabel);
         this.add(complaintsLabel);

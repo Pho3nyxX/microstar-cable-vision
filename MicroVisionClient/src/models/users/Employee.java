@@ -8,7 +8,7 @@ import driver.Driver;
 public class Employee extends _Employee{
 
 
-    @Override
+    // @Override
     public boolean save() {
         boolean userCreated = false; 
         // Create request with user data
@@ -39,7 +39,7 @@ public class Employee extends _Employee{
             this.userID = ((Employee)response.getData()).getUserID();
             this.age = ((Employee)response.getData()).getAge();
             this.role = ((Employee)response.getData()).getRole();
-            this.phone = ((Employee)response.getData()).getPhone();
+            // this.phone = ((Employee)response.getData()).getPhone();
             this.username = ((Employee)response.getData()).getUsername();
             this.firstName = ((Employee)response.getData()).getfirstName();
             this.lastName = ((Employee)response.getData()).getlastName();
@@ -53,7 +53,7 @@ public class Employee extends _Employee{
         Driver.clientConnection.closeConnection();
     }
 
-    @Override
+    // @Override
     public boolean delete() {
         // TODO Auto-generated method stub
         boolean userDeleted = false;

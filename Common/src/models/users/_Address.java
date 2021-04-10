@@ -26,8 +26,8 @@ public class _Address implements Serializable {
     @Column(name="street")
     String street;
 
-    @Column(name="customer_id")
-    int customer_id;
+    // @Column(name="customer_id")
+    // int customer_id;
 
     // default constructor
     public _Address() {
@@ -35,7 +35,7 @@ public class _Address implements Serializable {
         this.parish = "";
         this.town = "";
         this.street = "";
-        this.customer_id = 0;
+        // this.customer_id = 0;
     }
 
     // primary constructor
@@ -44,7 +44,7 @@ public class _Address implements Serializable {
         this.parish = parish;
         this.town = town;
         this.street = street;
-        this.customer_id = customer_id;
+        // this.customer_id = customer_id;
     }
     
     // copy constructor
@@ -53,7 +53,7 @@ public class _Address implements Serializable {
         this.parish = location.parish;
         this.town = location.town;
         this.street = location.street;
-        this.customer_id = location.customer_id;
+        // this.customer_id = location.customer_id;
     }
 
     /**--------------------------------------------------------------------------------- */
@@ -91,13 +91,13 @@ public class _Address implements Serializable {
         this.street = street;
     }
 
-    public int getCustomer_id() {
-        return this.customer_id;
-    }
+    // public int getCustomer_id() {
+    //     return this.customer_id;
+    // }
 
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
-    }
+    // public void setCustomer_id(int customer_id) {
+    //     this.customer_id = customer_id;
+    // }
 
     public _Address address_id(int address_id) {
         setAddress_id(address_id);
@@ -119,10 +119,10 @@ public class _Address implements Serializable {
         return this;
     }
 
-    public _Address customer_id(int customer_id) {
-        setCustomer_id(customer_id);
-        return this;
-    }
+    // public _Address customer_id(int customer_id) {
+    //     setCustomer_id(customer_id);
+    //     return this;
+    // }
 
     @Override
     public boolean equals(Object o) {
@@ -132,12 +132,12 @@ public class _Address implements Serializable {
             return false;
         }
         _Address _Address = (_Address) o;
-        return address_id == _Address.address_id && Objects.equals(parish, _Address.parish) && Objects.equals(town, _Address.town) && Objects.equals(street, _Address.street) && customer_id == _Address.customer_id;
+        return address_id == _Address.address_id && Objects.equals(parish, _Address.parish) && Objects.equals(town, _Address.town) && Objects.equals(street, _Address.street);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address_id, parish, town, street, customer_id);
+        return Objects.hash(address_id, parish, town, street);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class _Address implements Serializable {
             ", parish='" + getParish() + "'" +
             ", town='" + getTown() + "'" +
             ", street='" + getStreet() + "'" +
-            ", customer_id='" + getCustomer_id() + "'" +
+            // ", customer_id='" + getCustomer_id() + "'" +
             "}";
     }
 

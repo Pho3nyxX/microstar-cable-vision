@@ -313,6 +313,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `password` varchar(500) NOT NULL,
+  `username` varchar(60) NOT NULL,
   `first_name` varchar(15) NOT NULL,
   `last_name` varchar(15) NOT NULL,
   `middle_name` varchar(15) NOT NULL,
@@ -323,8 +324,8 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `user` (`user_id`, `password`, `first_name`, `last_name`, `middle_name`, `age`, `gender`) VALUES
-(1, 'vseovbseirbvleik', 'Abi', 'Matthews', 'Na', 20, 'F');
+INSERT INTO `user` (`user_id`, `username`, `password`, `first_name`, `last_name`, `middle_name`, `age`, `gender`) VALUES
+(1, 'abi','P@ssword1', 'Abi', 'Matthews', 'Na', 20, 'F');
 
 --
 -- Table structure for table `visit`

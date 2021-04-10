@@ -49,7 +49,7 @@ public class Visit extends JPanel {
 
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
-        visitLabel = new JLabel("Visit");
+        visitLabel = new JLabel("Proposed Visit Form");
 
 
         // JText object

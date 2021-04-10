@@ -102,7 +102,7 @@ public class Customer extends _Customer{
             //TODO handle user creation succeed
         } else{
             //TODO handle user creation failed 
-            //was something suppose to go here?
+            
         }
         Driver.clientConnection.closeConnection();
 
@@ -133,9 +133,7 @@ public class Customer extends _Customer{
 
     }
     public Customer(int userID, String firstName, String lastName, String middleName, String password, int age,
-    String gender, String email, _Address address)
-    {
+    String gender, String email, _Address address){
         super(userID, firstName, lastName, middleName, password, age, gender, email, address);
     }
-
 }

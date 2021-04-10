@@ -1,6 +1,7 @@
 package models.users;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Optional;
 
 public class AddressRepository {
@@ -20,5 +21,14 @@ public class AddressRepository {
             e.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    public Optional<Address> findById(Integer id) {
+        Address address = entityManager.find(Address.class, id);
+        return address != null ? Optional.of(address) : Optional.empty();
+    }
+
+    public List<Address> findAll() {
+        return entityManager.createQuery("from Address").getResultList();
     }
 }

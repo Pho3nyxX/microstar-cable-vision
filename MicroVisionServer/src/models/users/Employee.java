@@ -6,16 +6,23 @@ import models.users._User;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "employee")
+@PrimaryKeyJoinColumn(name = "emp_id")
 public class Employee extends _Employee{
 
-    @Override
+    @OneToOne(mappedBy="customer")
+    protected ContactNumber phone;
+
+
+    //@Override
     public boolean save() {
         // TODO Auto-generated method stub
         return false;
     }
 
     
-    @Override
+    //@Override
     public boolean delete() {
         // TODO Auto-generated method stub
         return false;

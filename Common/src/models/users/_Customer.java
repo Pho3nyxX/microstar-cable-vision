@@ -7,22 +7,29 @@ import javax.persistence.*;
 import utilities.Validator;
 
 // Annotations
-@Entity
-@Table(name = "customer")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class _Customer extends _User {
+// @Entity
+// @Table(name = "customer")
+// @PrimaryKeyJoinColumn(name = "customer_id")
+// @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@MappedSuperclass
+public class _Customer extends _User {
 
     /**
      *
      */
     private static final long serialVersionUID = -7122240510909524901L;
 
+    // @Id
+    // @Column(name = "customer_id")
+    // protected int customer_id;
+    
     @Column(name = "email")
     protected String email;
+    
+    // @Transient
+    // protected _Address address;
 
-    protected _Address address;
-
-    public abstract void LodgeComplaint();
+    // public abstract void LodgeComplaint();
 
 
     @Override
@@ -43,21 +50,22 @@ public abstract class _Customer extends _User {
     public _Customer() {
         super();
         this.email = "";
-        this.address = null;
+        // this.address = null;
     }
 
     // primary constructor
-    public _Customer(int userID, String firstName, String lastName, String middleName, String password, int age,
+    public _Customer(int userID, String username, String firstName, String lastName, String middleName, String password, int age,
             String gender, String email, _Address address) {
-        super(userID, firstName, lastName, middleName, password, age, gender);
+        super(userID, username, firstName, lastName, middleName, password, age, gender);
         this.email = email;
-        this.address = address;
+        //this.address = address;
     }
 
     // copy constructor
     public _Customer(_Customer client) {
         super(
             client.getUserID(),
+            client.getUsername(),
             client.getfirstName(),
             client.getlastName(),
             client.getmiddleName(),
@@ -66,7 +74,7 @@ public abstract class _Customer extends _User {
             client.getGender()
         );
         this.email = client.email;
-        this.address = client.address;
+        // this.address = client.address;
     }
 
     public String getEmail() {
@@ -77,23 +85,23 @@ public abstract class _Customer extends _User {
         this.email = email;
     }
 
-    public _Address getAddress() {
-        return this.address;
-    }
+    // public _Address getAddress() {
+    //     return this.address;
+    // }
 
-    public void setAddress(_Address address) {
-        this.address = address;
-    }
+    // public void setAddress(_Address address) {
+    //     this.address = address;
+    // }
 
     public _Customer email(String email) {
         setEmail(email);
         return this;
     }
 
-    public _Customer address(_Address address) {
-        setAddress(address);
-        return this;
-    }
+    // public _Customer address(_Address address) {
+    //     setAddress(address);
+    //     return this;
+    // }
 
     @Override
     public boolean equals(Object o) {
@@ -103,17 +111,17 @@ public abstract class _Customer extends _User {
             return false;
         }
         _Customer _Customer = (_Customer) o;
-        return Objects.equals(email, _Customer.email) && Objects.equals(address, _Customer.address);
+        return Objects.equals(email, _Customer.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, address);
+        return Objects.hash(email);
     }
 
     @Override
     public String toString() {
-        return "{" + " email='" + getEmail() + "'" + ", address='" + getAddress() + "'" + "}";
+        return "{" + " email='" + getEmail() + "'" +  "}";
     }
 
 }
