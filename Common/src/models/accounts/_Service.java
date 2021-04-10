@@ -2,6 +2,7 @@ package models.accounts;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -10,7 +11,13 @@ import javax.persistence.*;
 // Annotations
 @MappedSuperclass
 public class _Service implements Serializable {
+    public static final String SERVICE_WIRED_INTERNET = "Internet";
+    public static final String SERVICE_BROADBAND = "Broadband";
+    public static final String SERVICE_TV = "TV";
+    public static final String SERVICE_PHONE = "Phone";
 
+    public static final String SERVICE_STATUS_ACTIVE = "Active";
+    public static final String SERVICE_STATUS_INACTIVE = "Inactive";
     /**
      *
      */
@@ -33,6 +40,28 @@ public class _Service implements Serializable {
     @Column(name="account_id")
     int accountID;
 
+
+    @Transient
+    protected ArrayList<String> validation_errors;
+
+
+    public boolean validate() {
+        boolean valid = true;
+
+        // check if each fields data is valid
+        if( !( this.typeOfService.equals(_Service.SERVICE_WIRED_INTERNET) ) && !( this.typeOfService.equals(_Service.SERVICE_BROADBAND) ) && !( this.typeOfService.equals(_Service.SERVICE_TV) ) && !( this.typeOfService.equals(_Service.SERVICE_PHONE) )){
+            this.validation_errors.add("Invalid service type entered.");
+            valid = false;
+        }
+        if( (! this.status.equals(SERVICE_STATUS_ACTIVE) ) && (! this.status.equals(SERVICE_STATUS_INACTIVE) ) ){
+            this.validation_errors.add("Invalid service status entered.");
+            valid = false;
+        }
+        return valid;
+    }
+
+    /**----------------------------CONSTRUCTORS-------------------------------------------- */
+
     // default constructor
     public _Service() {
         this.serviceID = 0;
@@ -40,6 +69,7 @@ public class _Service implements Serializable {
         this.dateInitiated = LocalDate.now();
         this.status = "";
         this.accountID = 0;
+        this.validation_errors = new ArrayList();
     }
 
     // primary constructor
@@ -49,6 +79,7 @@ public class _Service implements Serializable {
         this.dateInitiated = dateInitiated;
         this.status = status;
         this.accountID = accountID;
+        this.validation_errors = new ArrayList();
     }
 
     // copy constructor
@@ -58,6 +89,7 @@ public class _Service implements Serializable {
         this.dateInitiated = serv.dateInitiated;
         this.status = serv.status;
         this.accountID = serv.accountID;
+        this.validation_errors = new ArrayList();
     }
 
     public int getServiceID() {
@@ -103,6 +135,14 @@ public class _Service implements Serializable {
     public _Service serviceID(int serviceID) {
         setServiceID(serviceID);
         return this;
+    }
+
+    public ArrayList<String> getValidation_errors() {
+        return validation_errors;
+    }
+
+    public void setValidation_errors(ArrayList<String> validation_errors) {
+        this.validation_errors = validation_errors;
     }
 
     public _Service typeOfService(String typeOfService) {

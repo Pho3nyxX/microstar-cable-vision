@@ -7,6 +7,13 @@ import driver.Driver;
 
 public class Employee extends _Employee{
 
+        
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7407503122655621232L;
+
+
 
     // @Override
     public boolean save() {

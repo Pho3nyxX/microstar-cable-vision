@@ -42,7 +42,7 @@ public class _Account implements Serializable {
         boolean valid = true;
 
         // check if each fields data is valid
-        if( !( this.accountStatus.equals(_Account.ACCOUNT_DEACTIVATED) ) && !( this.accountStatus.equals(_Account.ACCOUNT_PAST_DUE) ) && !( this.accountStatus.equals(_Account.ACCOUNT_PAST_DUE) )){
+        if( !( this.accountStatus.equals(_Account.ACCOUNT_DEACTIVATED) ) && !( this.accountStatus.equals(_Account.ACCOUNT_PAST_DUE) ) && !( this.accountStatus.equals(_Account.ACCOUNT_UPTODATE) )){
             this.validation_errors.add("Invalid account status entered.");
             valid = false;
         }
@@ -56,6 +56,7 @@ public class _Account implements Serializable {
         this.accountStatus = "";
         this.amountDue = 0.0;
         // this.customerID = 0;
+        this.validation_errors = new ArrayList();
     }
 
     // primary constructor
@@ -64,6 +65,7 @@ public class _Account implements Serializable {
         this.accountStatus = accountStatus;
         this.amountDue = amountDue;
         // this.customerID = customerID;
+        this.validation_errors = new ArrayList();
     }
 
     // copy constructor
@@ -72,6 +74,7 @@ public class _Account implements Serializable {
         this.accountStatus = ac.accountStatus;
         this.amountDue = ac.amountDue;
         // this.customerID = ac.customerID;
+        this.validation_errors = new ArrayList();
     }
         
     /**----------------------------GETTERS/SETTERS-------------------------------------------- */
@@ -123,6 +126,15 @@ public class _Account implements Serializable {
         return this;
     }
 
+    public ArrayList<String> getValidation_errors() {
+        return validation_errors;
+    }
+
+    public void setValidation_errors(ArrayList<String> validation_errors) {
+        this.validation_errors = validation_errors;
+    }
+    
+
     // public _Account customerID(int customerID) {
     //     setCustomerID(customerID);
     //     return this;
@@ -153,5 +165,5 @@ public class _Account implements Serializable {
             // ", customerID='" + getCustomerID() + "'" +
             "}";
     }
-    
+
 }

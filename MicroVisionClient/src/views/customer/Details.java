@@ -20,7 +20,7 @@ public class Details extends JPanel {
 
 
      // inputs
-    JButton Dashboard;
+    JButton DashboardBtn;
 
 
     public Details() {
@@ -31,7 +31,7 @@ public class Details extends JPanel {
 
 
         // text field objects
-        JButton DashboardBtn = new JButton("Dashboard");
+        DashboardBtn = new JButton("Dashboard");
 
 
         // JLabel objects

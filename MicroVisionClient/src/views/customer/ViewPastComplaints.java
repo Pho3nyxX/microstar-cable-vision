@@ -29,8 +29,8 @@ public class ViewPastComplaints extends JPanel {
     String selectComplaint[] = { "Fire", "Damaged Cord", "Internet Outage", "Cable Outage", "Incorrect Billing" };
 
     // inputs
-    JButton view;
-    JButton Dashboard;
+    JButton viewBtn;
+    JButton DashboardBtn;
 
     /** -------------------------CONSTRUCTORS------------------------------- */
     public ViewPastComplaints() {
@@ -40,8 +40,8 @@ public class ViewPastComplaints extends JPanel {
         PastComplaintsLabel = new JLabel("Complaint History");
 
         // button objects
-        JButton viewBtn = new JButton("View");
-        JButton DashboardBtn = new JButton("Dashboard");
+        viewBtn = new JButton("View");
+        DashboardBtn = new JButton("Dashboard");
 
         // JLabel objects
         selectTypeOfServiceLabel = new JLabel("Select Type of Service");

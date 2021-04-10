@@ -35,8 +35,8 @@ public class AssignmentOfTechnician extends JPanel {
     String typeOfService[] = { "Internet", "Phone", "Television" };
 
     // inputs
-    JButton assign;
-    JButton Dashboard;
+    JButton assignBtn;
+    JButton dashboardBtn;
 
     /** -------------------------CONSTRUCTORS------------------------------- */
     public AssignmentOfTechnician() {
@@ -46,8 +46,8 @@ public class AssignmentOfTechnician extends JPanel {
         assigningTechnicianLabel = new JLabel("Assigning Technician Form");
 
         // button objects
-        JButton assignBtn = new JButton("Assign");
-        JButton DashboardBtn = new JButton("Dashboard");
+        assignBtn = new JButton("Assign");
+        dashboardBtn = new JButton("Dashboard");
 
         // JLabel objects
         assignedTechnicianLabel = new JLabel("Technician's Name");
@@ -83,7 +83,7 @@ public class AssignmentOfTechnician extends JPanel {
         customerComplaintTxtArea.setBounds(150, 240, 200, 80);
 
         assignBtn.setBounds(150, 340, 95, 40);
-        DashboardBtn.setBounds(255, 340, 96, 40);
+        dashboardBtn.setBounds(255, 340, 96, 40);
 
         // adding action listener to View Button button because it requires an action if
         // it is selected
@@ -96,7 +96,7 @@ public class AssignmentOfTechnician extends JPanel {
 
         // adding action listener to Dashboard Button button because it requires an
         // action if it is selected
-        DashboardBtn.addActionListener(new ActionListener() {
+        dashboardBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button clicked");
@@ -121,7 +121,7 @@ public class AssignmentOfTechnician extends JPanel {
         this.add(microStarLabel);
         this.add(assigningTechnicianLabel);
         this.add(assignBtn);
-        this.add(DashboardBtn);
+        this.add(dashboardBtn);
 
         this.setLayout(null);
 

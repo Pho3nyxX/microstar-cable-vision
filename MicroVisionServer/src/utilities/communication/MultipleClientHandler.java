@@ -1,6 +1,9 @@
 package utilities.communication;
 
 import driver.Driver;
+import models.accounts.Account;
+import models.accounts.Service;
+import models.accounts.ServiceRepository;
 import models.chat._Message;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
@@ -251,7 +254,7 @@ public class MultipleClientHandler implements Runnable {
      * @return
      */
     ServerResponse saveUser(ServerRequest action) {
-        int code = ServerResponse.REQUEST_FAILED;
+        int code = ServerResponse.SAVE_FAILED;
         String message = "No users found.";
         ServerResponse response = null;
         _User user = null;
@@ -260,14 +263,22 @@ public class MultipleClientHandler implements Runnable {
         if (action.getData().getClass() == Customer.class) {
             CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
             Customer customer = (Customer) action.getData();
+            // customerRepository.save(customer);
+            customer.addAccount(new Account(Account.ACCOUNT_UPTODATE, 0, customer));
             customerRepository.save(customer);
             response = new ServerResponse<Customer>(message, code, customer);
+            message = "Customer saved";
+            user = customer;
+            code = ServerResponse.SAVE_SUCCEEDED;
         } else if (action.getData().getClass() == Employee.class) {
             EmployeeRepository employeeRepository = new EmployeeRepository(Driver.entityManager);
             Employee employee = (Employee) action.getData();
             employeeRepository.save(employee);
-            response = new ServerResponse<Employee>(message, code, employee);
+            message = "Employee saved";
+            user = employee;
+            code = ServerResponse.SAVE_SUCCEEDED;
         }
+        response = new ServerResponse<_User>(message, code, user);
         return response;
     }
 
@@ -283,31 +294,27 @@ public class MultipleClientHandler implements Runnable {
         UUID sessionId = null;
         String message = "Login Failed.";
         ServerResponse response;
-        _User user = null;
-
+        CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
+        _User user = (_User)action.getData();
+        
         // System.out.println(user.get);
-
+        
         // System.out.println(action.getData().toString());
-        if (action.getData().getClass() == Customer.class) {
-            Customer customer = null;
-            CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
-            user = (Customer) action.getData();
-            customer = customerRepository.findByUsername(user.getUsername());
-
+        Customer customer = null;
+        customer = customerRepository.findByUsername(user.getUsername());
+        if(customer != null){
             if (customer.getPassword().equals(user.getPassword())) {
                 user = customer;
-            } else {
+            }else{
                 user = null;
             }
-
-        } else if (action.getData().getClass() == Employee.class) {
-            Employee employee = null;
+        } else {
             EmployeeRepository employeeRepository = new EmployeeRepository(Driver.entityManager);
-            employee = employeeRepository.findByUsername(user.getUsername());
+            Employee employee = employeeRepository.findByUsername(user.getUsername());
             // user = employee;
-            if (employee.getPassword().equals(user.getPassword())) {
-                user = employee;
-            } else {
+            if(employee != null && employee.getPassword().equals(user.getPassword())){
+                    user = employee;
+            }else{
                 user = null;
             }
         }
@@ -320,10 +327,38 @@ public class MultipleClientHandler implements Runnable {
             loggedIn = true;
             sessionId = UUID.randomUUID();
             code = ServerResponse.REQUEST_SUCCEEDED;
-            message = "Logged in successfully";
-        }
-        response = new ServerResponse<_User>(sessionId.toString(), code, user);
+            message = sessionId.toString();
+        }else{
 
+        }
+        response = new ServerResponse<_User>(message, code, user);
+
+        return response;
+    }
+
+    /**---------------------------SERVICES & BILLING-------------------------------- */
+    
+    /**
+     * 
+     * @param action
+     * @return
+     */
+    ServerResponse saveService(ServerRequest action) {
+        int code = ServerResponse.SAVE_FAILED;
+        String message = "No users found.";
+        ServerResponse response = null;
+        Service service = null;
+
+        // TODO:: Handle user save
+        if (action.getData().getClass() == Service.class) {
+            ServiceRepository serviceRepository = new ServiceRepository(Driver.entityManager);
+            service = (Service) action.getData();
+            serviceRepository.save(service);
+            message = "Service saved";
+            code = ServerResponse.SAVE_SUCCEEDED;
+        }
+        
+        response = new ServerResponse<Service>(message, code, service);
         return response;
     }
 

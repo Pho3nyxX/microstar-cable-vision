@@ -16,9 +16,9 @@ public class _Employee extends _User {
      *
      */
     private static final long serialVersionUID = 3820461434905932966L;
-    public static final String ROLL_CUSTOMER_REP = "Customer Service Rep";
-    public static final String ROLL_TECH = "Technician";
-    public static final String ROLL_ADMIN = "Admin";
+    public static final String ROLE_CUSTOMER_REP = "Customer Service Rep";
+    public static final String ROLE_TECH = "Technician";
+    public static final String ROLE_ADMIN = "Admin";
 
     // @GeneratedValue(strategy=GenerationType.AUTO)
     // @Id

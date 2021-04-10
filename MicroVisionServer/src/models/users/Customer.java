@@ -85,6 +85,9 @@ public class Customer extends _Customer{
     }
 
     public void addAccount(Account account) {
+        if(this.accounts == null){
+            this.accounts = new ArrayList<>();
+        }
         this.accounts.add(account);
         account.setCustomer(this);
     }
