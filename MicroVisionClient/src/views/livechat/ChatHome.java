@@ -2,6 +2,10 @@ package views.livechat;
 
 import controllers.LiveChat;
 import driver.Driver;
+import models.users.Customer;
+import models.users.Employee;
+import models.users._User;
+import utilities.ServerRequest;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -95,6 +99,10 @@ public class ChatHome extends JPanel {
         newConversationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String name = JOptionPane.showInputDialog(null, "Enter name");
+
+                _User recipientUser = LiveChat.findUserFromUsername(name);
+
 
             }
         });

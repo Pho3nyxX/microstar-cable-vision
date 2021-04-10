@@ -1,6 +1,8 @@
 package controllers;
 
 import models.chat._Message;
+import models.users.Customer;
+import models.users.Employee;
 import sound.Mp3;
 import driver.Driver;
 import javazoom.jl.decoder.JavaLayerException;
@@ -30,7 +32,7 @@ public class LiveChat {
 
                 for (_User onlineUser:onlineUsersFromServer) {
                     if (onlineUser.getClass().getSimpleName().equals("Employee")) {
-                        ChatHome.personsOnlineTextArea.append("Technician " + onlineUser.getfirstName() + " is online \n");
+                        ChatHome.personsOnlineTextArea.append("Technician " + onlineUser.getUsername() + " is online \n");
                     }
                 }
                 try {
@@ -43,7 +45,7 @@ public class LiveChat {
                 //play an mp3 sound - maybe a ping
                 for (_User onlineUser:onlineUsersFromServer) {
                     if (onlineUser.getClass().getSimpleName().equals("Customer")) {
-                        ChatHome.personsOnlineTextArea.append("Customer " + onlineUser.getfirstName() + " is online \n");
+                        ChatHome.personsOnlineTextArea.append("Customer " + onlineUser.getUsername() + " is online \n");
                     }
                 }
                 try {
@@ -82,6 +84,30 @@ public class LiveChat {
             //Close the message connection socket for the user who wishes to log off
             Driver.messageConnection.closeConnection();
         }
+    }
+
+    public static _User findUserFromUsername(String username) {
+        _User user = null;
+        //Send a request to the server asking who's username is this and respond with the user
+        if (Driver.SESSION_TYPE.equals("Customer")) {
+            Employee employee = new Employee();
+            employee.setUsername(username);
+            ServerRequest request = new ServerRequest(ServerRequest.USER_LOAD_COMMAND,employee);
+            Driver.messageConnection.sendAction(request);
+
+            ServerResponse response = Driver.messageConnection.receiveResponse();
+            user = (_User) response.getData();
+        }else if (Driver.SESSION_TYPE.equals("Employee")) {
+            Customer customer = new Customer();
+            customer.setUsername(username);
+            ServerRequest request = new ServerRequest(ServerRequest.USER_LOAD_COMMAND, customer);
+            Driver.messageConnection.sendAction(request);
+
+            ServerResponse response = Driver.messageConnection.receiveResponse();
+            user = (_User) response.getData();
+        }
+
+        return user;
     }
 
     public static void sendMessage(_Message message) {
