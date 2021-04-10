@@ -22,6 +22,7 @@ public class Server extends _ClientServer {
     private ResultSet result = null;
     private static ExecutorService pool = Executors.newFixedThreadPool(10); //Limit users to 10
     public static Vector<MultipleClientHandler> activeClients = new Vector<>();
+    public static ArrayList<_User> activeLiveChatUsers = new ArrayList<>();
 
     public Server() {
         this.createConnection();

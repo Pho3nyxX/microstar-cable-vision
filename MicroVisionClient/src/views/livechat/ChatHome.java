@@ -1,18 +1,113 @@
 package views.livechat;
 
-import javax.swing.*;
+import controllers.LiveChat;
+import driver.Driver;
 
-public class ChatHome extends JPanel{
-    JLabel onlineChatsLabel;
-    JTextArea personsOnlineTextArea;
-    JButton logOn;
-    JButton logOff;
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ChatHome extends JPanel {
+    JLabel nameOfClientLabel;
+    JLabel doToHelpLabel;
+    JLabel startAConversationLabel;
+    JLabel profileImageLabel;
+    public static JTextArea personsOnlineTextArea;
+    JButton newConversationButton;
+    JButton logOffButton;
+    JPanel topPanel;
+    JPanel middleActiveClientsPanel;
+    Border blueLine;
+    Border raisedBevel;
+    Border compoundActiveClientsBorder;
+    Color blueBackground;
 
 
     ChatHome () {
+        blueBackground = new Color(41,193,239);
+
+        profileImageLabel = new JLabel(new ImageIcon("image/Chat.png"));
+        nameOfClientLabel = new JLabel("Hi, " + Driver.CURRENT_USER.getfirstName() + "!");
+        doToHelpLabel = new JLabel("What can we do to help?");
+        startAConversationLabel = new JLabel("Start a Conversation");
+
+        topPanel = new JPanel();
+        middleActiveClientsPanel = new JPanel();
+
+        personsOnlineTextArea = new JTextArea();
+
+        newConversationButton = new JButton("New Conversation");
+        logOffButton = new JButton("Log Off");
+
+        blueLine = BorderFactory.createLineBorder(blueBackground);
+        raisedBevel = BorderFactory.createRaisedBevelBorder();
+        compoundActiveClientsBorder = BorderFactory.createCompoundBorder(blueLine,raisedBevel);
+
+        topPanel.setLayout(null);
+        middleActiveClientsPanel.setLayout(null);
+
+        topPanel.setBackground(blueBackground);
+        newConversationButton.setBackground(blueBackground);
+        logOffButton.setBackground(blueBackground);
+
+        nameOfClientLabel.setForeground(Color.WHITE);
+        doToHelpLabel.setForeground(Color.WHITE);
+        newConversationButton.setForeground(Color.WHITE);
+        logOffButton.setForeground(Color.WHITE);
+
+        middleActiveClientsPanel.setBorder(compoundActiveClientsBorder);
+
+        nameOfClientLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        doToHelpLabel.setFont(new Font("Tahoma", Font.ITALIC, 20));
+        startAConversationLabel.setFont(new Font("Tahoma", Font.PLAIN,20));
+        personsOnlineTextArea.setFont(new Font("Tahoma",Font.PLAIN,20));
+
+        topPanel.setBounds(0,0,450,170);
+        middleActiveClientsPanel.setBounds(5,180,425,300);
+        profileImageLabel.setBounds(70,40,60,60);
+        nameOfClientLabel.setBounds(75,90,400,40);
+        doToHelpLabel.setBounds(90,120,400,40);
+        startAConversationLabel.setBounds(110,5,200,30);
+        personsOnlineTextArea.setBounds(10,40,400,250);
+        newConversationButton.setBounds(10,500,200,50);
+        logOffButton.setBounds(230,500,200,50);
+
+        personsOnlineTextArea.setEditable(false);
+
+        topPanel.add(profileImageLabel);
+        topPanel.add(nameOfClientLabel);
+        topPanel.add(doToHelpLabel);
+
+        middleActiveClientsPanel.add(startAConversationLabel);
+        middleActiveClientsPanel.add(personsOnlineTextArea);
+
+        this.add(topPanel);
+        this.add(middleActiveClientsPanel);
+        this.add(newConversationButton);
+        this.add(logOffButton);
+
+        //To show in the test area the Technicians or Customers that are online
+        LiveChat.logOnToLiveChat(Driver.CURRENT_USER);
+        //Live chat will then update the text area based on the response from the Sever
+
+        newConversationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        logOffButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
         this.setLayout(null);
-        this.setSize(500, 600);
+        this.setSize(450, 600);
         this.setVisible(true);
     }
 }

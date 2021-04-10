@@ -7,47 +7,57 @@ import javazoom.jl.decoder.JavaLayerException;
 import models.users._User;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
+import views.livechat.ChatHome;
+
+import java.util.ArrayList;
 
 public class LiveChat {
 
-    public void logOnToLiveChat (_User user) {
+    public static void logOnToLiveChat (_User user) {
         //Login to live chat
         ServerRequest<_User> request = new ServerRequest<_User>(ServerRequest.USER_LIVE_CHAT_COMMAND, user);
         Driver.messageConnection.sendAction(request);
 
-        ServerResponse response;
-        response = Driver.messageConnection.receiveResponse();
+        ArrayList<_User> onlineUsersFromServer = null;
+
+        ServerResponse<ArrayList<_User>> response = Driver.messageConnection.receiveResponse();
+        onlineUsersFromServer = response.getData();
 
         if (response.getMessage().equals("Login Successful")) {
-
-
             if (user.getClass().getSimpleName().equals("Customer")) {
                 //Send a message to all Customers the technicians that are online
                 //play an mp3 sound - maybe a ping
-                    System.out.println("Technician " + user.getfirstName() + " is online");
-                    try {
-                        Mp3.playMp3("1");
-                    }catch (JavaLayerException ex) {
-                        System.out.println("Error message to be logged");
+
+                for (_User onlineUser:onlineUsersFromServer) {
+                    if (onlineUser.getClass().getSimpleName().equals("Employee")) {
+                        ChatHome.personsOnlineTextArea.append("Technician " + onlineUser.getfirstName() + " is online \n");
                     }
-            }else if (user.getClass().getSimpleName().equals("Employee")) {
-                    //Send a message to all Technicians the customers that are online
-                    //play an mp3 sound - maybe a ping
-                    /*for (Customer customer: customerArrayList) {
-                        System.out.println("Customer " + customer.getfirstName() + " is online");
-                        try {
-                            Mp3.playMp3("1");
-                        }catch (JavaLayerException ex) {
-                            System.out.println("Error message to be logged");
-                        }
-                    } */
                 }
+                try {
+                    Mp3.playMp3("1");
+                }catch (JavaLayerException ex) {
+                    System.out.println("Error message to be logged");
+                }
+            }else if (user.getClass().getSimpleName().equals("Employee")) {
+                //Send a message to all Technicians the customers that are online
+                //play an mp3 sound - maybe a ping
+                for (_User onlineUser:onlineUsersFromServer) {
+                    if (onlineUser.getClass().getSimpleName().equals("Customer")) {
+                        ChatHome.personsOnlineTextArea.append("Customer " + onlineUser.getfirstName() + " is online \n");
+                    }
+                }
+                try {
+                    Mp3.playMp3("1");
+                }catch (JavaLayerException ex) {
+                    System.out.println("Error message to be logged");
+                }
+            }
         }else if (response.getMessage().equals("Login Failed")) {
-            System.out.println("Failed to Login");
+            ChatHome.personsOnlineTextArea.setText("Failure to Log on to Live Chat");
         }
     }
 
-    public void logOffLiveChat(_User user) {
+    public static void logOffLiveChat(_User user) {
         //Log off live chat
         ServerRequest<_User> request = new ServerRequest<_User>(ServerRequest.USER_END_CHAT_COMMAND, user);
         Driver.messageConnection.sendAction(request);

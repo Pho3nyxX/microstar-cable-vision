@@ -27,7 +27,7 @@ public class ChatMessage extends JPanel{
 
     static int messageID = 0;
 
-    ChatMessage(_User user, Complaint complaint) {
+    ChatMessage(_User recipient, Complaint complaint) {
         backArrowImageLabel = new JLabel(new ImageIcon("image/BackArrow.png"));
         profileImageLabel = new JLabel(new ImageIcon("image/Chat.png"));
         nameLabel = new JLabel("Customer");
@@ -84,7 +84,7 @@ public class ChatMessage extends JPanel{
                 String messageToBeSent = typeMessageTextField.getText();
                 chatTextArea.setText(chatTextArea.getText() + " \n\t\t" + messageToBeSent);
                 LiveChat.sendMessage(new Message(messageID+1,messageToBeSent,false, LocalDateTime.now(),
-                        user.getUserID(), user.getUserID(), complaint.getComplaintId()));
+                        recipient.getUserID(), Driver.CURRENT_USER.getUserID(), complaint.getComplaintId()));
                 typeMessageTextField.setText("");
             }
         });
