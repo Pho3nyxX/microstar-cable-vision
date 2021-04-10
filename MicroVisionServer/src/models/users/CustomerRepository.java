@@ -1,6 +1,7 @@
 package models.users;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,10 +33,15 @@ public class CustomerRepository {
         return entityManager.createQuery("from Customer").getResultList();
     }
     
-    public Optional<Customer> findByUsername(String username){
-        Customer customer = entityManager.createNamedQuery("Customer.findByUsername", Customer.class)
-        .setParameter("username", username)
-        .getSingleResult();
-        return customer != null ? Optional.of(customer) : Optional.empty();
+    public Customer findByUsername(String username){
+        Customer customer;
+        try {
+            customer = entityManager.createNamedQuery("Customer.findByUsername", Customer.class)
+            .setParameter("username", username)
+            .getSingleResult();
+        }catch(NoResultException ex){
+            customer = null;
+        }
+        return customer;
     }
 }

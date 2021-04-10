@@ -10,7 +10,9 @@ import org.apache.logging.log4j.Logger;
 
 import models.users._User;
 import models.users.Customer;
+import models.users.CustomerRepository;
 import models.users.Employee;
+import models.users.EmployeeRepository;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -52,45 +54,15 @@ public class MultipleClientHandler implements Runnable {
             System.out.println(action);
             switch (action.getCommand()) {
                 case ServerRequest.USER_LOGIN_COMMAND -> {
-                    //Actions for user login
-                    boolean loggedIn = false;
-                    int code = ServerResponse.REQUEST_FAILED;
-                    UUID sessionId = null;
-                    String message = "Login Failed.";
-                    ServerResponse response;
-                    _User user = (_User)action.getData(); 
-                    // System.out.println(user.get);
-                    
-                    //System.out.println(action.getData().toString());
-                    //TODO: generate sessionId 
-                    
-                    // TODO: check database to match credentials, update database - user session 
-                    
-                    //send response to client
-                    if(true){// TODO: test if user data is corrects
-                        loggedIn = true;
-                        sessionId = UUID.randomUUID();
-                        code = ServerResponse.REQUEST_SUCCEEDED;
-                        message = "Logged in successfully";
-                    }
-                    response = new ServerResponse<UUID>(message, code, sessionId);
+                    ServerResponse response = login(action);
                     objectOutputStream.writeObject(response);
                 }
 
                 case ServerRequest.USER_LOAD_COMMAND -> {
-                    int code = ServerResponse.REQUEST_FAILED;
-                    String message = "User doesn't exist.";
-                    ServerResponse response;
-                    _User user = (_User)action.getData();
-
-                    // TODO:: Handle user load
-                    if (true) {//TODO: check if users found
-                        message = "User found";
-                        code = ServerResponse.REQUEST_SUCCEEDED;
-                    }
-                    response = new ServerResponse<_User>(message, code, user);
+                    ServerResponse response = loadUser(action);
                     objectOutputStream.writeObject(response);
                 }
+
 
                 case ServerRequest.USER_LOAD_MANY_COMMAND ->{
                     int code = ServerResponse.REQUEST_FAILED;
@@ -236,5 +208,108 @@ public class MultipleClientHandler implements Runnable {
         }
     }
 
+    ServerResponse loadUser(ServerRequest action){
+        int code = ServerResponse.REQUEST_FAILED;
+        String message = "User doesn't exist.";
+        ServerResponse response;
+        _User user = null;
+        
+        // TODO:: Handle user load
+        if(action.getData().getClass() == Customer.class){
+            System.out.println("This is a customer");
+            Customer customer = null;
+            CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
+            user = (Customer)action.getData();
+            // check if user id or username available
+            if(user.getUserID() > 0){
+                // load user by id 
+                customer = customerRepository.findById(user.getUserID()).get();
+            }else if(!user.getUsername().isBlank() || user.getUsername() == null){
+                // load user by username
+                customer = customerRepository.findByUsername(user.getUsername());
+            }
+            // if(customer != null){
+            // set the customer as the  user to be return to the client 
+            user = customer;
+            // }
+        }else if(action.getData().getClass() == Employee.class){
+            System.out.println("This is a employee");
+            user = (Employee)action.getData();
+
+            Employee employee = null;
+            EmployeeRepository employeeRepository = new EmployeeRepository(Driver.entityManager);
+            user = (Employee)action.getData();
+            // check if user id or username available
+            if(user.getUserID() > 0){
+                // load user by id 
+                employee = employeeRepository.findById(user.getUserID()).get();
+            }else if(!user.getUsername().isBlank() || user.getUsername() == null){
+                // load user by username
+                employee = employeeRepository.findByUsername(user.getUsername());
+            }
+            // if(customer != null){
+            // set the customer as the  user to be return to the client 
+            user = employee;
+
+        }
+        
+        if (true) {//TODO: check if users found
+            message = "User found";
+            code = ServerResponse.REQUEST_SUCCEEDED;
+        }
+        response = new ServerResponse<_User>(message, code, user);
+        return response;
+    }
+
+    ServerResponse login(ServerRequest action){
+        //Actions for user login
+        boolean loggedIn = false;
+        int code = ServerResponse.REQUEST_FAILED;
+        UUID sessionId = null;
+        String message = "Login Failed.";
+        ServerResponse response;
+        _User user = null; 
+
+        // System.out.println(user.get);
+        
+        //System.out.println(action.getData().toString());
+        if(action.getData().getClass() == Customer.class){
+            Customer customer = null;
+            CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
+            user = (Customer)action.getData();
+            customer = customerRepository.findByUsername(user.getUsername());
+
+            if(customer.getPassword().equals(user.getPassword())){
+                user = customer;
+            }else{
+                user = null;
+            }
+
+        }else if(action.getData().getClass() == Employee.class){
+            Employee employee = null;
+            EmployeeRepository employeeRepository = new EmployeeRepository(Driver.entityManager);
+            employee = employeeRepository.findByUsername(user.getUsername());
+            // user = employee;
+            if(employee.getPassword().equals(user.getPassword())){
+                user = employee;
+            }else{
+                user = null;
+            }
+        }
+        
+        // TODO: check database to match credentials, update database - user session 
+        
+        //send response to client
+        if(user != null){// TODO: test if user data is corrects
+            //TODO: generate sessionId 
+            loggedIn = true;
+            sessionId = UUID.randomUUID();
+            code = ServerResponse.REQUEST_SUCCEEDED;
+            message = "Logged in successfully";
+        }
+        response = new ServerResponse<UUID>(message, code, sessionId);
+
+        return response;
+    }
 
 }

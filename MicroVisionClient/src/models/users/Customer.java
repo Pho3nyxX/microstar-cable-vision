@@ -65,6 +65,8 @@ public class Customer extends _Customer{
     public void refresh() throws Exception{ //TODO update with custom exceptions
         //TODO: refresh userdata from server
         ServerRequest<Customer> request = new ServerRequest<Customer>(ServerRequest.USER_LOAD_COMMAND, this); 
+        Driver.clientConnection.createConnection();
+        Driver.clientConnection.configureStreams();
         Driver.clientConnection.sendAction(request);
         //App.clientConnection.closeConnection();
         ServerResponse<Customer> response = Driver.clientConnection.receiveResponse();

@@ -18,13 +18,16 @@ import models.users.ContactNumber;
 import models.users.CustomerRepository;
 
 public class Driver {
+    public static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Microstarcablevision");
+    public static EntityManager entityManager = entityManagerFactory.createEntityManager();
     public static void main(String[] args) {
         System.out.println("Hello, World!");
 
+        entityManagerFactory = Persistence.createEntityManagerFactory("Microstarcablevision");
+        entityManager = entityManagerFactory.createEntityManager();
+        
         /*
         // Create our entity manager
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Microstarcablevision");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         
         // Create our repositories
         CustomerRepository customerRepository = new CustomerRepository(entityManager);
@@ -40,7 +43,7 @@ public class Driver {
         customerRepository.save(customer);
         
         // load a customer
-        // Customer customer2 = customerRepository.findByUsername("abi5").get();
+        // Customer customer2 = customerRepository.findByUsername("abi5");
         System.out.println(customer);
         // System.out.println(customer.getPhone());
         AddressRepository addressRepository = new AddressRepository(entityManager);
