@@ -12,7 +12,6 @@ import utilities.ServerResponse;
 import views.livechat.ChatHome;
 import views.livechat.ChatMessage;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class LiveChat {
@@ -105,16 +104,16 @@ public class LiveChat {
         ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
                 message);
         Driver.messageConnection.sendAction(request);
-
-        //Save Message in Database
     }
 
-    public static _Message receiveMessage() {
-        ServerResponse response;
-        response = Driver.messageConnection.receiveResponse();
+    public static void receiveMessage() {
+            ServerResponse response;
+            response = Driver.messageConnection.receiveResponse();
 
-        //Maybe update database with the message
+            _Message message = (_Message) response.getData();
 
-        return (_Message) response.getData();
+        //Would output the message to the GUI
+            ChatMessage.chatTextArea.setText(ChatMessage.chatTextArea.getText() + "\n" + message.getText());
+            //Set this text to another colour
     }
 }
