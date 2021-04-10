@@ -23,12 +23,12 @@ public class Driver {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
 
+        // Create our entity manager
         entityManagerFactory = Persistence.createEntityManagerFactory("Microstarcablevision");
         entityManager = entityManagerFactory.createEntityManager();
         
-        /*
-        // Create our entity manager
         
+        /*
         // Create our repositories
         CustomerRepository customerRepository = new CustomerRepository(entityManager);
         
@@ -41,7 +41,6 @@ public class Driver {
         customer.setPhone(cn);
 
         customerRepository.save(customer);
-        
         // load a customer
         // Customer customer2 = customerRepository.findByUsername("abi5");
         System.out.println(customer);

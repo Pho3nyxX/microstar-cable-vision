@@ -40,11 +40,15 @@ public class Password extends JPanel{
         submitBtn.setBounds(25,230,250,50);
         backToLoginBtn.setBounds(120,290,150,50);
        
-       // adding action listener to Forget Password button because it requires an action if it is selected
+       // adding action listener to Back to Login button because it requires an action if it is selected
        backToLoginBtn.addActionListener(new ActionListener(){
            @Override
            public void actionPerformed(ActionEvent e){
-               System.out.println("Button clicked");
+            //    System.out.println("Button clicked");
+            
+
+
+
            }
        });
 

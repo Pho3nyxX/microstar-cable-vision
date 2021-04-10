@@ -37,9 +37,9 @@ public class Dashboard extends JPanel {
 
  
     // inputs
-    JButton pastPayments;  //this button takes you to the payment history page
-    JButton pastComplaints;  //this button takes you to the complaint history page
-    JButton lodgeComplaints;  //this button takes you to lodge complaint page
+    JButton pastPaymentsBtn;  //this button takes you to the payment history page
+    JButton pastComplaintsBtn;  //this button takes you to the complaint history page
+    JButton lodgeComplaintsBtn;  //this button takes you to lodge complaint page
 
 
     /** -------------------------CONSTRUCTORS------------------------------- */ 
@@ -51,9 +51,9 @@ public class Dashboard extends JPanel {
 
 
         // button objects
-        JButton pastPaymentsBtn = new JButton("Past Payments");
-        JButton pastComplaintsBtn = new JButton("Past Complaints");
-        JButton lodgeComplaintsBtn = new JButton("Lodge Complaint");
+        pastPaymentsBtn = new JButton("Past Payments");
+        pastComplaintsBtn = new JButton("Past Complaints");
+        lodgeComplaintsBtn = new JButton("Lodge Complaint");
 
 
         // JLabel objects

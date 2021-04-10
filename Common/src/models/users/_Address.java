@@ -15,6 +15,7 @@ public class _Address implements Serializable {
     private static final long serialVersionUID = -5866191259253248590L;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     int address_id;
 
     @Column(name="parish")

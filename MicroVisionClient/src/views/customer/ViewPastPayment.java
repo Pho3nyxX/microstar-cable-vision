@@ -78,7 +78,7 @@ public class ViewPastPayment extends JPanel {
         detailsPanel = new JPanel();
 
         // button objects
-        JButton dashboardBtn = new JButton("Dashboard");
+        dashboardBtn = new JButton("Dashboard");
 
         // a string array of service list items
         paymentMonthsCombobox = new JComboBox<>(paymentMonths);

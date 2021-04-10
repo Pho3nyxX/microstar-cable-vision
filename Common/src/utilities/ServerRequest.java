@@ -19,13 +19,23 @@ public class ServerRequest<T extends Serializable>  implements Serializable {
     public static final String USER_LOAD_MANY_COMMAND = "User-Load-List";
     public static final String USER_REGISTER_COMMAND = "User-Register";
     public static final String USER_UPDATE_COMMAND = "User-Update";
-    public static final String USER_DELETE_COMMAND = "User-Update";
+    public static final String USER_DELETE_COMMAND = "User-Delete";
     public static final String USER_FORGET_PASSWORD_COMMAND = "User-Forget-Password";
     public static final String USER_GET_LOGGED_IN_COMMAND = "User-get-Logged-in-user";
 
     public static final String USER_LIVE_CHAT_COMMAND = "Initiate Live Chat";
     public static final String USER_END_CHAT_COMMAND = "Log Off Live Chat";
     public static final String USER_SEND_MESSAGE_LIVE_CHAT_COMMAND = "Send Message";
+
+    public static final String ACCOUNT_LOAD_COMMAND = "Account-Load";
+    public static final String ACCOUNT_LOAD_MANY_COMMAND = "Account-Load-List";
+    public static final String ACCOUNT_UPDATE_COMMAND = "Account-Update";
+    public static final String ACCOUNT_DELETE_COMMAND = "Account-Delete";
+
+    public static final String SERVICE_LOAD_COMMAND = "Service-Load";
+    public static final String SERVICE_LOAD_MANY_COMMAND = "Service-Load-List";
+    public static final String SERVICE_UPDATE_COMMAND = "Service-Update";
+    public static final String SERVICE_DELETE_COMMAND = "Service-Delete";
 
     public ServerRequest() {
     }

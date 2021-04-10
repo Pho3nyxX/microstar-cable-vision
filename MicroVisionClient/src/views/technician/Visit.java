@@ -39,9 +39,9 @@ public class Visit extends JPanel {
     
 
     // inputs
-    JButton notifyCustomer;
-    JButton submit;
-    JButton dashboard;
+    JButton notifyCustomerBtn;
+    JButton submitBtn;
+    JButton dashboardBtn;
 
     /** -------------------------CONSTRUCTORS------------------------------- */
 
@@ -57,9 +57,9 @@ public class Visit extends JPanel {
 
 
         // button objects
-        JButton notifyCustomerBtn = new JButton("Notify Customer");
-        JButton submitBtn = new JButton("Submit");
-        JButton dashboardBtn = new JButton("Dashboard");
+        notifyCustomerBtn = new JButton("Notify Customer");
+        submitBtn = new JButton("Submit");
+        dashboardBtn = new JButton("Dashboard");
 
 
         // JLabel objects

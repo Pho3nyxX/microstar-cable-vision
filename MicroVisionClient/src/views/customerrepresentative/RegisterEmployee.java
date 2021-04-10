@@ -1,15 +1,22 @@
 package views.customerrepresentative;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Register extends JPanel {
+import models.users.Employee;
+
+public class RegisterEmployee extends JDialog {
 
     /** -------------------------MEMBERS------------------------------- */
+    //container
+    JPanel contentPanel;
 
     // labels
     JLabel firstNameLabel;
@@ -18,9 +25,15 @@ public class Register extends JPanel {
     JLabel userNameLabel;
     JLabel ageLabel;
     JLabel genderLabel;
-    JLabel addressLabel;
     JLabel contactLabel;
-    JLabel emailLabel;
+    JLabel roleLabel;
+
+    // combobox
+    JComboBox<String> selectRoleCombobox;
+
+    // combobox options
+    String selectRole[] = { Employee.ROLE_CUSTOMER_REP, Employee.ROLE_ADMIN, Employee.ROLE_TECH };
+
     JLabel microStarLabel;
     JLabel registerLabel;
 
@@ -32,24 +45,27 @@ public class Register extends JPanel {
     JTextField ageTxtField;
     JTextField genderTxtField;
     JTextField contactTxtField;
-    JTextField emailTxtField;
-    JTextField addressTxtField;
+
 
     // inputs
-    JButton save;
-    JButton cancel;
+    JButton saveBtn;
+    JButton cancelBtn;
 
     /** -------------------------CONSTRUCTORS------------------------------- */
 
-    public Register() {
+    public RegisterEmployee(Frame parent) {
+
+        super(parent, "Sign in", true);
+
+        contentPanel = new JPanel();
 
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
-        registerLabel = new JLabel("Register Customer");
+        registerLabel = new JLabel("Register Employee");
 
         // button objects
-        JButton saveBtn = new JButton("Save");
-        JButton cancelBtn = new JButton("Cancel");
+        saveBtn = new JButton("Save");
+        cancelBtn = new JButton("Cancel");
 
         // JLabel objects
         firstNameLabel = new JLabel("First Name");
@@ -59,8 +75,13 @@ public class Register extends JPanel {
         ageLabel = new JLabel("Age");
         genderLabel = new JLabel("Gender");
         contactLabel = new JLabel("Contact");
-        emailLabel = new JLabel("Email Address");
-        addressLabel = new JLabel("Address");
+        roleLabel = new JLabel("Role");
+
+        // a string array of service list items
+        selectRoleCombobox = new JComboBox<>(selectRole);
+
+        // set one of the options as selected
+        selectRoleCombobox.setSelectedItem(0);
 
         // JTextField objects
         firstNameTxtField = new JTextField();
@@ -70,8 +91,7 @@ public class Register extends JPanel {
         ageTxtField = new JTextField();
         genderTxtField = new JTextField();
         contactTxtField = new JTextField();
-        emailTxtField = new JTextField();
-        addressTxtField = new JTextField();
+
 
         // setting the size of the labels
         firstNameLabel.setBounds(10, 100, 150, 20);
@@ -81,8 +101,7 @@ public class Register extends JPanel {
         ageLabel.setBounds(10, 300, 150, 20);
         genderLabel.setBounds(10, 350, 150, 20);
         contactLabel.setBounds(10, 400, 150, 20);
-        emailLabel.setBounds(10, 450, 150, 20);
-        addressLabel.setBounds(10, 500, 150, 20);
+        roleLabel.setBounds(10, 460, 150, 20);
         microStarLabel.setBounds(00, 0, 350, 50);
         registerLabel.setBounds(50, 30, 250, 50);
 
@@ -94,11 +113,11 @@ public class Register extends JPanel {
         ageTxtField.setBounds(150, 290, 220, 40);
         genderTxtField.setBounds(150, 340, 220, 40);
         contactTxtField.setBounds(150, 390, 220, 40);
-        emailTxtField.setBounds(150, 440, 220, 40);
-        addressTxtField.setBounds(150, 490, 220, 40);
+        selectRoleCombobox.setBounds(150, 450, 220, 40);
 
-        saveBtn.setBounds(150, 540, 98, 40);
-        cancelBtn.setBounds(270, 540, 98, 40);
+
+        saveBtn.setBounds(150, 520, 98, 40);
+        cancelBtn.setBounds(270, 520, 98, 40);
 
         // adding action listener to Save Button button because it requires an action if
         // it is selected
@@ -123,30 +142,35 @@ public class Register extends JPanel {
         registerLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // adding attributes
-        this.add(microStarLabel);
-        this.add(registerLabel);
-        this.add(firstNameLabel);
-        this.add(firstNameTxtField);
-        this.add(lastNameLabel);
-        this.add(lastNameTxtField);
-        this.add(middleNameLabel);
-        this.add(middleNameTxtField);
-        this.add(userNameLabel);
-        this.add(usernameTxtField);
-        this.add(ageLabel);
-        this.add(ageTxtField);
-        this.add(genderLabel);
-        this.add(genderTxtField);
-        this.add(contactLabel);
-        this.add(contactTxtField);
-        this.add(emailLabel);
-        this.add(emailTxtField);
-        this.add(addressLabel);
-        this.add(addressTxtField);
-        this.add(saveBtn);
-        this.add(cancelBtn);
+        contentPanel.add(microStarLabel);
+        contentPanel.add(registerLabel);
+        contentPanel.add(firstNameLabel);
+        contentPanel.add(firstNameTxtField);
+        contentPanel.add(lastNameLabel);
+        contentPanel.add(lastNameTxtField);
+        contentPanel.add(middleNameLabel);
+        contentPanel.add(middleNameTxtField);
+        contentPanel.add(userNameLabel);
+        contentPanel.add(usernameTxtField);
+        contentPanel.add(ageLabel);
+        contentPanel.add(ageTxtField);
+        contentPanel.add(genderLabel);
+        contentPanel.add(genderTxtField);
+        contentPanel.add(contactLabel);
+        contentPanel.add(contactTxtField);
+        contentPanel.add(roleLabel);
+        contentPanel.add(selectRoleCombobox);
+
+        contentPanel.add(saveBtn);
+        contentPanel.add(cancelBtn);
+
+        contentPanel.setLayout(null);
+        contentPanel.setBounds(0,0,520,610);
+
+        this.add(contentPanel);
 
         this.setLayout(null);
+        this.setSize(450,680);
 
         // making GUI visable
         this.setVisible(true);

@@ -154,14 +154,13 @@ DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `customer_id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
-  `address` varchar(100) NOT NULL,
   UNIQUE KEY `customer_ID_UNIQUE` (`customer_id`),
   CONSTRAINT `fk_customer_account_15648` FOREIGN KEY (`customer_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `customer` (`customer_id`, `email`, `address`) VALUES
-(2, 'customer@mail.com', '');
+INSERT INTO `customer` (`customer_id`, `email`) VALUES
+(2, 'customer@mail.com');
 
 --
 -- Table structure for table `employee`
@@ -332,7 +331,7 @@ CREATE TABLE `user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `user` (`user_id`, `password`, `username`, `first_name`, `last_name`, `middle_name`, `age`, `gender`, `online_status`) VALUES
-(1, 'P@ssword123', 'Admin', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
+(1, 'P@ssword123', 'admin', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
 (2, 'P@ssword1', 'abi', 'Abi', 'Matthews', 'Na', 20, 'F', b'0');
 
 --
