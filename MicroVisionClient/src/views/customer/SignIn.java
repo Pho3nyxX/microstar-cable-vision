@@ -68,12 +68,26 @@ public class SignIn extends JDialog{
                 password = new String(passwordTxt.getPassword());
                 userName = usernameTxt.getText();
                 
-                loggedIn = auth.login(userName, password);
-
-                if (loggedIn) {
+                
+                if (userName.isBlank() || password.isBlank()) {
+                    
+                    loginErrorLabel.setText("Username and Password cannot be blank.");
+                    
+                    loginErrorLabel.setVisible(true);
                     
                 } else {
-                    loginErrorLabel.setVisible(true);;
+                    
+                    loggedIn = auth.login(userName, password);
+                    
+                    if (loggedIn) {
+
+                        dispose();
+
+                    } else {
+
+                        loginErrorLabel.setText("Login failed!");
+                        loginErrorLabel.setVisible(true);;
+                    }
                 }
             }
         });

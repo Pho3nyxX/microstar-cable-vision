@@ -126,7 +126,7 @@ public class MultipleClientHandler implements Runnable {
                 case "User-Register" -> {
                     //Actions to register user
                 }
-
+                /*
                 case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
                     //Actions to run live chat
 
@@ -229,7 +229,7 @@ public class MultipleClientHandler implements Runnable {
                     }
                     //Save the message to the database
                     //Driver.messageRepository.save(message);
-                }
+                }*/
             }
         }catch (IOException | ClassNotFoundException ex) {
             error.error(ex.getMessage());

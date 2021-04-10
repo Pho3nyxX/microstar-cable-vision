@@ -21,6 +21,7 @@ public class Driver {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
 
+        /*
         // Create our entity manager
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Microstarcablevision");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -42,7 +43,6 @@ public class Driver {
         // Customer customer2 = customerRepository.findByUsername("abi5").get();
         System.out.println(customer);
         // System.out.println(customer.getPhone());
-        /*
         AddressRepository addressRepository = new AddressRepository(entityManager);
 
         Address address1 = addressRepository.findById(1).get();
@@ -64,7 +64,7 @@ public class Driver {
         Message message = new Message(1, "text", true, LocalDateTime.now(), 1, 1, 1);
         messageRepository.save(message);
         */
-        // Server server = new Server();
+        Server server = new Server();
 
     }
 }
