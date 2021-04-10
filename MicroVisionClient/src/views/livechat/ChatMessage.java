@@ -9,10 +9,7 @@ import utilities.ServerRequest;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.time.LocalDateTime;
 
 public class ChatMessage extends JPanel{
@@ -23,6 +20,7 @@ public class ChatMessage extends JPanel{
     JTextField typeMessageTextField;
     JButton sendMessageButton;
     JPanel topPanel;
+    Boolean typing;
     public static JTextArea chatTextArea;
 
     static int messageID = 0;
@@ -65,6 +63,35 @@ public class ChatMessage extends JPanel{
         sendMessageButton.setBounds(318,532,115,30);
         chatTextArea.setBounds(0,70,450,458);
 
+        typing=false;
+
+        Timer timer = new Timer(1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!typing) {
+                    availableLabel.setText("Active Now");
+                }
+            }
+        });
+
+        timer.setInitialDelay(2000);
+
+        typeMessageTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                availableLabel.setText("Typing...");
+                timer.stop();
+                typing=true;
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                typing=false;
+                if (!timer.isRunning()) {
+                    timer.start();
+                }
+            }
+        });
 
         backArrowImageLabel.addMouseListener(new MouseAdapter() {
             @Override
@@ -82,6 +109,8 @@ public class ChatMessage extends JPanel{
                 LiveChat.sendMessage(new Message(messageID+1,messageToBeSent,false, LocalDateTime.now(),
                         recipient.getUserID(), Driver.CURRENT_USER.getUserID(), complaint.getComplaintId()));
                 typeMessageTextField.setText("");
+
+                LiveChat.receiveMessage();
             }
         });
 
