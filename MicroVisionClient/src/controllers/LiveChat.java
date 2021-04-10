@@ -12,6 +12,7 @@ import utilities.ServerResponse;
 import views.livechat.ChatHome;
 import views.livechat.ChatMessage;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class LiveChat {
@@ -107,13 +108,24 @@ public class LiveChat {
     }
 
     public static void receiveMessage() {
-            ServerResponse response;
-            response = Driver.messageConnection.receiveResponse();
+        ServerResponse response;
+        response = Driver.messageConnection.receiveResponse();
 
-            _Message message = (_Message) response.getData();
+        _Message message = (_Message) response.getData();
 
         //Would output the message to the GUI
-            ChatMessage.chatTextArea.setText(ChatMessage.chatTextArea.getText() + "\n" + message.getText());
-            //Set this text to another colour
+        ChatMessage.chatTextArea.setText(ChatMessage.chatTextArea.getText() + "\n" + message.getText());
+        //Set this text to another colour
+        try {
+            Mp3.playMp3("1");
+        }catch (JavaLayerException ex) {
+            System.out.println("Error message to be logged");
+        }
+        JOptionPane.showMessageDialog(null,"1 New Message","New Messages",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        message.setRead(true);
+
+        //Maybe update database with the message
     }
 }
