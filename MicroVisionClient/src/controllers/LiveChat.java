@@ -105,27 +105,16 @@ public class LiveChat {
         ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
                 message);
         Driver.messageConnection.sendAction(request);
+
+        //Save Message in Database
     }
 
-    public static void receiveMessage() {
+    public static _Message receiveMessage() {
         ServerResponse response;
         response = Driver.messageConnection.receiveResponse();
 
-        _Message message = (_Message) response.getData();
-
-        //Would output the message to the GUI
-        ChatMessage.chatTextArea.setText(ChatMessage.chatTextArea.getText() + "\n" + message.getText());
-        //Set this text to another colour
-        try {
-            Mp3.playMp3("1");
-        }catch (JavaLayerException ex) {
-            System.out.println("Error message to be logged");
-        }
-        JOptionPane.showMessageDialog(null,"1 New Message","New Messages",
-                JOptionPane.INFORMATION_MESSAGE);
-
-        message.setRead(true);
-
         //Maybe update database with the message
+
+        return (_Message) response.getData();
     }
 }
