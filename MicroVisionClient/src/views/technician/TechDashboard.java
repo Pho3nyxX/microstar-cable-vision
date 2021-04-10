@@ -10,11 +10,19 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
+import driver.Driver;
+
 public class TechDashboard extends JPanel {
 
     /** -------------------------MEMBERS------------------------------- */
 
     // labels
+    JLabel welcomeLabel;
+    JLabel weekDayLabel; // TODO:: auto generate weekday
+    JLabel dateLabel; // TODO:: auto generate date
+    JLabel microStarLabel;
+    JLabel signLabel;
+    JLabel menuLabel;
     JLabel taskLabel;
     JLabel titleLabel;
     JLabel firstNameLabel;
@@ -25,14 +33,8 @@ public class TechDashboard extends JPanel {
     JLabel complaintLabel;
     JLabel detailsListLabel;
     JLabel detailsListWindowLabel;
-
     JLabel liveChatRequestsLabel;
     JLabel liveChatRequestsTxtLabel;
-    JLabel weekDayLabel; // TODO:: auto generate weekday
-    JLabel dateLabel; // TODO:: auto generate date
-    JLabel microStarLabel;
-    JLabel signLabel;
-    JLabel menuLabel;
 
     // JList
     JList<String> complaintList;
@@ -84,10 +86,10 @@ public class TechDashboard extends JPanel {
         detailsPanel = new JPanel();
 
         // button objects
-        JButton respondBtn = new JButton("Respond");
-        JButton closeBtn = new JButton("Close");
-        JButton availableForChatBtn = new JButton("AvailForChat");
-        JButton joinChatBtn = new JButton("JoinChat");
+        respondBtn = new JButton("Respond");
+        closeBtn = new JButton("Close");
+        availableForChatBtn = new JButton("AvailForChat");
+        joinChatBtn = new JButton("JoinChat");
 
         // a string array of service list items
         typeOfTaskCombobox = new JComboBox<>(typeOfTask);
@@ -96,6 +98,8 @@ public class TechDashboard extends JPanel {
         typeOfTaskCombobox.setSelectedItem(0);
 
         // JLabel objects
+        welcomeLabel = new JLabel(
+                "Welcome: " + Driver.CURRENT_USER.getfirstName() + " " + Driver.CURRENT_USER.getlastName());
         menuLabel = new JLabel("| Menu");
         weekDayLabel = new JLabel("Sunday");
         dateLabel = new JLabel("0 | 00 | 0000");
@@ -116,8 +120,9 @@ public class TechDashboard extends JPanel {
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
         menuLabel.setBounds(150, 0, 350, 50);
-        weekDayLabel.setBounds(430, 0, 150, 50);
-        dateLabel.setBounds(430, 20, 150, 50);
+        welcomeLabel.setBounds(430, 0, 200, 50);
+        weekDayLabel.setBounds(430, 20, 100, 50);
+        dateLabel.setBounds(480, 20, 150, 50);
         taskLabel.setBounds(10, 60, 150, 50);
         typeOfTaskCombobox.setBounds(50, 75, 85, 20);
         titleLabel.setBounds(10, 100, 150, 50);
@@ -141,8 +146,8 @@ public class TechDashboard extends JPanel {
         availableForChatBtn.setBounds(300, 510, 105, 30);
         joinChatBtn.setBounds(430, 510, 90, 30);
 
-
-        // adding action listener to Respond Button button because it requires an action if
+        // adding action listener to Respond Button button because it requires an action
+        // if
         // it is selected
         respondBtn.addActionListener(new ActionListener() {
             @Override
@@ -177,7 +182,7 @@ public class TechDashboard extends JPanel {
                 System.out.println("Button clicked");
             }
         });
-        
+
         // adding items to details panel
         detailsPanel.add(firstNameLabel);
         detailsPanel.add(lastNameLabel);
@@ -193,9 +198,10 @@ public class TechDashboard extends JPanel {
 
         // adding attributes
         this.add(microStarLabel);
-        this.add(menuLabel);
+        this.add(welcomeLabel);
         this.add(weekDayLabel);
         this.add(dateLabel);
+        this.add(menuLabel);
         this.add(taskLabel);
         this.add(typeOfTaskCombobox);
         this.add(titleLabel);

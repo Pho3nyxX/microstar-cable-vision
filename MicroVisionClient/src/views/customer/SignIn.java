@@ -52,8 +52,9 @@ public class SignIn extends JDialog{
         usernameTxt.setBounds(25,50,250,50);
         passwordTxt.setBounds(25,120,250,50);
         loginBtn.setBounds(25,200,250,50);
-        forgetPasswordBtn.setBounds(120,280,150,25);
-        forgetPasswordBtn.setBackground(null);
+        forgetPasswordBtn.setBounds(150,260,140,25);
+        forgetPasswordBtn.setBorderPainted(false);
+        forgetPasswordBtn.setContentAreaFilled(false);
 
         // adding action listener to button because it requires an action if it is selected
         loginBtn.addActionListener(new ActionListener(){
@@ -109,7 +110,8 @@ public class SignIn extends JDialog{
         contentPanel.add(loginBtn);
         contentPanel.add(forgetPasswordBtn);
         
-        
+        // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+
         this.add(contentPanel);
         this.setSize(315,400);
         contentPanel.setLayout(null);

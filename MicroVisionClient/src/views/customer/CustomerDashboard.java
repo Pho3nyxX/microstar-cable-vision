@@ -7,56 +7,54 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import driver.Driver;
+
 public class CustomerDashboard extends JPanel {
 
     /** -------------------------MEMBERS------------------------------- */
 
     // labels
-    JLabel startChatLabel;    
-    JLabel repAvailableTxtLabel;   //TODO:: button that changes colour when avail/not avail - how to do this
-    JLabel techAvailableTxtLabel;  //TODO:: button that changes colour when avail/not avail  - how to do this
-    JLabel amountDueLabel;  
+    JLabel welcomeLabel;
+    JLabel startChatLabel;
+    JLabel repAvailableTxtLabel; // TODO:: button that changes colour when avail/not avail - how to do this
+    JLabel techAvailableTxtLabel; // TODO:: button that changes colour when avail/not avail - how to do this
+    JLabel amountDueLabel;
     JLabel amountDuetxtLabel;
     JLabel paymentStatusLabel;
-    JLabel paidTxtLabel; //TODO:: shows paid/unpaid - how to do this
+    JLabel paidTxtLabel; // TODO:: shows paid/unpaid - how to do this
     JLabel paymentDueDateLabel;
     JLabel paymentDueDateTxtLabel;
     JLabel menuLabel;
-    JLabel weekDayLabel; //TODO:: auto generate weekday
-    JLabel dateLabel;  //TODO:: auto generate date
+    JLabel weekDayLabel; // TODO:: auto generate weekday
+    JLabel dateLabel; // TODO:: auto generate date
     JLabel microStarLabel;
 
+    // these are menu drop downs
+    JLabel signOutLabel; // TODO:: should be when "menu" is clicked, it drops this down
+    JLabel profileLabel; // TODO:: should be when "menu" is clicked, it drops this down
 
-    //these are menu drop downs
-    JLabel signOutLabel; //TODO:: should be when "menu" is clicked, it drops this down
-    JLabel profileLabel;  //TODO:: should be when "menu" is clicked, it drops this down
+    // JTextArea: this is acture meant for a picture
+    JTextArea pictureGoesHere; // TODO:: TO BE REMOVED LATER
 
-
-    //JTextArea: this is acture meant for a picture
-    JTextArea pictureGoesHere;  //TODO:: TO BE REMOVED LATER
-
- 
     // inputs
-    JButton pastPayments;  //this button takes you to the payment history page
-    JButton pastComplaints;  //this button takes you to the complaint history page
-    JButton lodgeComplaints;  //this button takes you to lodge complaint page
+    JButton pastPaymentsBtn; // this button takes you to the payment history page
+    JButton pastComplaintsBtn; // this button takes you to the complaint history page
+    JButton lodgeComplaintsBtn; // this button takes you to lodge complaint page
 
+    /** -------------------------CONSTRUCTORS------------------------------- */
 
-    /** -------------------------CONSTRUCTORS------------------------------- */ 
-    
     public CustomerDashboard() {
 
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
 
-
         // button objects
-        JButton pastPaymentsBtn = new JButton("Past Payments");
-        JButton pastComplaintsBtn = new JButton("Past Complaints");
-        JButton lodgeComplaintsBtn = new JButton("Lodge Complaint");
-
+        pastPaymentsBtn = new JButton("Past Payments");
+        pastComplaintsBtn = new JButton("Past Complaints");
+        lodgeComplaintsBtn = new JButton("Lodge Complaint");
 
         // JLabel objects
+        welcomeLabel = new JLabel("Welcome: " + Driver.CURRENT_USER.getfirstName() + " " + Driver.CURRENT_USER.getlastName());
         startChatLabel = new JLabel("Start Chat");
         repAvailableTxtLabel = new JLabel("Rep Available");
         techAvailableTxtLabel = new JLabel("Technician Available");
@@ -70,19 +68,17 @@ public class CustomerDashboard extends JPanel {
         weekDayLabel = new JLabel("Sunday");
         dateLabel = new JLabel("0 | 00 | 0000");
 
-
         // JTextArea objects
-        pictureGoesHere = new JTextArea();  //TODO:: TO BE REMOVED LATER
-
+        pictureGoesHere = new JTextArea(); // TODO:: TO BE REMOVED LATER
 
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
         menuLabel.setBounds(150, 0, 350, 50);
-        weekDayLabel.setBounds(450, 0, 150, 50);
-        dateLabel.setBounds(450, 20, 150, 50);
+        welcomeLabel.setBounds(450, 0, 200, 50);
+        weekDayLabel.setBounds(450, 20, 100, 50);
+        dateLabel.setBounds(500, 20, 150, 50);
         startChatLabel.setBounds(10, 90, 150, 20);
         repAvailableTxtLabel.setBounds(10, 110, 150, 20);
-        //techAvailableTxtLabel.setBounds(10, 110, 150, 20);
         amountDueLabel.setBounds(170, 90, 150, 20);
         amountDuetxtLabel.setBounds(170, 110, 150, 20);
         paymentStatusLabel.setBounds(300, 90, 150, 20);
@@ -91,13 +87,13 @@ public class CustomerDashboard extends JPanel {
         paymentDueDateTxtLabel.setBounds(450, 110, 150, 20);
         pictureGoesHere.setBounds(170, 170, 380, 180);
 
-
+        // setting the size of the labels buttons
         pastPaymentsBtn.setBounds(10, 370, 140, 40);
         pastComplaintsBtn.setBounds(10, 430, 140, 40);
         lodgeComplaintsBtn.setBounds(10, 490, 140, 40);
 
-
-        // adding action listener to Past Payment Button button because it requires an action if
+        // adding action listener to Past Payment Button button because it requires an
+        // action if
         // it is selected
         pastPaymentsBtn.addActionListener(new ActionListener() {
             @Override
@@ -106,7 +102,8 @@ public class CustomerDashboard extends JPanel {
             }
         });
 
-        // adding action listener to Past Complaint Button button because it requires an
+        // adding action listener to Past Complaints Button button because it requires
+        // an
         // action if it is selected
         pastComplaintsBtn.addActionListener(new ActionListener() {
             @Override
@@ -115,7 +112,8 @@ public class CustomerDashboard extends JPanel {
             }
         });
 
-        // adding action listener to Lodge Complaint Button button because it requires an
+        // adding action listener to Lodge Complaints Button button because it requires
+        // an
         // action if it is selected
         lodgeComplaintsBtn.addActionListener(new ActionListener() {
             @Override
@@ -124,24 +122,17 @@ public class CustomerDashboard extends JPanel {
             }
         });
 
-
         // align Micro-Star Cable-Vision to the left
         microStarLabel.setHorizontalAlignment(JLabel.LEFT);
-
-
-        // align Micro-Star Cable-Vision to the left
-        //weekDayLabel.setHorizontalAlignment(JLabel.RIGHT);
-        //dateLabel.setHorizontalAlignment(JLabel.RIGHT);
-
 
         // adding attributes
         this.add(microStarLabel);
         this.add(menuLabel);
+        this.add(welcomeLabel);
         this.add(weekDayLabel);
         this.add(dateLabel);
         this.add(startChatLabel);
         this.add(repAvailableTxtLabel);
-        //this.add(techAvailableTxtLabel);
         this.add(amountDueLabel);
         this.add(amountDuetxtLabel);
         this.add(paymentStatusLabel);
@@ -152,19 +143,12 @@ public class CustomerDashboard extends JPanel {
         this.add(pastPaymentsBtn);
         this.add(pastComplaintsBtn);
         this.add(lodgeComplaintsBtn);
-        
-
 
         this.setLayout(null);
 
         // making GUI visable
         this.setVisible(true);
 
-
     }
 
-  
-
-
-    
 }

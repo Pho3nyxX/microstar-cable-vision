@@ -24,7 +24,9 @@ public class Authentication extends _Authethication {
         if(response.getCode() == ServerResponse.REQUEST_SUCCEEDED){
             //request.setCommand(ServerRequest.USER_GET_LOGGED_IN_COMMAND);
             //App.clientConnection.sendAction(request);
-            Driver.sessionId = response.getData().toString(); 
+            Driver.SESSION_ID = response.getMessage().toString(); 
+            Driver.CURRENT_USER = (_User)response.getData();
+            Driver.SESSION_TYPE = Driver.CURRENT_USER.getClass().getSimpleName();
             loggedIn = true;
             System.out.println(response);
         }else{
@@ -47,7 +49,9 @@ public class Authentication extends _Authethication {
         // Check if user was logged out successfully
         ServerResponse response = Driver.clientConnection.receiveResponse();
         if(response.getCode() == ServerResponse.REQUEST_SUCCEEDED){
-            Driver.sessionId = null; 
+            Driver.SESSION_ID = null; 
+            Driver.CURRENT_USER = null; 
+            Driver.SESSION_TYPE = null; 
             loggedOut = true;
         }
         Driver.clientConnection.closeConnection();

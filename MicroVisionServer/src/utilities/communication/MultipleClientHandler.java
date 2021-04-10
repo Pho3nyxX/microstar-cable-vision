@@ -307,7 +307,7 @@ public class MultipleClientHandler implements Runnable {
             code = ServerResponse.REQUEST_SUCCEEDED;
             message = "Logged in successfully";
         }
-        response = new ServerResponse<UUID>(message, code, sessionId);
+        response = new ServerResponse<_User>(sessionId.toString(), code, user);
 
         return response;
     }
