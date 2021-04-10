@@ -10,6 +10,8 @@ import java.math.BigInteger;
 
 
 import javax.persistence.*;
+
+import org.w3c.dom.ls.LSOutput;
 import utilities.Validator;
 
 // Annotations
@@ -116,15 +118,15 @@ public abstract class _User implements Serializable {
             {
                 hashtext = "0" + hashtext;
             }
+            //return hashed password
+            return hashtext;
 
         }catch (NoSuchAlgorithmException ex)
-        {
-            new RuntimeException(ex);
-        }
-        //byte[] salt = getSalt();
 
-        //return hashed password
-        return hashtext;
+        {
+            throw new RuntimeException(ex);
+        }
+
     }
 
     // default constructor

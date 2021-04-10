@@ -87,7 +87,7 @@ public class Customer extends _Customer{
     }
     
     public static ArrayList<Customer> loadCustomers(){
-        // load customers from datatbase
+        // load customers from database
         ArrayList<Customer> customers = null;
         Integer page = 100;
         ServerRequest<Integer> request = new ServerRequest<Integer>(ServerRequest.USER_LOAD_MANY_COMMAND, page); 
@@ -102,7 +102,7 @@ public class Customer extends _Customer{
             //TODO handle user creation succeed
         } else{
             //TODO handle user creation failed 
-            
+            //was something suppose to go here?
         }
         Driver.clientConnection.closeConnection();
 
@@ -133,7 +133,9 @@ public class Customer extends _Customer{
 
     }
     public Customer(int userID, String firstName, String lastName, String middleName, String password, int age,
-    String gender, String email, _Address address){
+    String gender, String email, _Address address)
+    {
         super(userID, firstName, lastName, middleName, password, age, gender, email, address);
     }
+
 }
