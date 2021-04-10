@@ -2,6 +2,7 @@ package models.accounts;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -20,8 +21,8 @@ public class _Bill implements Serializable {
     @Column(name="bill_id")
     int billID;
 
-    @Column(name="date")
-    LocalDate date;
+    @Column(name="bill_date")
+    LocalDate bill_date;
 
     @Column(name="period_start")
     LocalDate periodStart;
@@ -32,43 +33,63 @@ public class _Bill implements Serializable {
     @Column(name="amount")
     double amount;
 
-    @Column(name="due")
-    LocalDate due;
+    @Column(name="due_date")
+    LocalDate due_date;
 
-    @Column(name="serive_id")
+    @Column(name="service_id")
     int serviceID;
+
+    
+    @Transient
+    protected ArrayList<String> validation_errors;
+
+    public boolean validate() {
+        boolean valid = true;
+
+        // check if each fields data is valid
+        if( (this.periodStart.compareTo(this.periodEnd) > 0)){
+            this.validation_errors.add("Start date cannot fall after end.");
+            valid = false;
+        }
+
+        return valid;
+    }
+
 
     // default constructor
     public _Bill() {
         this.billID = 0;
-        this.date = LocalDate.now();
+        this.bill_date = LocalDate.now();
         this.periodStart = null;
         this.periodEnd = null;
         this.amount = 0.0;
-        this.due = null;
+        this.due_date = null;
         this.serviceID = 0;
+        this.validation_errors = new ArrayList();
     }
 
     // primary constructor
     public _Bill(int billID, LocalDate date, LocalDate periodStart, LocalDate periodEnd, double amount, LocalDate due, int serviceID) {
         this.billID = billID;
-        this.date = date;
+        this.bill_date = date;
         this.periodStart = periodStart;
         this.periodEnd = periodEnd;
         this.amount = amount;
-        this.due = due;
+        this.due_date = due;
         this.serviceID = serviceID;
+        this.validation_errors = new ArrayList();
     }
 
     // copy constructor
     public _Bill(_Bill fee) {
         this.billID = fee.billID;
-        this.date = fee.date;
+        this.bill_date = fee.bill_date;
         this.periodStart = fee.periodStart;
         this.periodEnd = fee.periodEnd;
         this.amount = fee.amount;
-        this.due = fee.due;
+        this.due_date = fee.due_date;
         this.serviceID = fee.serviceID;
+        this.validation_errors = new ArrayList();
     }    
 
     public int getBillID() {
@@ -80,11 +101,11 @@ public class _Bill implements Serializable {
     }
 
     public LocalDate getDate() {
-        return this.date;
+        return this.bill_date;
     }
 
     public void setDate(LocalDate date) {
-        this.date = date;
+        this.bill_date = date;
     }
 
     public LocalDate getPeriodStart() {
@@ -112,11 +133,11 @@ public class _Bill implements Serializable {
     }
 
     public LocalDate getDue() {
-        return this.due;
+        return this.due_date;
     }
 
     public void setDue(LocalDate due) {
-        this.due = due;
+        this.due_date = due;
     }
 
     public int getServiceID() {
@@ -125,6 +146,14 @@ public class _Bill implements Serializable {
 
     public void setServiceID(int serviceID) {
         this.serviceID = serviceID;
+    }
+
+    public ArrayList<String> getValidation_errors() {
+        return validation_errors;
+    }
+
+    public void setValidation_errors(ArrayList<String> validation_errors) {
+        this.validation_errors = validation_errors;
     }
 
     public _Bill billID(int billID) {
@@ -170,12 +199,12 @@ public class _Bill implements Serializable {
             return false;
         }
         _Bill _Bill = (_Bill) o;
-        return billID == _Bill.billID && Objects.equals(date, _Bill.date) && Objects.equals(periodStart, _Bill.periodStart) && Objects.equals(periodEnd, _Bill.periodEnd) && amount == _Bill.amount && Objects.equals(due, _Bill.due) && serviceID == _Bill.serviceID;
+        return billID == _Bill.billID && Objects.equals(bill_date, _Bill.bill_date) && Objects.equals(periodStart, _Bill.periodStart) && Objects.equals(periodEnd, _Bill.periodEnd) && amount == _Bill.amount && Objects.equals(due_date, _Bill.due_date) && serviceID == _Bill.serviceID;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(billID, date, periodStart, periodEnd, amount, due, serviceID);
+        return Objects.hash(billID, bill_date, periodStart, periodEnd, amount, due_date, serviceID);
     }
 
     @Override

@@ -57,7 +57,7 @@ CREATE TABLE `address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `address` (`address_id`, `town`, `parish`, `street`, `customer_id`) VALUES
-(1, 'city', 'Street', 'Country', 1),
+(1, 'city', 'Street', 'Country', 1);
 (2, 'town', 'parish', 'street', 2);
 
 --
@@ -69,7 +69,7 @@ DROP TABLE IF EXISTS `bill`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bill` (
   `bill_id` int NOT NULL AUTO_INCREMENT,
-  `date` datetime NOT NULL,
+  `bill_date` datetime NOT NULL,
   `amount` float NOT NULL,
   `due_date` datetime NOT NULL,
   `period_start` datetime NOT NULL,
@@ -159,8 +159,8 @@ CREATE TABLE `customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `customer` (`customer_id`, `email`) VALUES
-(2, 'customer@mail.com');
+INSERT INTO `customer` (`customer_id`, `email`, `address`) VALUES
+(2, 'customer@mail.com', '');
 
 --
 -- Table structure for table `employee`
@@ -259,8 +259,9 @@ DROP TABLE IF EXISTS `payment`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `payment` (
   `payment_id` int NOT NULL AUTO_INCREMENT,
+  `amount` double NOT NULL DEFAULT 0,
   `payment_status` varchar(15) NOT NULL,
-  `payment_due_date` datetime NOT NULL,
+  `payment_date` datetime NOT NULL,
   `account_id` int NOT NULL,
   PRIMARY KEY (`payment_id`),
   UNIQUE KEY `payment_ID_UNIQUE` (`payment_id`),
@@ -317,21 +318,20 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
-   `username` varchar(60) NOT NULL,
   `password` varchar(500) NOT NULL,
   `first_name` varchar(15) NOT NULL,
   `last_name` varchar(15) NOT NULL,
   `middle_name` varchar(15) NOT NULL,
   `age` int NOT NULL,
   `gender` varchar(5) NOT NULL,
-  `online_status` bit(1) DEFAULT NULL,
+  `online_status` bit(1) DEFAULT NULL
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 INSERT INTO `user` (`user_id`, `password`, `username`, `first_name`, `last_name`, `middle_name`, `age`, `gender`, `online_status`) VALUES
-(1, 'P@ssword123', 'admin', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
+(1, 'P@ssword123', 'Admin', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
 (2, 'P@ssword1', 'abi', 'Abi', 'Matthews', 'Na', 20, 'F', b'0');
 
 --

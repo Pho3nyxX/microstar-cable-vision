@@ -28,7 +28,6 @@ public class AdminDashboard  extends JPanel  {
     JLabel activeCustomersTxtLabel;
     JLabel liveChatRequestsLabel;
     JLabel liveChatRequestsTxtLabel;
-    JLabel menuLabel;
 
     // these are menu drop downs
     JLabel signOutLabel; // TODO:: should be when "menu" is clicked, it drops this down
@@ -88,9 +87,8 @@ public class AdminDashboard  extends JPanel  {
         activeCustomersTxtLabel = new JLabel("00");
         liveChatRequestsLabel = new JLabel("LiveChat Request");
         liveChatRequestsTxtLabel = new JLabel("00");
-        menuLabel = new JLabel("| Menu");
-        weekDayLabel = new JLabel("Sunday");
-        dateLabel = new JLabel("0 | 00 | 0000");
+        weekDayLabel = new JLabel(Driver.CURRENT_DAY);
+        dateLabel = new JLabel(Driver.CURRENT_DATE);
 
         // text fields objects
         resolvedTxtArea = new JTextArea("00");
@@ -105,7 +103,6 @@ public class AdminDashboard  extends JPanel  {
 
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
-        menuLabel.setBounds(150, 0, 350, 50);
         welcomeLabel.setBounds(450, 0, 200, 50);
         weekDayLabel.setBounds(450, 20, 100, 50);
         dateLabel.setBounds(500, 20, 150, 50);
@@ -178,7 +175,6 @@ public class AdminDashboard  extends JPanel  {
 
         // adding attributes
         this.add(microStarLabel);
-        this.add(menuLabel);
         this.add(welcomeLabel);
         this.add(weekDayLabel);
         this.add(dateLabel);

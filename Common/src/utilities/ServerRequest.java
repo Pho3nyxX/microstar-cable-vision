@@ -37,6 +37,16 @@ public class ServerRequest<T extends Serializable>  implements Serializable {
     public static final String SERVICE_UPDATE_COMMAND = "Service-Update";
     public static final String SERVICE_DELETE_COMMAND = "Service-Delete";
 
+    public static final String BILL_LOAD_COMMAND = "Bill-Load";
+    public static final String BILL_LOAD_MANY_COMMAND = "Bill-Load-List";
+    public static final String BILL_UPDATE_COMMAND = "Bill-Update";
+    public static final String BILL_DELETE_COMMAND = "Bill-Delete";
+
+    public static final String PAYMENT_LOAD_COMMAND = "Payment-Load";
+    public static final String PAYMENT_LOAD_MANY_COMMAND = "Payment-Load-List";
+    public static final String PAYMENT_UPDATE_COMMAND = "Payment-Update";
+    public static final String PAYMENT_DELETE_COMMAND = "Payment-Delete";
+
     public ServerRequest() {
     }
 

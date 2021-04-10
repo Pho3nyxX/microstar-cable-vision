@@ -1,18 +1,23 @@
 package views.customer;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-public class ViewPastPayment extends JPanel {
+public class ViewPastPayment extends JDialog {
 
     /** -------------------------MEMBERS------------------------------- */
+
+    //container
+    JPanel contentPanel;
 
     // labels
     JLabel microStarLabel;
@@ -48,8 +53,13 @@ public class ViewPastPayment extends JPanel {
 
     /** -------------------------CONSTRUCTORS------------------------------- */
 
-    public ViewPastPayment() {
+    public ViewPastPayment(Frame parent) {
 
+        super(parent, "Payment History", true);
+
+        contentPanel = new JPanel();
+        
+        
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
         paymentsHeaderLabel = new JLabel("Past Payments");
@@ -65,7 +75,7 @@ public class ViewPastPayment extends JPanel {
 
         // JLists
         String[] data = { "Payment1", "Payment2", "Payment3", "Payment4", "Payment5", "Payment6", "Payment7",
-                "Payment8", "Payment9", "Payment10" };
+                "Payment8", "Payment9", "Payment10", "Payment11" };
         paymentList = new JList<String>(data);
 
         paymentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -131,16 +141,22 @@ public class ViewPastPayment extends JPanel {
         paymentsHeaderLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // adding attributes
-        this.add(microStarLabel);
-        this.add(paymentsHeaderLabel);
-        this.add(monthLabel);
-        this.add(paymentMonthsCombobox);
-        this.add(paymentsListLabel);
-        this.add(paymentList);
-        this.add(detailsLabel);
-        this.add(dashboardBtn);
+        contentPanel.add(microStarLabel);
+        contentPanel.add(paymentsHeaderLabel);
+        contentPanel.add(monthLabel);
+        contentPanel.add(paymentMonthsCombobox);
+        contentPanel.add(paymentsListLabel);
+        contentPanel.add(paymentList);
+        contentPanel.add(detailsLabel);
+        contentPanel.add(dashboardBtn);
+
+        contentPanel.setLayout(null);
+        contentPanel.setBounds(0,0,600,680);
+        
+        this.add(contentPanel);
 
         this.setLayout(null);
+        this.setSize(600,460);
 
         // making GUI visable
         this.setVisible(true);

@@ -2,6 +2,8 @@ package views.technician;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,7 +24,6 @@ public class TechDashboard extends JPanel {
     JLabel dateLabel; // TODO:: auto generate date
     JLabel microStarLabel;
     JLabel signLabel;
-    JLabel menuLabel;
     JLabel taskLabel;
     JLabel titleLabel;
     JLabel firstNameLabel;
@@ -100,9 +101,8 @@ public class TechDashboard extends JPanel {
         // JLabel objects
         welcomeLabel = new JLabel(
                 "Welcome: " + Driver.CURRENT_USER.getfirstName() + " " + Driver.CURRENT_USER.getlastName());
-        menuLabel = new JLabel("| Menu");
-        weekDayLabel = new JLabel("Sunday");
-        dateLabel = new JLabel("0 | 00 | 0000");
+        weekDayLabel = new JLabel(Driver.CURRENT_DAY);
+        dateLabel = new JLabel(Driver.CURRENT_DATE);
         taskLabel = new JLabel("Tasks");
         titleLabel = new JLabel("Title");
         detailsListLabel = new JLabel("Details");
@@ -119,7 +119,6 @@ public class TechDashboard extends JPanel {
 
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
-        menuLabel.setBounds(150, 0, 350, 50);
         welcomeLabel.setBounds(430, 0, 200, 50);
         weekDayLabel.setBounds(430, 20, 100, 50);
         dateLabel.setBounds(480, 20, 150, 50);
@@ -201,7 +200,6 @@ public class TechDashboard extends JPanel {
         this.add(welcomeLabel);
         this.add(weekDayLabel);
         this.add(dateLabel);
-        this.add(menuLabel);
         this.add(taskLabel);
         this.add(typeOfTaskCombobox);
         this.add(titleLabel);

@@ -1,16 +1,21 @@
 package views.customer;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class ViewPastComplaints extends JPanel {
+public class ViewPastComplaints extends JDialog {
 
     /** -------------------------MEMBERS------------------------------- */
+
+    //container
+    JPanel contentPanel;
 
     // labels
     JLabel selectTypeOfServiceLabel;
@@ -33,7 +38,12 @@ public class ViewPastComplaints extends JPanel {
     JButton DashboardBtn;
 
     /** -------------------------CONSTRUCTORS------------------------------- */
-    public ViewPastComplaints() {
+    
+    public ViewPastComplaints(Frame parent) {
+
+        super(parent, "Complaint History", true);
+
+        contentPanel = new JPanel();
 
         // JLabel objects
         MicroStarLabel = new JLabel("Micro-Star Cable-Vision");
@@ -99,20 +109,26 @@ public class ViewPastComplaints extends JPanel {
         PastComplaintsLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // adding attributes
-        this.add(MicroStarLabel);
-        this.add(PastComplaintsLabel);
-        this.add(selectTypeOfServiceLabel);
-        this.add(selectTypeOfServiceCombobox);
-        this.add(selectComplaintLabel);
-        this.add(selectComplaintCombobox);
-        this.add(lastResponseDateLabel);
-        this.add(lastResponseDateLabelField);
-        this.add(RespondeeLabel);
-        this.add(RespondeeLabelField);
-        this.add(viewBtn);
-        this.add(DashboardBtn);
+        contentPanel.add(MicroStarLabel);
+        contentPanel.add(PastComplaintsLabel);
+        contentPanel.add(selectTypeOfServiceLabel);
+        contentPanel.add(selectTypeOfServiceCombobox);
+        contentPanel.add(selectComplaintLabel);
+        contentPanel.add(selectComplaintCombobox);
+        contentPanel.add(lastResponseDateLabel);
+        contentPanel.add(lastResponseDateLabelField);
+        contentPanel.add(RespondeeLabel);
+        contentPanel.add(RespondeeLabelField);
+        contentPanel.add(viewBtn);
+        contentPanel.add(DashboardBtn);
+
+        contentPanel.setLayout(null);
+        contentPanel.setBounds(0,0,600,680);
+        
+        this.add(contentPanel);
 
         this.setLayout(null);
+        this.setSize(400,400);
 
         // making GUI visable
         this.setVisible(true);
