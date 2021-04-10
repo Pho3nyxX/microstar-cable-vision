@@ -57,7 +57,7 @@ CREATE TABLE `address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 INSERT INTO `address` (`address_id`, `town`, `parish`, `street`, `customer_id`) VALUES
-(1, 'city', 'Street', 'Country', 1);
+(1, 'city', 'Street', 'Country', 1),
 (2, 'town', 'parish', 'street', 2);
 
 --
@@ -159,8 +159,8 @@ CREATE TABLE `customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `customer` (`customer_id`, `email`, `address`) VALUES
-(2, 'customer@mail.com', '');
+INSERT INTO `customer` (`customer_id`, `email`) VALUES
+(2, 'customer@mail.com');
 
 --
 -- Table structure for table `employee`
@@ -318,13 +318,14 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(500) NOT NULL,
   `password` varchar(500) NOT NULL,
   `first_name` varchar(15) NOT NULL,
   `last_name` varchar(15) NOT NULL,
   `middle_name` varchar(15) NOT NULL,
   `age` int NOT NULL,
   `gender` varchar(5) NOT NULL,
-  `online_status` bit(1) DEFAULT NULL
+  `online_status` bit(1) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
