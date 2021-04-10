@@ -67,23 +67,10 @@ public class LiveChat {
         ServerResponse response;
         response = Driver.messageConnection.receiveResponse();
 
-        //Inform all Employees and Customers who are online who has logged off
-        if (response.getMessage().equals("Log Out Successful")) {
-            //If it was a customer who wanted to log off, notify the Technicians that the customer is offline
-         /*   if (user.getClass().getSimpleName().equals("Customer")) {
-                for (Customer customer : customerArrayList) {
-                    System.out.println("Customer " + customer.getfirstName() + " is offline");
-                }
-            } else if (user.getClass().getSimpleName().equals("Employee")) {
-                //If it was an Employee who wanted to log off, notify the Customers that the technician is offline
-                for (Employee employee : employeeArrayList) {
-                    System.out.println("Technician " + employee.getfirstName() + " is offline");
-                }
-            } */
+        //Check if it was successful
 
-            //Close the message connection socket for the user who wishes to log off
-            Driver.messageConnection.closeConnection();
-        }
+        //Close the message connection socket for the user who wishes to log off
+        Driver.messageConnection.createConnection();
     }
 
     public static _User findUserFromUsername(String username) {
@@ -112,6 +99,7 @@ public class LiveChat {
 
     public static void sendMessage(_Message message) {
         //Send messages through live chat
+        //Check if recipient is online before sending
         ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
                 message);
         Driver.messageConnection.sendAction(request);

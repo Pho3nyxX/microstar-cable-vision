@@ -30,7 +30,7 @@ public class ChatMessage extends JPanel{
     ChatMessage(_User recipient, Complaint complaint) {
         backArrowImageLabel = new JLabel(new ImageIcon("image/BackArrow.png"));
         profileImageLabel = new JLabel(new ImageIcon("image/Chat.png"));
-        nameLabel = new JLabel("Customer");
+        nameLabel = new JLabel(recipient.getUsername());
         availableLabel = new JLabel("Active Now");
         typeMessageTextField = new JTextField();
         sendMessageButton = new JButton("Send");

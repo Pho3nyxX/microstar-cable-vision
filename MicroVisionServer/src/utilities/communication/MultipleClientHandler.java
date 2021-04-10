@@ -141,34 +141,20 @@ public class MultipleClientHandler implements Runnable {
                         }
                     }
                 }
-                /* case ServerRequest.USER_END_CHAT_COMMAND -> {
+                case ServerRequest.USER_END_CHAT_COMMAND -> {
                     //Actions to log the user off the live chat
 
                     //Check if user is a Customer or an Employee of type
                     _User user = (_User) action.getData();
 
-                    //if Customer
-                    if (user.getClass().getSimpleName().equals("Customer")) {
-                        //Remove customer from current list of online customers
-                        LiveChat.customerArrayList.remove( (Customer) user);
+                    user.setisOnline(false);
+                    Server.activeLiveChatUsers.remove(user);
 
-                        ServerResponse response;
-                        String message = "Log Out Successful";
-                        int code = ServerResponse.REQUEST_SUCCEEDED;
-                        response = new ServerResponse<>(message,code,user);
-                        objectOutputStream.writeObject(response);
-
-                    }else if (user.getClass().getSimpleName().equals("Employee")) { //If Employee
-
-                        //Remove Technician from current list of online technicians
-                        LiveChat.employeeArrayList.remove((Employee) user);
-
-                        ServerResponse response;
-                        String message = "Log Out Successful";
-                        int code = ServerResponse.REQUEST_SUCCEEDED;
-                        response = new ServerResponse<>(message,code, user);
-                        objectOutputStream.writeObject(response);
-                    }
+                    ServerResponse response;
+                    String message = "Log Out Successful";
+                    int code = ServerResponse.REQUEST_SUCCEEDED;
+                    response = new ServerResponse<>(message,code, user);
+                    objectOutputStream.writeObject(response);
                 }
                 case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
                     _Message message = (_Message) action.getData();
@@ -177,21 +163,9 @@ public class MultipleClientHandler implements Runnable {
                     //Search for the recipient of the message in the connected clients list
                     for (MultipleClientHandler client:Server.activeClients) {
                         //Check if the recipient is an employee
-                        for (Employee employee: LiveChat.employeeArrayList) {
-                            if (message.getRecipientId() == employee.getUserID() ) {
+                        for (_User onlineUser: Server.activeLiveChatUsers) {
+                            if (message.getRecipientId() == onlineUser.getUserID() ) {
                                 //Send message to that employee
-                                ServerResponse response;
-                                String responseMessage = "Incoming message";
-                                int code = ServerResponse.REQUEST_SUCCEEDED;
-                                response = new ServerResponse<_Message>(responseMessage,code,message);
-                                client.objectOutputStream.writeObject(response);
-                                break;
-                            }
-                        }
-                        //Check if the recipient is a customer
-                        for (Customer customer: LiveChat.customerArrayList) {
-                            if (message.getRecipientId() == customer.getUserID() ) {
-                                //Send message to that customer
                                 ServerResponse response;
                                 String responseMessage = "Incoming message";
                                 int code = ServerResponse.REQUEST_SUCCEEDED;
@@ -203,7 +177,7 @@ public class MultipleClientHandler implements Runnable {
                     }
                     //Save the message to the database
                     //Driver.messageRepository.save(message);
-                }*/
+                }
             }
         }catch (IOException | ClassNotFoundException ex) {
             error.error(ex.getMessage());

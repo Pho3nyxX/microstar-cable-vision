@@ -102,15 +102,15 @@ public class ChatHome extends JPanel {
                 String name = JOptionPane.showInputDialog(null, "Enter name");
 
                 _User recipientUser = LiveChat.findUserFromUsername(name);
-
-
+                //Get complaint
+                //Call the Chat message constructer
             }
         });
 
         logOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                LiveChat.logOffLiveChat(Driver.CURRENT_USER);
             }
         });
 
