@@ -1,18 +1,24 @@
 package views.customer;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class ComplaintForm extends JPanel {
+public class ComplaintForm extends JDialog {
 
     /**-------------------------MEMBERS------------------------------- */
+
+    //container
+    JPanel contentPanel;
+
     // labels
     JLabel selectTypeOfServiceLabel;
     JLabel lodgeComplaintLabel;
@@ -38,7 +44,11 @@ public class ComplaintForm extends JPanel {
     JButton cancelBtn;
     
     /**-------------------------CONSTRUCTORS------------------------------- */
-    public ComplaintForm() {
+    public ComplaintForm(Frame parent) {
+
+        super(parent, "Complaint Form", true);
+
+        contentPanel = new JPanel();    
 
         // JLabel objects
         MicroStarLabel = new JLabel("Micro-Star Cable-Vision");
@@ -111,20 +121,26 @@ public class ComplaintForm extends JPanel {
         // adding attributes
         lodgeComplaintScroller.add(lodgeComplaintTxtArea);
         
-        this.add(MicroStarLabel);
-        this.add(ComplaintFormLabel);
-        this.add(selectTypeOfServiceCombobox);
-        this.add(lodgeComplaintScroller); // TODO:: fix scroll pane
-        this.add(selectMethodOfContactCombobox);
-        this.add(submitBtn);
-        this.add(cancelBtn);
+        contentPanel.add(MicroStarLabel);
+        contentPanel.add(ComplaintFormLabel);
+        contentPanel.add(selectTypeOfServiceCombobox);
+        contentPanel.add(lodgeComplaintScroller); // TODO:: fix scroll pane
+        contentPanel.add(selectMethodOfContactCombobox);
+        contentPanel.add(submitBtn);
+        contentPanel.add(cancelBtn);
 
         // adding labels to panel
-        this.add(selectTypeOfServiceLabel);
-        this.add(lodgeComplaintLabel);
-        this.add(selectMethodOfContactLabel);
+        contentPanel.add(selectTypeOfServiceLabel);
+        contentPanel.add(lodgeComplaintLabel);
+        contentPanel.add(selectMethodOfContactLabel);
+
+        contentPanel.setLayout(null);
+        contentPanel.setBounds(0,0,600,680);
+        
+        this.add(contentPanel);    
 
         this.setLayout(null);
+        this.setSize(400,400);
 
         // making GUI visable
         this.setVisible(true);

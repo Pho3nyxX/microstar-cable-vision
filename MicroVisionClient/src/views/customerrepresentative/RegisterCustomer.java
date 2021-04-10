@@ -15,6 +15,7 @@ public class RegisterCustomer extends JDialog {
 
     //container
     JPanel contentPanel;
+
     // labels
     JLabel firstNameLabel;
     JLabel lastNameLabel;
@@ -50,9 +51,11 @@ public class RegisterCustomer extends JDialog {
     /** -------------------------CONSTRUCTORS------------------------------- */
 
     public RegisterCustomer(Frame parent) {
-        super(parent, "Sign in", true);
+
+        super(parent, "Sign In", true);
 
         contentPanel = new JPanel();
+
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
         registerLabel = new JLabel("Register Customer");

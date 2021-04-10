@@ -2,6 +2,7 @@ package models.accounts;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -19,36 +20,60 @@ public class _Payment implements Serializable {
     @Column(name="payment_id")
     int paymentID;
 
+    @Column(name="amount")
+    double amount;
+
     @Column(name="payment_status")
     String paymentStatus;
 
-    @Column(name="payment_due_date")
-    LocalDate paymentDueDate;
+    @Column(name="payment_date")
+    LocalDate paymentDate;
 
     @Column(name="account_id")
     int accountID;
 
+
+    @Transient
+    protected ArrayList<String> validation_errors;
+
+
+    public boolean validate() {
+        boolean valid = true;
+
+        // check if each fields data is valid
+        if( amount <= 0){
+            this.validation_errors.add("Invalid payment amount entered.");
+            valid = false;
+        }
+        return valid;
+    }
+
+    /**----------------------------CONSTRUCTORS-------------------------------------------- */
+
     // default constructor
     public _Payment() {
         this.paymentID = 0;
+        this.amount = 0;
         this.paymentStatus = "";
-        this.paymentDueDate = LocalDate.now();
+        this.paymentDate = LocalDate.now();
         this.accountID = 0;
     }
-
+    
     // primary constructor    
-    public _Payment(int paymentID, String paymentStatus, LocalDate paymentDueDate, int accountID) {
+    public _Payment(int paymentID, double amount, String paymentStatus, LocalDate paymentDueDate, int accountID) {
         this.paymentID = paymentID;
+        this.amount = amount;
         this.paymentStatus = paymentStatus;
-        this.paymentDueDate = paymentDueDate;
+        this.paymentDate = paymentDueDate;
         this.accountID = accountID;
     }
-
+    
     // copy constructor    
     public _Payment(_Payment fee) {
         this.paymentID = fee.paymentID;
+        this.amount = fee.amount;
         this.paymentStatus = fee.paymentStatus;
-        this.paymentDueDate = fee.paymentDueDate;
+        this.paymentDate = fee.paymentDate;
         this.accountID = fee.accountID;
     }
 
@@ -69,11 +94,11 @@ public class _Payment implements Serializable {
     }
 
     public LocalDate getPaymentDueDate() {
-        return this.paymentDueDate;
+        return this.paymentDate;
     }
 
     public void setPaymentDueDate(LocalDate paymentDueDate) {
-        this.paymentDueDate = paymentDueDate;
+        this.paymentDate = paymentDueDate;
     }
 
     public int getAccountID() {
@@ -83,6 +108,24 @@ public class _Payment implements Serializable {
     public void setAccountID(int accountID) {
         this.accountID = accountID;
     }
+
+    
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public ArrayList<String> getValidation_errors() {
+        return validation_errors;
+    }
+
+    public void setValidation_errors(ArrayList<String> validation_errors) {
+        this.validation_errors = validation_errors;
+    }
+
 
     public _Payment paymentID(int paymentID) {
         setPaymentID(paymentID);
@@ -112,23 +155,23 @@ public class _Payment implements Serializable {
             return false;
         }
         _Payment _Payment = (_Payment) o;
-        return paymentID == _Payment.paymentID && Objects.equals(paymentStatus, _Payment.paymentStatus) && Objects.equals(paymentDueDate, _Payment.paymentDueDate) && accountID == _Payment.accountID;
+        return paymentID == _Payment.paymentID && amount == _Payment.amount && Objects.equals(paymentStatus, _Payment.paymentStatus) && Objects.equals(paymentDate, _Payment.paymentDate) && accountID == _Payment.accountID;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(paymentID, paymentStatus, paymentDueDate, accountID);
+        return Objects.hash(paymentID, amount, paymentStatus, paymentDate, accountID);
     }
 
     @Override
     public String toString() {
         return "{" +
             " paymentID='" + getPaymentID() + "'" +
+            " paymentID='" + getAmount() + "'" +
             ", paymentStatus='" + getPaymentStatus() + "'" +
             ", paymentDueDate='" + getPaymentDueDate() + "'" +
             ", accountID='" + getAccountID() + "'" +
             "}";
     }
-
     
 }

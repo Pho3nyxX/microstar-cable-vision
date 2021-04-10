@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2021 at 05:56 PM
+-- Generation Time: Apr 11, 2021 at 01:18 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -23,6 +23,9 @@ USE `microstarcablevision`;
 --
 -- Table structure for table `account`
 --
+-- Creation: Apr 10, 2021 at 04:32 PM
+-- Last update: Apr 10, 2021 at 06:19 PM
+--
 
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
@@ -37,12 +40,17 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`account_id`, `account_Status`, `amount_due`, `customer_id`) VALUES
-(1, 'Active', 0, 1);
+(1, 'Active', 0, 1),
+(2, 'UPTODATE', 0, 9),
+(3, 'UPTODATE', 0, 10);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `address`
+--
+-- Creation: Apr 10, 2021 at 04:32 PM
+-- Last update: Apr 10, 2021 at 04:32 PM
 --
 
 DROP TABLE IF EXISTS `address`;
@@ -59,19 +67,22 @@ CREATE TABLE `address` (
 --
 
 INSERT INTO `address` (`address_id`, `town`, `parish`, `street`, `customer_id`) VALUES
-(1, 'city', 'Street', 'Country', 6),
-(8, 'town', 'parish', 'street', 30);
+(1, 'city', 'Street', 'Country', 1),
+(2, 'town', 'parish', 'street', 2);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `bill`
 --
+-- Creation: Apr 10, 2021 at 10:29 PM
+-- Last update: Apr 10, 2021 at 10:34 PM
+--
 
 DROP TABLE IF EXISTS `bill`;
 CREATE TABLE `bill` (
   `bill_id` int(11) NOT NULL,
-  `date` datetime NOT NULL,
+  `bill_date` datetime NOT NULL,
   `amount` float NOT NULL,
   `due_date` datetime NOT NULL,
   `period_start` datetime NOT NULL,
@@ -79,10 +90,20 @@ CREATE TABLE `bill` (
   `service_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `bill`
+--
+
+INSERT INTO `bill` (`bill_id`, `bill_date`, `amount`, `due_date`, `period_start`, `period_end`, `service_id`) VALUES
+(1, '2021-04-10 00:00:00', 1000, '2021-04-10 00:00:00', '2021-04-10 00:00:00', '2021-04-10 00:00:00', 5);
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `complaint`
+--
+-- Creation: Apr 10, 2021 at 04:32 PM
+-- Last update: Apr 10, 2021 at 04:32 PM
 --
 
 DROP TABLE IF EXISTS `complaint`;
@@ -100,12 +121,14 @@ CREATE TABLE `complaint` (
 --
 
 INSERT INTO `complaint` (`complaint_id`, `type_of_issue`, `details_of_issue`, `date_raised`, `status`, `account_id`) VALUES
-(1, 'No connection', 'red light on router', '2021-04-05 21:52:56', 'unresolved', 1);
+(1, 'No connection', 'red light on router', '2021-04-05 21:52:56', 'unresolved', 2);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `complaintvisit`
+--
+-- Creation: Apr 10, 2021 at 04:32 PM
 --
 
 DROP TABLE IF EXISTS `complaintvisit`;
@@ -120,6 +143,9 @@ CREATE TABLE `complaintvisit` (
 --
 -- Table structure for table `contactnum`
 --
+-- Creation: Apr 10, 2021 at 04:32 PM
+-- Last update: Apr 10, 2021 at 04:32 PM
+--
 
 DROP TABLE IF EXISTS `contactnum`;
 CREATE TABLE `contactnum` (
@@ -132,19 +158,23 @@ CREATE TABLE `contactnum` (
 --
 
 INSERT INTO `contactnum` (`contact_num`, `user_id`) VALUES
-('1876564736', 1),
-('876-256-2384', 30);
+('1876564736', 2),
+('876-256-2384', 1);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `customer`
 --
+-- Creation: Apr 10, 2021 at 05:56 PM
+-- Last update: Apr 10, 2021 at 06:19 PM
+--
 
 DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `customer_id` int(11) NOT NULL,
-  `email` varchar(50) NOT NULL
+  `email` varchar(50) NOT NULL,
+  `address` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -152,16 +182,17 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customer_id`, `email`, `address`) VALUES
-(1, 'customer@mail.com', ''),
-(6, 'email@server.com', NULL),
-(8, 'email@server.com', NULL),
-(9, 'email@server.com', NULL),
-(30, 'email2@server.com', NULL);
+(2, 'customer@mail.com', ''),
+(9, 'email2@server.com', NULL),
+(10, 'email2@server.com', NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `employee`
+--
+-- Creation: Apr 10, 2021 at 04:32 PM
+-- Last update: Apr 10, 2021 at 04:32 PM
 --
 
 DROP TABLE IF EXISTS `employee`;
@@ -176,12 +207,14 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`emp_id`, `role`, `status`) VALUES
-(31, 'Admin', 'Active');
+(1, 'Admin', 'Active');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `employeecomplaint`
+--
+-- Creation: Apr 10, 2021 at 04:32 PM
 --
 
 DROP TABLE IF EXISTS `employeecomplaint`;
@@ -196,6 +229,8 @@ CREATE TABLE `employeecomplaint` (
 --
 -- Table structure for table `employeevisit`
 --
+-- Creation: Apr 10, 2021 at 04:32 PM
+--
 
 DROP TABLE IF EXISTS `employeevisit`;
 CREATE TABLE `employeevisit` (
@@ -208,6 +243,9 @@ CREATE TABLE `employeevisit` (
 
 --
 -- Table structure for table `message`
+--
+-- Creation: Apr 10, 2021 at 04:32 PM
+-- Last update: Apr 10, 2021 at 04:32 PM
 --
 
 DROP TABLE IF EXISTS `message`;
@@ -226,26 +264,39 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`message_id`, `is_read`, `text`, `date`, `sender_id`, `recipient_id`, `complaint_id`) VALUES
-(1, b'1', 'text', '2021-04-05 19:56:30', 1, 1, 1);
+(1, b'1', 'text', '2021-04-05 19:56:30', 1, 2, 1);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `payment`
 --
+-- Creation: Apr 10, 2021 at 10:44 PM
+-- Last update: Apr 10, 2021 at 11:11 PM
+--
 
 DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment` (
   `payment_id` int(11) NOT NULL,
+  `amount` double NOT NULL DEFAULT 0,
   `payment_status` varchar(15) NOT NULL,
-  `payment_due_date` datetime NOT NULL,
+  `payment_date` datetime NOT NULL,
   `account_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`payment_id`, `amount`, `payment_status`, `payment_date`, `account_id`) VALUES
+(2, 1000, '', '2021-04-10 00:00:00', 1);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `response`
+--
+-- Creation: Apr 10, 2021 at 04:32 PM
 --
 
 DROP TABLE IF EXISTS `response`;
@@ -261,6 +312,9 @@ CREATE TABLE `response` (
 --
 -- Table structure for table `service`
 --
+-- Creation: Apr 10, 2021 at 04:32 PM
+-- Last update: Apr 10, 2021 at 10:22 PM
+--
 
 DROP TABLE IF EXISTS `service`;
 CREATE TABLE `service` (
@@ -271,17 +325,27 @@ CREATE TABLE `service` (
   `account_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `service`
+--
+
+INSERT INTO `service` (`service_id`, `type_of_service`, `date_initiated`, `status`, `account_id`) VALUES
+(5, 'Broadband', '2021-04-10 00:00:00', 'Active', 1);
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `user`
 --
+-- Creation: Apr 10, 2021 at 04:32 PM
+-- Last update: Apr 10, 2021 at 06:34 PM
+--
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
+  `username` varchar(60) NOT NULL,
   `password` varchar(500) NOT NULL,
-  `username` varchar(60) DEFAULT NULL,
   `first_name` varchar(15) NOT NULL,
   `last_name` varchar(15) NOT NULL,
   `middle_name` varchar(15) NOT NULL,
@@ -294,18 +358,18 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `password`, `username`, `first_name`, `last_name`, `middle_name`, `age`, `gender`, `online_status`) VALUES
-(1, 'P@ssword1', 'abi', 'Abi', 'Matthews', 'Na', 20, 'F', b'0'),
-(6, 'P@ssword123', 'abi1', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
-(8, 'P@ssword123', 'abi2', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
-(9, 'P@ssword123', 'abi3', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
-(30, 'P@ssword123', 'abi5', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
-(31, 'P@ssword123', 'Admin', 'abi', 'gordon', 'middleName', 10, 'F', b'0');
+INSERT INTO `user` (`user_id`, `username`, `password`, `first_name`, `last_name`, `middle_name`, `age`, `gender`, `online_status`) VALUES
+(1, 'admin', 'P@ssword123', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
+(2, 'abi', 'P@ssword1', 'Abi', 'Matthews', 'Na', 20, 'F', b'0'),
+(9, 'abi5', 'P@ssword123', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
+(10, 'abi5', 'P@ssword123', 'abi', 'gordon', 'middleName', 10, 'F', b'0');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `visit`
+--
+-- Creation: Apr 10, 2021 at 04:32 PM
 --
 
 DROP TABLE IF EXISTS `visit`;
@@ -364,7 +428,8 @@ ALTER TABLE `complaintvisit`
 -- Indexes for table `contactnum`
 --
 ALTER TABLE `contactnum`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `contact_num_UNIQUE` (`contact_num`);
 
 --
 -- Indexes for table `customer`
@@ -434,8 +499,7 @@ ALTER TABLE `service`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `user_id_UNIQUE` (`user_id`),
-  ADD UNIQUE KEY `username_unique_index_38455` (`username`);
+  ADD UNIQUE KEY `user_id_UNIQUE` (`user_id`);
 
 --
 -- Indexes for table `visit`
@@ -452,37 +516,37 @@ ALTER TABLE `visit`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `address`
 --
 ALTER TABLE `address`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `complaint`
 --
 ALTER TABLE `complaint`
-  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `employeecomplaint`
@@ -500,7 +564,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `response`
@@ -512,13 +576,13 @@ ALTER TABLE `response`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `visit`

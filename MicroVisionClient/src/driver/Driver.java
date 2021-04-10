@@ -2,6 +2,8 @@ package driver;
 import utilities.*;
 
 import controllers.Authentication;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -22,17 +24,23 @@ public class Driver extends JFrame{
     public static String SESSION_ID; //identifies a session based on user-id and a random string 
     public static String SESSION_TYPE; //Whether a use is an employee or a customer
     public static String APP_NAME = "MicroStar Cable Vision";
+    public static String CURRENT_DATE = null;
+    public static String CURRENT_DAY = null;
     public static JFrame FRAME = null;
 
  
     
     public Driver() {
         super(Driver.APP_NAME);
+        CURRENT_DATE = LocalDate.now().toString();
+        CURRENT_DAY = LocalDate.now().getDayOfWeek().name();
         clientConnection = new Client();
     }
     
     public Driver(String title) {
         super(title);
+        CURRENT_DATE = LocalDate.now().toString();
+        CURRENT_DAY = LocalDate.now().getDayOfWeek().name();
         clientConnection = new Client();
     }
 
@@ -88,19 +96,29 @@ public class Driver extends JFrame{
 
         // set window properties
         driver.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // close app when window is closed
-        driver.setSize(500, 500); // set panel window size
+        driver.setSize(610, 600); // set panel window size
         driver.setLayout(null);
         driver.setVisible(true);
 
 
 /*
-        System.out.println("Hello, World!");
-        Authentication auth =  new Authentication();
-        auth.login("Abi", "Gordon"); 
-        ArrayList<Customer> customers = Customer.loadCustomers();
+        // Authentication auth =  new Authentication();
+        // auth.login("admin", "P@ssword123"); 
+        // ArrayList<Customer> customers = Customer.loadCustomers();
+        
+        // Customer customer = new Customer(0, "abi5", "abi", "gordon", "middleName", "P@ssword123", 10, "F", "email2@server.com", new Address("parish", "town","street"));
+        // Customer customer = new Customer(0, "abi5", "abi", "gordon", "middleName", "P@ssword123", 10, "F", "email2@server.com", new Address("parish", "town","street"));
+        // customer.save();
+        // customer.setUserID(1);
+        // customer.refresh();
 
-        Customer customer = new Customer();
-        customer.save();
+        // Service service = new Service(0, Service.SERVICE_BROADBAND, LocalDate.now(), _Service.SERVICE_STATUS_ACTIVE, 1);
+        // service.save();
+        // Bill bill = new Bill(0, LocalDate.now(), LocalDate.now(), LocalDate.now(), 1000, LocalDate.now(), 5);
+        // bill.save();
+        Payment payment = new Payment(0, 1000, "", LocalDate.now(), 1);
+        payment.save();
+        
         */
     }
 }
