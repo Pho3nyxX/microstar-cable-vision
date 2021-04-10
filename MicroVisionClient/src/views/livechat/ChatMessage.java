@@ -1,11 +1,19 @@
 package views.livechat;
 
+import controllers.LiveChat;
+import driver.Driver;
+import models.chat.Message;
+import models.complaints.Complaint;
+import models.users._User;
+import utilities.ServerRequest;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 
 public class ChatMessage extends JPanel{
     JLabel backArrowImageLabel;
@@ -17,7 +25,9 @@ public class ChatMessage extends JPanel{
     JPanel topPanel;
     static JTextArea chatTextArea;
 
-    ChatMessage() {
+    static int messageID = 0;
+
+    ChatMessage(_User user, Complaint complaint) {
         backArrowImageLabel = new JLabel(new ImageIcon("image/BackArrow.png"));
         profileImageLabel = new JLabel(new ImageIcon("image/Chat.png"));
         nameLabel = new JLabel("Customer");
@@ -66,8 +76,15 @@ public class ChatMessage extends JPanel{
         sendMessageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ServerRequest request = new ServerRequest(ServerRequest.USER_GET_RECIPIENT_COMMAND, nameLabel.getText());
+                Driver.messageConnection.sendAction(request);
+
+
+
                 String messageToBeSent = typeMessageTextField.getText();
                 chatTextArea.setText(chatTextArea.getText() + " \n\t\t" + messageToBeSent);
+                LiveChat.sendMessage(new Message(messageID+1,messageToBeSent,false, LocalDateTime.now(),
+                        user.getUserID(), user.getUserID(), complaint.getComplaintId()));
                 typeMessageTextField.setText("");
             }
         });
