@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import models.accounts._Account;
 import models.accounts.*;
 
-import models.users.Customer;
+import models.users._Customer;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 import utilities.Validator;
@@ -52,14 +52,10 @@ public class Account extends _Account{
         //App.clientConnection.closeConnection();
         ServerResponse<Account> response = Driver.clientConnection.receiveResponse();
         if (response.getCode() == ServerResponse.REQUEST_SUCCEEDED) {
-            this.userID = ((Account)response.getData()).getUserID();
-            this.age = ((Account)response.getData()).getAge();
-            this.email = ((Account)response.getData()).getEmail();
-            this.phone = ((Account)response.getData()).getPhone();
-            this.username = ((Account)response.getData()).getUsername();
-            this.firstName = ((Account)response.getData()).getfirstName();
-            this.lastName = ((Account)response.getData()).getlastName();
-            this.middleName = ((Account)response.getData()).getmiddleName();
+            this.accountID = ((Account)response.getData()).getAccountID();
+            this.accountStatus = ((Account)response.getData()).getAccountStatus();
+            this.amountDue = ((Account)response.getData()).getAmountDue();
+
 
             //TODO handle user creation succeed
         } else{

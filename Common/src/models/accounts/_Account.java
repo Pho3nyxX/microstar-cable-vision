@@ -25,7 +25,7 @@ public class _Account implements Serializable {
     @Column(name="amount_due")
     double amountDue;
 
-    // @Column(name="customer_id")
+    //@Column(name="customer_id")
     // int customerID;
 
 
