@@ -15,7 +15,7 @@ import driver.*;
 
 public class Account extends _Account{
 
-    private static final long serialVersionUID = -7122240510909524901L;
+    private static final long serialVersionUID = 8513410526093736170L;
 
     @Override
     public boolean save() {
