@@ -1,17 +1,22 @@
 package views.customerrepresentative;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class AssignmentOfTechnician extends JPanel {
+public class AssignmentOfTechnician extends JDialog {
 
     /** -------------------------MEMBERS------------------------------- */
+
+    // container
+    JPanel contentPanel;
 
     // labels
     JLabel assignedTechnicianLabel;
@@ -21,12 +26,10 @@ public class AssignmentOfTechnician extends JPanel {
     JLabel microStarLabel;
     JLabel assigningTechnicianLabel;
 
-
     // fields
     JTextField customerNameTxtField;
     JTextField assignedTechnicianTxtField;
     JTextArea customerComplaintTxtArea;
-
 
     // comboboxes
     JComboBox<String> typeOfServiceCombobox;
@@ -39,7 +42,12 @@ public class AssignmentOfTechnician extends JPanel {
     JButton dashboardBtn;
 
     /** -------------------------CONSTRUCTORS------------------------------- */
-    public AssignmentOfTechnician() {
+
+    public AssignmentOfTechnician(Frame parent) {
+
+        super(parent, "Assignment Form", true);
+
+        contentPanel = new JPanel();
 
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
@@ -103,27 +111,33 @@ public class AssignmentOfTechnician extends JPanel {
             }
         });
 
-        // centering Micro-Star Cable-Vision and Assign Technician 
+        // centering Micro-Star Cable-Vision and Assign Technician
         microStarLabel.setHorizontalAlignment(JLabel.CENTER);
         assigningTechnicianLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // adding attributes
-        this.add(microStarLabel);
-        this.add(assigningTechnicianLabel);
-        this.add(customerNameLabel);
-        this.add(customerNameTxtField);
-        this.add(assignedTechnicianLabel);
-        this.add(assignedTechnicianTxtField);
-        this.add(typeOfServiceLabel);
-        this.add(typeOfServiceCombobox);
-        this.add(customerComplaintLabel);
-        this.add(customerComplaintTxtArea);
-        this.add(microStarLabel);
-        this.add(assigningTechnicianLabel);
-        this.add(assignBtn);
-        this.add(dashboardBtn);
+        contentPanel.add(microStarLabel);
+        contentPanel.add(assigningTechnicianLabel);
+        contentPanel.add(customerNameLabel);
+        contentPanel.add(customerNameTxtField);
+        contentPanel.add(assignedTechnicianLabel);
+        contentPanel.add(assignedTechnicianTxtField);
+        contentPanel.add(typeOfServiceLabel);
+        contentPanel.add(typeOfServiceCombobox);
+        contentPanel.add(customerComplaintLabel);
+        contentPanel.add(customerComplaintTxtArea);
+        contentPanel.add(microStarLabel);
+        contentPanel.add(assigningTechnicianLabel);
+        contentPanel.add(assignBtn);
+        contentPanel.add(dashboardBtn);
+
+        contentPanel.setLayout(null);
+        contentPanel.setBounds(0, 0, 600, 680);
+
+        this.add(contentPanel);
 
         this.setLayout(null);
+        this.setSize(400, 400);
 
         // making GUI visable
         this.setVisible(true);

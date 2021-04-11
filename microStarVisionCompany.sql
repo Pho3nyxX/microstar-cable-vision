@@ -178,9 +178,10 @@ CREATE TABLE `employee` (
   CONSTRAINT `fk_employee_user_45698` FOREIGN KEY (`emp_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 INSERT INTO `employee` (`emp_id`, `role`, `status`) VALUES
-(1, 'Admin', 'Active');
+(1, 'Admin', 'Active'),
+(3, 'Technician', 'Offline');
+
 
 
 --
@@ -318,7 +319,7 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(500) NOT NULL,
+  `username` varchar(60) NOT NULL,
   `password` varchar(500) NOT NULL,
   `first_name` varchar(15) NOT NULL,
   `last_name` varchar(15) NOT NULL,
@@ -331,10 +332,10 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `user` (`user_id`, `password`, `username`, `first_name`, `last_name`, `middle_name`, `age`, `gender`, `online_status`) VALUES
-(1, 'P@ssword123', 'Admin', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
-(2, 'P@ssword1', 'abi', 'Abi', 'Matthews', 'Na', 20, 'F', b'0');
-
+INSERT INTO `user` (`user_id`, `username`, `password`, `first_name`, `last_name`, `middle_name`, `age`, `gender`, `online_status`) VALUES
+(1, 'admin', 'P@ssword123', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
+(2, 'abi', 'P@ssword1', 'Abi', 'Matthews', 'Na', 20, 'F', b'0'),
+(3, 'abie', 'P@ssword123', 'abi', 'gordon', 'middleName', 10, 'F', b'0');
 --
 -- Table structure for table `visit`
 --

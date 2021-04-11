@@ -17,8 +17,8 @@ public class AdminDashboard  extends JPanel  {
 
     // labels
     JLabel welcomeLabel;
-    JLabel weekDayLabel; // TODO:: auto generate weekday
-    JLabel dateLabel; // TODO:: auto generate date
+    JLabel weekDayLabel; 
+    JLabel dateLabel; 
     JLabel microStarLabel;
     JLabel complaintsLabel;
     JLabel resolvedLabel; // TODO:: display number of resolved
@@ -30,7 +30,7 @@ public class AdminDashboard  extends JPanel  {
     JLabel liveChatRequestsTxtLabel;
 
     // these are menu drop downs
-    JLabel signOutLabel; // TODO:: should be when "menu" is clicked, it drops this down
+    JLabel signOutLabel; 
 
     // JTextFields
     JTextField resolved1TxtField;
@@ -84,16 +84,16 @@ public class AdminDashboard  extends JPanel  {
         unresolvedLabel = new JLabel("Unresolved");
         techniciansOnDutyLabel = new JLabel("Technician on Duty");
         activeCustomersLabel = new JLabel("Active Customers");
-        activeCustomersTxtLabel = new JLabel("00");
+        activeCustomersTxtLabel = new JLabel("1");
         liveChatRequestsLabel = new JLabel("LiveChat Request");
-        liveChatRequestsTxtLabel = new JLabel("00");
+        liveChatRequestsTxtLabel = new JLabel("1");
         weekDayLabel = new JLabel(Driver.CURRENT_DAY);
         dateLabel = new JLabel(Driver.CURRENT_DATE);
 
         // text fields objects
-        resolvedTxtArea = new JTextArea("00");
-        unresolvedTxtArea = new JTextArea("00");
-        techniciansOnDutyNumberTxtArea = new JTextArea("00");
+        resolvedTxtArea = new JTextArea("5");
+        unresolvedTxtArea = new JTextArea("1");
+        techniciansOnDutyNumberTxtArea = new JTextArea("1");
         techniciansOnDutyNamesTxtArea = new JTextArea();
 
         // Checkbox objects
@@ -103,8 +103,8 @@ public class AdminDashboard  extends JPanel  {
 
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
-        welcomeLabel.setBounds(450, 0, 200, 50);
-        weekDayLabel.setBounds(450, 20, 100, 50);
+        welcomeLabel.setBounds(430, 0, 200, 50);
+        weekDayLabel.setBounds(430, 20, 100, 50);
         dateLabel.setBounds(500, 20, 150, 50);
         complaintsLabel.setBounds(10, 60, 150, 50);
         internetCheckbox.setBounds(5, 100, 70, 50);

@@ -1,12 +1,17 @@
-package views.customer;
+package views.customerrepresentative;
 
+import java.awt.Frame;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Details extends JPanel {
-    
+public class ViewCustomerDetails extends JDialog {
+
     /** -------------------------MEMBERS------------------------------- */
+
+    // container
+    JPanel contentPanel;
 
     // labels
     JLabel customerIDLabel;
@@ -18,21 +23,23 @@ public class Details extends JPanel {
     JLabel microStarLabel;
     JLabel customerDetailsLabel;
 
-
-     // inputs
+    // inputs
     JButton DashboardBtn;
 
+    /** -------------------------CONSTRUCTORS------------------------------- */
 
-    public Details() {
+    public ViewCustomerDetails(Frame parent) {
+
+        super(parent, "Customer Details", true);
+
+        contentPanel = new JPanel();
 
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
         customerDetailsLabel = new JLabel("Customer Details");
 
-
         // text field objects
         DashboardBtn = new JButton("Dashboard");
-
 
         // JLabel objects
         customerIDLabel = new JLabel("Customer ID");
@@ -49,7 +56,6 @@ public class Details extends JPanel {
         JLabel typeOfIssueLabelField = new JLabel("Fire");
         JLabel detailsOfIssueLabelField = new JLabel("Cord caught on fire");
 
-
         // setting the size of the labels
         microStarLabel.setBounds(00, 0, 350, 50);
         customerDetailsLabel.setBounds(50, 30, 250, 50);
@@ -59,9 +65,7 @@ public class Details extends JPanel {
         contactNumberLabel.setBounds(10, 220, 150, 20);
         typeOfIssueLabel.setBounds(10, 260, 150, 20);
         detailsOfIssueLabel.setBounds(10, 300, 150, 20);
-        
-        
-        
+
         // setting the size of text field sizes
         customerIDLabelField.setBounds(160, 100, 150, 20);
         nameLabelField.setBounds(160, 140, 150, 20);
@@ -72,39 +76,37 @@ public class Details extends JPanel {
 
         DashboardBtn.setBounds(160, 340, 100, 40);
 
-
         // centering Micro-Star Cable-Vision and Complaint Form
         microStarLabel.setHorizontalAlignment(JLabel.CENTER);
         customerDetailsLabel.setHorizontalAlignment(JLabel.CENTER);
 
-
         // adding attributes
-        this.add(microStarLabel);
-        this.add(customerDetailsLabel);
-        this.add(customerIDLabel);
-        this.add(customerIDLabelField);
-        this.add(nameLabel);
-        this.add(nameLabelField);
-        this.add(emailAddressLabel);
-        this.add(emailAddressLabelField);
-        this.add(contactNumberLabel);
-        this.add(contactNumberLabelField);
-        this.add(typeOfIssueLabel);
-        this.add(typeOfIssueLabelField);
-        this.add(detailsOfIssueLabel);
-        this.add(detailsOfIssueLabelField);
-        this.add(DashboardBtn);
+        contentPanel.add(microStarLabel);
+        contentPanel.add(customerDetailsLabel);
+        contentPanel.add(customerIDLabel);
+        contentPanel.add(customerIDLabelField);
+        contentPanel.add(nameLabel);
+        contentPanel.add(nameLabelField);
+        contentPanel.add(emailAddressLabel);
+        contentPanel.add(emailAddressLabelField);
+        contentPanel.add(contactNumberLabel);
+        contentPanel.add(contactNumberLabelField);
+        contentPanel.add(typeOfIssueLabel);
+        contentPanel.add(typeOfIssueLabelField);
+        contentPanel.add(detailsOfIssueLabel);
+        contentPanel.add(detailsOfIssueLabelField);
+        contentPanel.add(DashboardBtn);
 
+        contentPanel.setLayout(null);
+        contentPanel.setBounds(0, 0, 600, 680);
 
-
-
+        this.add(contentPanel);
+        this.setSize(400, 400);
 
         this.setLayout(null);
 
         // making GUI visable
         this.setVisible(true);
-
-
 
     }
 }

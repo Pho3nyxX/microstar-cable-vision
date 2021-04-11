@@ -11,6 +11,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import driver.Driver;
 
@@ -20,8 +22,8 @@ public class TechDashboard extends JPanel {
 
     // labels
     JLabel welcomeLabel;
-    JLabel weekDayLabel; // TODO:: auto generate weekday
-    JLabel dateLabel; // TODO:: auto generate date
+    JLabel weekDayLabel; 
+    JLabel dateLabel; 
     JLabel microStarLabel;
     JLabel signLabel;
     JLabel taskLabel;
@@ -50,7 +52,7 @@ public class TechDashboard extends JPanel {
     JComboBox<String> typeOfTaskCombobox;
 
     // combobox options
-    String typeOfTask[] = { "None", "Internet", "Phone", "Television" };
+    String typeOfTask[] = {"Internet", "Phone", "Television" };
 
     // JButtons
     JButton respondBtn;
@@ -66,7 +68,7 @@ public class TechDashboard extends JPanel {
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
 
         // JLists
-        String[] data = { "Task1", "Task2", "Task3", "Task4", "Task5", "Task6", "Task7", "Task8", "Task9", "Task10" };
+        String[] data = { "Task 1", "Task 2", "Task 3", "Task 4", "Task 5", "Task 6", "Task 7", "Task 8", "Task 9", "Task 10", "Task 11", "Task 12", "Task 13", "Task 14", "Task 15", "Task 16", "Task 17", "Task 18", "Task 19", "Task 20" };
         complaintList = new JList<String>(data);
 
         complaintList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -74,15 +76,6 @@ public class TechDashboard extends JPanel {
 
         // add the jlist to the jscrollpane
         complaintListScroller = new JScrollPane(complaintList);
-        // complaintListScroller.setMinimumSize(new Dimension(100, 50));
-        /*
-         * 
-         * JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scroller,
-         * contentPanel);
-         * 
-         * max 5 tasks will be shown at a time list.setVisibleRowCount(5);
-         * 
-         */
 
         detailsPanel = new JPanel();
 
@@ -107,7 +100,7 @@ public class TechDashboard extends JPanel {
         titleLabel = new JLabel("Title");
         detailsListLabel = new JLabel("Details");
         liveChatRequestsLabel = new JLabel("LiveChat Request");
-        liveChatRequestsTxtLabel = new JLabel("00");
+        liveChatRequestsTxtLabel = new JLabel("1");
 
         // labels within the new JPanel - details.
         firstNameLabel = new JLabel("First Name:");
@@ -119,13 +112,13 @@ public class TechDashboard extends JPanel {
 
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
-        welcomeLabel.setBounds(430, 0, 200, 50);
-        weekDayLabel.setBounds(430, 20, 100, 50);
+        welcomeLabel.setBounds(410, 0, 200, 50);
+        weekDayLabel.setBounds(410, 20, 100, 50);
         dateLabel.setBounds(480, 20, 150, 50);
         taskLabel.setBounds(10, 60, 150, 50);
         typeOfTaskCombobox.setBounds(50, 75, 85, 20);
         titleLabel.setBounds(10, 100, 150, 50);
-        complaintList.setBounds(10, 145, 130, 200);
+        complaintListScroller.setBounds(10, 145, 130, 200);
         detailsListLabel.setBounds(300, 50, 130, 150);
         liveChatRequestsLabel.setBounds(360, 450, 120, 30);
         liveChatRequestsTxtLabel.setBounds(400, 460, 50, 50);
@@ -146,12 +139,12 @@ public class TechDashboard extends JPanel {
         joinChatBtn.setBounds(430, 510, 90, 30);
 
         // adding action listener to Respond Button button because it requires an action
-        // if
-        // it is selected
+        // if it is selected
         respondBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button clicked");
+                ProposedVisit visit = new ProposedVisit(Driver.FRAME);
             }
         });
 
@@ -182,6 +175,21 @@ public class TechDashboard extends JPanel {
             }
         });
 
+        //listener for tasks
+        ListSelectionListener listSelectionListener = new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent listSelectionEvent) {
+                boolean adjust = listSelectionEvent.getValueIsAdjusting();
+                if (!adjust) {
+                    JList list = (JList) listSelectionEvent.getSource();
+                    String value = (String)list.getSelectedValue();
+                    System.out.println(value);
+                }
+                System.out.println();
+            }
+        };
+
+        complaintList.addListSelectionListener(listSelectionListener);
+
         // adding items to details panel
         detailsPanel.add(firstNameLabel);
         detailsPanel.add(lastNameLabel);
@@ -203,7 +211,7 @@ public class TechDashboard extends JPanel {
         this.add(taskLabel);
         this.add(typeOfTaskCombobox);
         this.add(titleLabel);
-        this.add(complaintList);
+        this.add(complaintListScroller);
         this.add(detailsListLabel);
         this.add(respondBtn);
         this.add(closeBtn);

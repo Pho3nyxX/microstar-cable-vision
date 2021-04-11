@@ -58,11 +58,11 @@ public class CustomerDashboard extends JPanel {
         repAvailableTxtLabel = new JLabel("Rep Available");
         techAvailableTxtLabel = new JLabel("Technician Available");
         amountDueLabel = new JLabel("Amount Due");
-        amountDuetxtLabel = new JLabel("0.00");
+        amountDuetxtLabel = new JLabel("$5,000");
         paymentStatusLabel = new JLabel("Payment Status");
-        paidTxtLabel = new JLabel("Paid");
+        paidTxtLabel = new JLabel("UnPaid");
         paymentDueDateLabel = new JLabel("Payment Due Date");
-        paymentDueDateTxtLabel = new JLabel("0/00/0000");
+        paymentDueDateTxtLabel = new JLabel("1/05/2021");
         weekDayLabel = new JLabel(Driver.CURRENT_DAY);
         dateLabel = new JLabel(Driver.CURRENT_DATE);
 

@@ -52,7 +52,7 @@ public class RegisterCustomer extends JDialog {
 
     public RegisterCustomer(Frame parent) {
 
-        super(parent, "Sign In", true);
+        super(parent, "Register Customer", true);
 
         contentPanel = new JPanel();
 

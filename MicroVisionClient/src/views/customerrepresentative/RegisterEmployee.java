@@ -55,7 +55,7 @@ public class RegisterEmployee extends JDialog {
 
     public RegisterEmployee(Frame parent) {
 
-        super(parent, "Sign in", true);
+        super(parent, "Register Employee", true);
 
         contentPanel = new JPanel();
 

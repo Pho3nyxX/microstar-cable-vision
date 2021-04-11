@@ -1,15 +1,20 @@
 package views.customer;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class Complaint extends JPanel {
+public class SpecificComplaint extends JDialog {
 
     /** -------------------------MEMBERS------------------------------- */
+
+    // container
+    JPanel contentPanel;
 
     // labels
     JLabel titleLabel;
@@ -34,7 +39,13 @@ public class Complaint extends JPanel {
     // JButton
     JButton dashboardBtn;
 
-    public Complaint() {
+    /** -------------------------CONSTRUCTORS------------------------------- */
+
+    public SpecificComplaint(Frame parent) {
+
+        super(parent, "Complaint", true);
+
+        contentPanel = new JPanel();
 
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
@@ -82,7 +93,7 @@ public class Complaint extends JPanel {
 
         DashboardBtn.setBounds(50, 340, 98, 30);
 
-        // adding action listener to Save Button button because it requires an action if
+        // adding action listener to Dashboard button because it requires an action if
         // it is selected
         DashboardBtn.addActionListener(new ActionListener() {
             @Override
@@ -96,23 +107,29 @@ public class Complaint extends JPanel {
         complaintHeaderLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // adding attributes
-        this.add(microStarLabel);
-        this.add(complaintHeaderLabel);
-        this.add(titleLabel);
-        this.add(titleTxtField);
-        this.add(dateMadeLabel);
-        this.add(dateMadeTxtField);
-        this.add(complaintLabel);
-        this.add(complaintTxtField);
-        this.add(reponseDateLabel);
-        this.add(responseDateTxtField);
-        this.add(respondeeLabel);
-        this.add(respondeeTxtField);
-        this.add(reponseLabel);
-        this.add(responseTxtField);
-        this.add(DashboardBtn);
+        contentPanel.add(microStarLabel);
+        contentPanel.add(complaintHeaderLabel);
+        contentPanel.add(titleLabel);
+        contentPanel.add(titleTxtField);
+        contentPanel.add(dateMadeLabel);
+        contentPanel.add(dateMadeTxtField);
+        contentPanel.add(complaintLabel);
+        contentPanel.add(complaintTxtField);
+        contentPanel.add(reponseDateLabel);
+        contentPanel.add(responseDateTxtField);
+        contentPanel.add(respondeeLabel);
+        contentPanel.add(respondeeTxtField);
+        contentPanel.add(reponseLabel);
+        contentPanel.add(responseTxtField);
+        contentPanel.add(DashboardBtn);
+
+        contentPanel.setLayout(null);
+        contentPanel.setBounds(0, 0, 600, 680);
+
+        this.add(contentPanel);
 
         this.setLayout(null);
+        this.setSize(400, 400);
 
         // making GUI visable
         this.setVisible(true);
