@@ -10,7 +10,9 @@ import models.users._User;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 import views.livechat.ChatHome;
+import views.livechat.ChatMessage;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class LiveChat {
@@ -103,12 +105,16 @@ public class LiveChat {
         ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
                 message);
         Driver.messageConnection.sendAction(request);
+
+        //Save Message in Database
     }
 
-    public static void receiveMessage() {
-            ServerResponse response;
-            response = Driver.messageConnection.receiveResponse();
+    public static _Message receiveMessage() {
+        ServerResponse response;
+        response = Driver.messageConnection.receiveResponse();
 
-            //Would output the message to the GUI
+        //Maybe update database with the message
+
+        return (_Message) response.getData();
     }
 }
