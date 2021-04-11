@@ -15,23 +15,28 @@ public class Service extends _Service{
 
     @OneToMany
     @JoinColumn(name = "service_id", referencedColumnName="service_id")
-    protected List<Bill> service;
+    protected List<Bill> bills;
 
     public Service(int serviceID, String typeOfService, LocalDate dateInitiated, String status, int accountID,
             List<Bill> service) {
         super(serviceID, typeOfService, dateInitiated, status, accountID);
-        this.service = service;
+        this.bills = service;
     }
 
     public Service(List<Bill> service) {
         super();
-        this.service = service;
+        this.bills = service;
     }
 
     public Service() {
         super();
     }
 
-    
+    public List<Bill> getBills() {
+        return bills;
+    }
 
+    public void setBills(List<Bill> bills) {
+        this.bills = bills;
+    }
 }

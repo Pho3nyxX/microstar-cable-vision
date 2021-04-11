@@ -8,6 +8,8 @@ public class ContactNumber extends _ContactNumber{
     /**
      *
      */
+    private static final long serialVersionUID = 7526981870015571890L;
+
 
     @OneToOne(optional = true)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")

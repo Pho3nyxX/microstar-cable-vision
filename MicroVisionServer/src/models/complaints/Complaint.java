@@ -28,5 +28,9 @@ public class Complaint extends _Complaint{
             int accountId) {
         super(complaintId, status, details, typeOfIssue, dateRaised, accountId);
     }
+
+    public Complaint(){
+        super();
+    }
     
 }

@@ -1,7 +1,9 @@
 package utilities.communication;
 
 import driver.Driver;
+
 import models.accounts.Account;
+import models.accounts.AccountRepository;
 import models.accounts.Bill;
 import models.accounts.BillRepository;
 import models.accounts.Payment;
@@ -28,6 +30,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class MultipleClientHandler implements Runnable {
@@ -139,6 +142,7 @@ public class MultipleClientHandler implements Runnable {
         }
     }
 
+    
     /**
      * 
      * @param action
@@ -159,7 +163,8 @@ public class MultipleClientHandler implements Runnable {
             // check if user id or username available
             if (user.getUserID() > 0) {
                 // load user by id
-                customer = customerRepository.findById(user.getUserID()).get();
+                customer = customerRepository.findById(user.getUserID());
+                customer.getAccounts();
             } else if (!user.getUsername().isBlank() || user.getUsername() == null) {
                 // load user by username
                 customer = customerRepository.findByUsername(user.getUsername());
@@ -178,7 +183,7 @@ public class MultipleClientHandler implements Runnable {
             // check if user id or username available
             if (user.getUserID() > 0) {
                 // load user by id
-                employee = employeeRepository.findById(user.getUserID()).get();
+                employee = employeeRepository.findById(user.getUserID());
             } else if (!user.getUsername().isBlank() || user.getUsername() == null) {
                 // load user by username
                 employee = employeeRepository.findByUsername(user.getUsername());
@@ -189,7 +194,7 @@ public class MultipleClientHandler implements Runnable {
 
         }
 
-        if (true) {// TODO: check if users found
+        if (user != null) {// TODO: check if users found
             message = "User found";
             code = ServerResponse.REQUEST_SUCCEEDED;
         }
@@ -205,19 +210,26 @@ public class MultipleClientHandler implements Runnable {
     ServerResponse loadUsers(ServerRequest action) {
         int code = ServerResponse.REQUEST_FAILED;
         String message = "No users found.";
-        ServerResponse response;
-        ArrayList<_User> userList = new ArrayList();
+        ServerResponse response = null;
+
         // TODO: load users
-        if (true) {// TODO: check if users found
-            message = "Users found"; // TODO: add user count to message
-            code = ServerResponse.REQUEST_SUCCEEDED;
-            userList.add(new Customer());
-            userList.add(new Customer());
-        } else {
-            message = "No users found"; // TODO: add user count to message
-            code = ServerResponse.REQUEST_FAILED;
+        if (action.getData().getClass() == Customer.class) {
+            CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
+            List<Customer> userList = customerRepository.findAll();
+            if(userList.size() > 0){
+                message = "Customers found"; //TODO: add user count to message
+                code = ServerResponse.REQUEST_SUCCEEDED;
+            }
+            response = new ServerResponse<List<Customer>>(message, code, userList);
+        } else if (action.getData().getClass() == Employee.class) {
+            EmployeeRepository employeeRepository = new EmployeeRepository(Driver.entityManager);
+            List<Employee> userList = employeeRepository.findAll();
+            if(userList.size() > 0){
+                message = "Employees found"; //TODO: add user count to message
+                code = ServerResponse.REQUEST_SUCCEEDED;
+            }
+            response = new ServerResponse<List<Employee>>(message, code, userList);
         }
-        response = new ServerResponse<ArrayList<_User>>(message, code, userList);
         return response;
     }
 
@@ -275,7 +287,7 @@ public class MultipleClientHandler implements Runnable {
         // System.out.println(action.getData().toString());
         Customer customer = null;
         customer = customerRepository.findByUsername(user.getUsername());
-        if (customer != null) {
+        if(customer != null){
             if (customer.getPassword().equals(user.getPassword())) {
                 user = customer;
             }else{
@@ -285,9 +297,9 @@ public class MultipleClientHandler implements Runnable {
             EmployeeRepository employeeRepository = new EmployeeRepository(Driver.entityManager);
             Employee employee = employeeRepository.findByUsername(user.getUsername());
             // user = employee;
-            if (employee != null && employee.getPassword().equals(user.getPassword())) {
-                user = employee;
-            } else {
+            if(employee != null && employee.getPassword().equals(user.getPassword())){
+                    user = employee;
+            }else{
                 user = null;
             }
         }
@@ -301,7 +313,7 @@ public class MultipleClientHandler implements Runnable {
             sessionId = UUID.randomUUID();
             code = ServerResponse.REQUEST_SUCCEEDED;
             message = sessionId.toString();
-        } else {
+        }else{
 
         }
         response = new ServerResponse<_User>(message, code, user);
@@ -309,13 +321,10 @@ public class MultipleClientHandler implements Runnable {
         return response;
     }
 
+    /**---------------------------SERVICES & BILLING-------------------------------- */
+    
     /**
-     * ---------------------------SERVICES & BILLING--------------------------------
-     */
-
-    /**
-     * save a Service
-     * 
+     * save a Service 
      * @param action
      * @return
      */
@@ -333,14 +342,13 @@ public class MultipleClientHandler implements Runnable {
             message = "Service saved";
             code = ServerResponse.SAVE_SUCCEEDED;
         }
-
+        
         response = new ServerResponse<Service>(message, code, service);
         return response;
     }
 
     /**
-     * save a Bill
-     * 
+     * save a Bill 
      * @param action
      * @return
      */
@@ -358,14 +366,13 @@ public class MultipleClientHandler implements Runnable {
             message = "Bill saved";
             code = ServerResponse.SAVE_SUCCEEDED;
         }
-
+        
         response = new ServerResponse<Bill>(message, code, bill);
         return response;
     }
 
     /**
-     * save a Payment
-     * 
+     * save a Payment 
      * @param action
      * @return
      */
@@ -383,34 +390,48 @@ public class MultipleClientHandler implements Runnable {
             message = "Bill saved";
             code = ServerResponse.SAVE_SUCCEEDED;
         }
-
+        
         response = new ServerResponse<Payment>(message, code, payment);
         return response;
     }
 
-    /**---------------------------SERVICES & BILLING-------------------------------- */
     
     /**
      * 
      * @param action
      * @return
      */
-    ServerResponse saveService(ServerRequest action) {
-        int code = ServerResponse.SAVE_FAILED;
-        String message = "No users found.";
+    ServerResponse loadAccount(ServerRequest action) {
+        int code = ServerResponse.REQUEST_FAILED;
+        String message = "User doesn't exist.";
         ServerResponse response = null;
-        Service service = null;
+        Account account = null;
 
-        // TODO:: Handle user save
-        if (action.getData().getClass() == Service.class) {
-            ServiceRepository serviceRepository = new ServiceRepository(Driver.entityManager);
-            service = (Service) action.getData();
-            serviceRepository.save(service);
-            message = "Service saved";
-            code = ServerResponse.SAVE_SUCCEEDED;
+        // TODO:: Handle user load
+        if (action.getData().getClass() == Account.class) {
+            System.out.println("This is a customer");
+
+            AccountRepository accountRepository = new AccountRepository(Driver.entityManager);
+            account = (Account) action.getData();
+
+            // check if user id or username available
+            if (account.getAccountID() > 0) {
+                // load user by id
+                account = accountRepository.findById(account.getAccountID());
+            } else if (account.getCustomer() !=null && account.getCustomer().getUserID() != 0) {
+                // load user by username
+                int customerId = account.getCustomer().getUserID();
+                account = accountRepository.findByCustomerId(customerId);
+            }
+
+            
+            if (account != null) {// TODO: check if users found
+                message = "User found";
+                code = ServerResponse.REQUEST_SUCCEEDED;
+            }
+            response = new ServerResponse<Account>(message, code, account);
         }
-        
-        response = new ServerResponse<Service>(message, code, service);
+
         return response;
     }
 

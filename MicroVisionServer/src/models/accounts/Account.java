@@ -9,16 +9,24 @@ import models.users.Customer;
 
 @Entity
 @Table(name = "account")
+@NamedQueries({
+    @NamedQuery(name = "Account.findByCustomerId",
+                query = "SELECT a FROM Account a WHERE a.customerId = :customer_id")
+    })
 public class Account extends _Account{
     /**
      *
      */
     private static final long serialVersionUID = -1553523207317986640L;
 
+    
     @ManyToOne
     @JoinColumn(name="customer_id")
     Customer customer;
     
+    @Column(name = "customer_id", insertable = false, updatable = false)
+    int customerId;
+
     @OneToMany
     @JoinColumn(name = "account_id", referencedColumnName="account_id")
     protected List<Service> services;
@@ -34,6 +42,13 @@ public class Account extends _Account{
         this.customer = customer;
     }
 
+
+    public Account(){
+        super();
+        this.customer = null;
+        this.services = new ArrayList<>();
+        this.payments = new ArrayList<>();
+    }
 
     public Account(Customer customer, List<Service> services, List<Payment> payments) {
         this.customer = customer;

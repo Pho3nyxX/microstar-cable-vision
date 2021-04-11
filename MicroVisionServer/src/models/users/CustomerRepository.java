@@ -24,9 +24,14 @@ public class CustomerRepository {
         return Optional.empty();
     }
 
-    public Optional<Customer> findById(Integer id) {
-        Customer customer = entityManager.find(Customer.class, id);
-        return customer != null ? Optional.of(customer) : Optional.empty();
+    public Customer findById(Integer id) {
+        Customer customer;
+        try{
+            customer = entityManager.find(Customer.class, id);
+        }catch(Exception ex){
+            customer = null;
+        }
+        return customer;
     }
     
     public List<Customer> findAll() {

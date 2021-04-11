@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import models.BaseRepository;
 
@@ -28,12 +29,30 @@ public class AccountRepository extends BaseRepository{
         return Optional.empty();
     }
 
-    public Optional<Account> findById(Integer id) {
-        Account account = entityManager.find(Account.class, id);
-        return account != null ? Optional.of(account) : Optional.empty();
+    public Account findById(Integer id) {
+        Account account;
+        try{
+            account = entityManager.find(Account.class, id);
+        }catch(Exception ex){
+            account = null;
+        }
+        return account;
     }
 
     public List<Account> findAll() {
         return entityManager.createQuery("from Account").getResultList();
     }
+
+    public Account findByCustomerId(int customer_id){
+        Account account;
+        try {
+             account = entityManager.createNamedQuery("Account.findByCustomerId", Account.class)
+            .setParameter("customer_id", customer_id)
+            .getSingleResult();
+        }catch(NoResultException ex){
+            account = null;
+        }
+        return account;
+    }
 }
+

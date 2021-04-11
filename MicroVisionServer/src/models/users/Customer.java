@@ -20,14 +20,14 @@ import models.users._User;
 public class Customer extends _Customer{
     private static final long serialVersionUID = -7122240510909524901L;
 
-    @OneToOne(mappedBy="customer", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy="customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected ContactNumber phone;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     // @JoinColumn(name = "customer_id", referencedColumnName="customer_id")
     protected List<Address> addresses;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     // @JoinColumn(name = "customer_id", referencedColumnName="customer_id")
     protected List<Account> accounts;
 
@@ -85,13 +85,13 @@ public class Customer extends _Customer{
     }
 
     public void addAccount(Account account) {
-        if(this.accounts == null){
-            this.accounts = new ArrayList<>();
-        }
         this.accounts.add(account);
         account.setCustomer(this);
     }
 
+    public List<Account> getAccounts(){
+        return this.accounts;
+    }
     public ContactNumber getPhone() {
         return phone;
     }

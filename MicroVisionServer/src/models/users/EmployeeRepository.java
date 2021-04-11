@@ -27,9 +27,14 @@ public class EmployeeRepository extends BaseRepository {
         return Optional.empty();
     }
 
-    public Optional<Employee> findById(Integer id) {
-        Employee employee = entityManager.find(Employee.class, id);
-        return employee != null ? Optional.of(employee) : Optional.empty();
+    public Employee findById(Integer id) {
+        Employee employee;
+        try{
+            employee = entityManager.find(Employee.class, id);
+        }catch(Exception ex){
+            employee = null;
+        }
+        return employee;
     }
     
     public List<Employee> findAll() {
