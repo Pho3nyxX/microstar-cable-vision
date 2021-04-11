@@ -5,6 +5,8 @@ import models.accounts.Account;
 import models.accounts.Service;
 import models.accounts.ServiceRepository;
 import models.chat._Message;
+import models.complaints.Complaint;
+import models.complaints.ComplaintRepository;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 
@@ -73,6 +75,21 @@ public class MultipleClientHandler implements Runnable {
                 
                 case ServerRequest.USER_UPDATE_COMMAND -> {
                     ServerResponse response = saveUser(action);
+                    objectOutputStream.writeObject(response);
+                }
+
+                case ServerRequest.COMPLAINT_lOAD_COMMAND -> {
+                    ServerResponse response = loadComplaint(action);
+                    objectOutputStream.writeObject(response);
+                }
+
+                case ServerRequest.COMPLAINT_lOAD_MANY_COMMAND -> {
+                    ServerResponse response = loadComplaints(action);
+                    objectOutputStream.writeObject(response);
+                }
+
+                case ServerRequest.COMPLAINT_UPDATE_COMMAND -> {
+                    ServerResponse response = saveComplaint(action);
                     objectOutputStream.writeObject(response);
                 }
     
@@ -313,6 +330,71 @@ public class MultipleClientHandler implements Runnable {
         response = new ServerResponse<Service>(message, code, service);
         return response;
     }
+
+    /**---------------------------------COMPLAINTS------------------------------*/
+
+    ServerResponse loadComplaint(ServerRequest action) {
+        boolean found = false;
+        int code = ServerResponse.DELETE_FAILED;
+        String message  = "Complaint doesn't exist.";
+        ServerResponse response;
+        Complaint complaint = null;
+
+        ComplaintRepository complaintRepository = new ComplaintRepository(Driver.entityManager);
+        complaint = (Complaint) action.getData();
+
+        //Check if complaint id available
+        if (complaint.getComplaintId() > 0) {
+            //load complaint by id
+            complaint = complaintRepository.findById(complaint.getComplaintId()).get();
+            found = true;
+        }
+
+        if (found) {
+            message = "User found";
+            code = ServerResponse.REQUEST_SUCCEEDED;
+        }
+        response = new ServerResponse<Complaint>(message,code,complaint);
+        return response;
+    }
+
+    ServerResponse loadComplaints(ServerRequest action) {
+        boolean found = false;
+        int code = ServerResponse.REQUEST_FAILED;
+        String message = "No Complaint Found.";
+        ServerResponse response;
+
+
+        ArrayList<Complaint> complaintsList = new ArrayList<>();
+
+        if (true) {
+            message = "Complaints Found";
+            code = ServerResponse.REQUEST_SUCCEEDED;
+            complaintsList.add(new Complaint());
+        }
+
+        response = new ServerResponse<ArrayList<Complaint>>(message,code,complaintsList);
+
+        return response;
+    }
+
+    ServerResponse saveComplaint(ServerRequest action) {
+        int code = ServerResponse.SAVE_FAILED;
+        String message = "No Complaint found";
+        ServerResponse response = null;
+        Complaint complaint = null;
+
+        ComplaintRepository complaintRepository = new ComplaintRepository(Driver.entityManager);
+        complaint = (Complaint) action.getData();
+        complaintRepository.save(complaint);
+        message = "Complaint saved";
+        code=ServerResponse.SAVE_SUCCEEDED;
+        response = new ServerResponse<Complaint>(message,code,complaint);
+        return response;
+    }
+
+
+    /**-------------------------------LIVE CHAT--------------------------------*/
 
     ServerResponse logOnUserToLiveChat(ServerRequest action) {
         //Check if user is a Customer or an Employee of type
