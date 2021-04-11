@@ -9,6 +9,8 @@ import models.accounts.PaymentRepository;
 import models.accounts.Service;
 import models.accounts.ServiceRepository;
 import models.chat._Message;
+import models.complaints.Complaint;
+import models.complaints.ComplaintRepository;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 
@@ -60,78 +62,78 @@ public class MultipleClientHandler implements Runnable {
 
             System.out.println(action);
             switch (action.getCommand()) {
-            case ServerRequest.USER_LOGIN_COMMAND -> {
-                ServerResponse response = login(action);
-                objectOutputStream.writeObject(response);
-            }
+                case ServerRequest.USER_LOGIN_COMMAND -> {
+                    ServerResponse response = login(action);
+                    objectOutputStream.writeObject(response);
+                }
+    
+                case ServerRequest.USER_LOAD_COMMAND -> {
+                    ServerResponse response = loadUser(action);
+                    objectOutputStream.writeObject(response);
+                }
+    
+                case ServerRequest.USER_LOAD_MANY_COMMAND -> {
+                    ServerResponse response = loadUsers(action);
+                    objectOutputStream.writeObject(response);
+                }
+                
+                case ServerRequest.USER_UPDATE_COMMAND -> {
+                    ServerResponse response = saveUser(action);
+                    objectOutputStream.writeObject(response);
+                }
 
-            case ServerRequest.USER_LOAD_COMMAND -> {
-                ServerResponse response = loadUser(action);
-                objectOutputStream.writeObject(response);
-            }
+                case ServerRequest.COMPLAINT_lOAD_COMMAND -> {
+                    ServerResponse response = loadComplaint(action);
+                    objectOutputStream.writeObject(response);
+                }
 
-            case ServerRequest.USER_LOAD_MANY_COMMAND -> {
-                ServerResponse response = loadUsers(action);
-                objectOutputStream.writeObject(response);
-            }
+                case ServerRequest.COMPLAINT_lOAD_MANY_COMMAND -> {
+                    ServerResponse response = loadComplaints(action);
+                    objectOutputStream.writeObject(response);
+                }
 
-            case ServerRequest.USER_UPDATE_COMMAND -> {
-                ServerResponse response = saveUser(action);
-                objectOutputStream.writeObject(response);
-            }
+                case ServerRequest.COMPLAINT_UPDATE_COMMAND -> {
+                    ServerResponse response = saveComplaint(action);
+                    objectOutputStream.writeObject(response);
+                }
+    
+                case "User-Register" -> {
+                    // Actions to register user
+                }
+    
+                case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
+                    //Actions to log on live chat
+                    ServerResponse response = logOnUserToLiveChat(action);
+                    objectOutputStream.writeObject(response);
+                }
+                case ServerRequest.USER_END_CHAT_COMMAND -> {
+                    //Actions to log the user off the live chat
+                    ServerResponse response = logOffUserFromLiveChat(action);
+                    objectOutputStream.writeObject(response);
+                }
+                case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
+                    _Message message = (_Message) action.getData();
+                    //Actions to send message
 
-            case "User-Register" -> {
-                // Actions to register user
-            }
-
-            case ServerRequest.SERVICE_UPDATE_COMMAND -> {
-                ServerResponse response = saveService(action);
-                objectOutputStream.writeObject(response);
-            }
-
-            case ServerRequest.BILL_UPDATE_COMMAND -> {
-                ServerResponse response = saveBill(action);
-                objectOutputStream.writeObject(response);
-            }
-
-            case ServerRequest.PAYMENT_UPDATE_COMMAND -> {
-                ServerResponse response = savePayment(action);
-                objectOutputStream.writeObject(response);
-            }
-
-            case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
-                // Actions to log on live chat
-                ServerResponse response = logOnUserToLiveChat(action);
-                objectOutputStream.writeObject(response);
-            }
-            case ServerRequest.USER_END_CHAT_COMMAND -> {
-                // Actions to log the user off the live chat
-                ServerResponse response = logOffUserFromLiveChat(action);
-                objectOutputStream.writeObject(response);
-            }
-            case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
-                _Message message = (_Message) action.getData();
-                // Actions to send message
-
-                // Search for the recipient of the message in the connected clients list
-                for (MultipleClientHandler client : Server.activeClients) {
-                    // Check if the recipient is an emplotyyee
-                    for (_User onlineUser : Server.activeLiveChatUsers) {
-                        if (message.getRecipientId() == onlineUser.getUserID()) {
-                            // Send message to that employee
-                            ServerResponse response;
-                            String responseMessage = "Incoming message";
-                            int code = ServerResponse.REQUEST_SUCCEEDED;
-                            response = new ServerResponse<_Message>(responseMessage, code, message);
-                            client.objectOutputStream.writeObject(response);
-                            break;
+                    //Search for the recipient of the message in the connected clients list
+                    for (MultipleClientHandler client:Server.activeClients) {
+                        //Check if the recipient is an emplotyyee
+                        for (_User onlineUser: Server.activeLiveChatUsers) {
+                            if (message.getRecipientId() == onlineUser.getUserID() ) {
+                                //Send message to that employee
+                                ServerResponse response;
+                                String responseMessage = "Incoming message";
+                                int code = ServerResponse.REQUEST_SUCCEEDED;
+                                response = new ServerResponse<_Message>(responseMessage,code,message);
+                                client.objectOutputStream.writeObject(response);
+                                break;
+                            }
                         }
                     }
                 }
             }
             // Save the message to the database
             // Driver.messageRepository.save(message);
-            }
         } catch (IOException | ClassNotFoundException ex) {
             error.error(ex.getMessage());
         }
@@ -266,17 +268,17 @@ public class MultipleClientHandler implements Runnable {
         String message = "Login Failed.";
         ServerResponse response;
         CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
-        _User user = (_User) action.getData();
-
+        _User user = (_User)action.getData();
+        
         // System.out.println(user.get);
-
+        
         // System.out.println(action.getData().toString());
         Customer customer = null;
         customer = customerRepository.findByUsername(user.getUsername());
         if (customer != null) {
             if (customer.getPassword().equals(user.getPassword())) {
                 user = customer;
-            } else {
+            }else{
                 user = null;
             }
         } else {
@@ -385,6 +387,97 @@ public class MultipleClientHandler implements Runnable {
         response = new ServerResponse<Payment>(message, code, payment);
         return response;
     }
+
+    /**---------------------------SERVICES & BILLING-------------------------------- */
+    
+    /**
+     * 
+     * @param action
+     * @return
+     */
+    ServerResponse saveService(ServerRequest action) {
+        int code = ServerResponse.SAVE_FAILED;
+        String message = "No users found.";
+        ServerResponse response = null;
+        Service service = null;
+
+        // TODO:: Handle user save
+        if (action.getData().getClass() == Service.class) {
+            ServiceRepository serviceRepository = new ServiceRepository(Driver.entityManager);
+            service = (Service) action.getData();
+            serviceRepository.save(service);
+            message = "Service saved";
+            code = ServerResponse.SAVE_SUCCEEDED;
+        }
+        
+        response = new ServerResponse<Service>(message, code, service);
+        return response;
+    }
+
+    /**---------------------------------COMPLAINTS------------------------------*/
+
+    ServerResponse loadComplaint(ServerRequest action) {
+        boolean found = false;
+        int code = ServerResponse.DELETE_FAILED;
+        String message  = "Complaint doesn't exist.";
+        ServerResponse response;
+        Complaint complaint = null;
+
+        ComplaintRepository complaintRepository = new ComplaintRepository(Driver.entityManager);
+        complaint = (Complaint) action.getData();
+
+        //Check if complaint id available
+        if (complaint.getComplaintId() > 0) {
+            //load complaint by id
+            complaint = complaintRepository.findById(complaint.getComplaintId()).get();
+            found = true;
+        }
+
+        if (found) {
+            message = "User found";
+            code = ServerResponse.REQUEST_SUCCEEDED;
+        }
+        response = new ServerResponse<Complaint>(message,code,complaint);
+        return response;
+    }
+
+    ServerResponse loadComplaints(ServerRequest action) {
+        boolean found = false;
+        int code = ServerResponse.REQUEST_FAILED;
+        String message = "No Complaint Found.";
+        ServerResponse response;
+
+
+        ArrayList<Complaint> complaintsList = new ArrayList<>();
+
+        if (true) {
+            message = "Complaints Found";
+            code = ServerResponse.REQUEST_SUCCEEDED;
+            complaintsList.add(new Complaint());
+        }
+
+        response = new ServerResponse<ArrayList<Complaint>>(message,code,complaintsList);
+
+        return response;
+    }
+
+    ServerResponse saveComplaint(ServerRequest action) {
+        int code = ServerResponse.SAVE_FAILED;
+        String message = "No Complaint found";
+        ServerResponse response = null;
+        Complaint complaint = null;
+
+        ComplaintRepository complaintRepository = new ComplaintRepository(Driver.entityManager);
+        complaint = (Complaint) action.getData();
+        complaintRepository.save(complaint);
+        message = "Complaint saved";
+        code=ServerResponse.SAVE_SUCCEEDED;
+        response = new ServerResponse<Complaint>(message,code,complaint);
+        return response;
+    }
+
+
+    /**-------------------------------LIVE CHAT--------------------------------*/
 
     ServerResponse logOnUserToLiveChat(ServerRequest action) {
         // Check if user is a Customer or an Employee of type
