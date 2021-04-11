@@ -12,7 +12,6 @@ import models.chat._Message;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -100,58 +99,38 @@ public class MultipleClientHandler implements Runnable {
                 objectOutputStream.writeObject(response);
             }
 
-            /*case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
+            case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
                 // Actions to log on live chat
+                ServerResponse response = logOnUserToLiveChat(action);
+                objectOutputStream.writeObject(response);
+            }
+            case ServerRequest.USER_END_CHAT_COMMAND -> {
+                // Actions to log the user off the live chat
+                ServerResponse response = logOffUserFromLiveChat(action);
+                objectOutputStream.writeObject(response);
+            }
+            case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
+                _Message message = (_Message) action.getData();
+                // Actions to send message
 
-                // Check if user is a Customer or an Employee of type
-                _User user = (_User) action.getData();
-
-                // if Customer
-                if (user.getClass().getSimpleName().equals("Customer")) {
-                    // Add customer to current list of online customers and change the status to
-                    // online
-                    user.setIsOnline(true);
-                    Server.activeLiveChatUsers.add(user);
-
-                    ServerResponse response;
-                    String message = "Login Successful";
-                    int code = ServerResponse.REQUEST_SUCCEEDED;
-                    response = new ServerResponse<ArrayList<_User>>(message, code, Server.activeLiveChatUsers);
-                    objectOutputStream.writeObject(response);
-                }*/
-    
-                case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
-                    //Actions to log on live chat
-                    ServerResponse response = logOnUserToLiveChat(action);
-                    objectOutputStream.writeObject(response);
-                }
-                case ServerRequest.USER_END_CHAT_COMMAND -> {
-                    //Actions to log the user off the live chat
-                    ServerResponse response = logOffUserFromLiveChat(action);
-                    objectOutputStream.writeObject(response);
-                }
-                case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
-                    _Message message = (_Message) action.getData();
-                    //Actions to send message
-
-                    //Search for the recipient of the message in the connected clients list
-                    for (MultipleClientHandler client:Server.activeClients) {
-                        //Check if the recipient is an emplotyyee
-                        for (_User onlineUser: Server.activeLiveChatUsers) {
-                            if (message.getRecipientId() == onlineUser.getUserID() ) {
-                                //Send message to that employee
-                                ServerResponse response;
-                                String responseMessage = "Incoming message";
-                                int code = ServerResponse.REQUEST_SUCCEEDED;
-                                response = new ServerResponse<_Message>(responseMessage,code,message);
-                                client.objectOutputStream.writeObject(response);
-                                break;
-                            }
+                // Search for the recipient of the message in the connected clients list
+                for (MultipleClientHandler client : Server.activeClients) {
+                    // Check if the recipient is an emplotyyee
+                    for (_User onlineUser : Server.activeLiveChatUsers) {
+                        if (message.getRecipientId() == onlineUser.getUserID()) {
+                            // Send message to that employee
+                            ServerResponse response;
+                            String responseMessage = "Incoming message";
+                            int code = ServerResponse.REQUEST_SUCCEEDED;
+                            response = new ServerResponse<_Message>(responseMessage, code, message);
+                            client.objectOutputStream.writeObject(response);
+                            break;
                         }
                     }
                 }
-                // Save the message to the database
-                // Driver.messageRepository.save(message);
+            }
+            // Save the message to the database
+            // Driver.messageRepository.save(message);
             }
         } catch (IOException | ClassNotFoundException ex) {
             error.error(ex.getMessage());
@@ -328,10 +307,13 @@ public class MultipleClientHandler implements Runnable {
         return response;
     }
 
-    /**---------------------------SERVICES & BILLING-------------------------------- */
-    
     /**
-     * save a Service 
+     * ---------------------------SERVICES & BILLING--------------------------------
+     */
+
+    /**
+     * save a Service
+     * 
      * @param action
      * @return
      */
@@ -349,13 +331,14 @@ public class MultipleClientHandler implements Runnable {
             message = "Service saved";
             code = ServerResponse.SAVE_SUCCEEDED;
         }
-        
+
         response = new ServerResponse<Service>(message, code, service);
         return response;
     }
 
     /**
-     * save a Bill 
+     * save a Bill
+     * 
      * @param action
      * @return
      */
@@ -373,13 +356,14 @@ public class MultipleClientHandler implements Runnable {
             message = "Bill saved";
             code = ServerResponse.SAVE_SUCCEEDED;
         }
-        
+
         response = new ServerResponse<Bill>(message, code, bill);
         return response;
     }
 
     /**
-     * save a Payment 
+     * save a Payment
+     * 
      * @param action
      * @return
      */
@@ -397,52 +381,54 @@ public class MultipleClientHandler implements Runnable {
             message = "Bill saved";
             code = ServerResponse.SAVE_SUCCEEDED;
         }
-        
+
         response = new ServerResponse<Payment>(message, code, payment);
         return response;
     }
 
     ServerResponse logOnUserToLiveChat(ServerRequest action) {
-        //Check if user is a Customer or an Employee of type
+        // Check if user is a Customer or an Employee of type
         ServerResponse response = null;
         _User user = (_User) action.getData();
 
-        //if Customer
+        // if Customer
         if (user.getClass().getSimpleName().equals("Customer")) {
-            //Add customer to current list of online customers and change the status to online
+            // Add customer to current list of online customers and change the status to
+            // online
             user.setIsOnline(true);
             Server.activeLiveChatUsers.add(user);
 
             String message = "Login Successful";
             int code = ServerResponse.REQUEST_SUCCEEDED;
-            response = new ServerResponse<ArrayList<_User>>(message,code, Server.activeLiveChatUsers);
+            response = new ServerResponse<ArrayList<_User>>(message, code, Server.activeLiveChatUsers);
 
-        }else if (user.getClass().getSimpleName().equals("Employee")) {
-            //Check for the type of Employee, It should be a Technician
+        } else if (user.getClass().getSimpleName().equals("Employee")) {
+            // Check for the type of Employee, It should be a Technician
             Employee employee = (Employee) user;
 
             if (employee.getRole().equals("Technician")) {
-                //Add Technician to current list of online technicians and change the status to online
+                // Add Technician to current list of online technicians and change the status to
+                // online
                 user.setIsOnline(true);
                 Server.activeLiveChatUsers.add(user);
 
                 String message = "Login Successful";
                 int code = ServerResponse.REQUEST_SUCCEEDED;
-                response = new ServerResponse<ArrayList<_User>>(message,code,Server.activeLiveChatUsers);
+                response = new ServerResponse<ArrayList<_User>>(message, code, Server.activeLiveChatUsers);
 
-            }else if (employee.getRole().equals("Customer Service Rep") || employee.getRole().equals("Admin")) {
-                //Don't allow them to log on to live chat
+            } else if (employee.getRole().equals("Customer Service Rep") || employee.getRole().equals("Admin")) {
+                // Don't allow them to log on to live chat
 
                 String message = "Login Failed";
                 int code = ServerResponse.REQUEST_FAILED;
-                response = new ServerResponse<_User>(message,code,user);
+                response = new ServerResponse<_User>(message, code, user);
             }
         }
         return response;
     }
 
     ServerResponse logOffUserFromLiveChat(ServerRequest action) {
-        //Check if user is a Customer or an Employee of type
+        // Check if user is a Customer or an Employee of type
         _User user = (_User) action.getData();
 
         user.setIsOnline(false);
@@ -451,7 +437,7 @@ public class MultipleClientHandler implements Runnable {
         ServerResponse response;
         String message = "Log Out Successful";
         int code = ServerResponse.REQUEST_SUCCEEDED;
-        response = new ServerResponse<>(message,code, user);
+        response = new ServerResponse<>(message, code, user);
         return response;
     }
 
