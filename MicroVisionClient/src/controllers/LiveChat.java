@@ -1,6 +1,7 @@
 package controllers;
 
 import models.chat._Message;
+import models.complaints.Complaint;
 import models.users.Customer;
 import models.users.Employee;
 import sound.Mp3;
@@ -97,6 +98,31 @@ public class LiveChat {
         }
 
         return user;
+    }
+
+    public static void loadUserComplaints(_User user) {
+        ArrayList<Complaint> listofComplaints = Complaint.loadComplaints();
+
+        for (Complaint complaint:listofComplaints) {
+            ChatHome.personsOnlineTextArea.setText("");
+            ChatHome.personsOnlineTextArea.append("List of Complaints \n");
+            //Match the user to the complaint
+            if (user.getUserID() == complaint.getAccountId()) {
+                ChatHome.personsOnlineTextArea.append(complaint.toString() + "\n");
+            }
+        }
+    }
+
+    public static Complaint findComplaintFromId(int compaintId) {
+        Complaint complaint = new Complaint();
+        complaint.setComplaintId(compaintId);
+        ServerRequest request = new ServerRequest(ServerRequest.COMPLAINT_lOAD_COMMAND, complaint);
+        Driver.messageConnection.sendAction(request);
+
+        ServerResponse response = Driver.messageConnection.receiveResponse();
+        complaint = (Complaint) response.getData();
+
+        return complaint;
     }
 
     public static void sendMessage(_Message message) {

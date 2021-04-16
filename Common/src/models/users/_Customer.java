@@ -39,7 +39,7 @@ public class _Customer extends _User {
 
         // check if each fields data is valid
         if( !( Validator.validate(this.email, Validator.EMAIL) ) ){
-            this.validation_errors.add("Invalid email entered.");
+            validation_errors.add("Invalid email entered.");
             valid = false;
         }
         return valid;
