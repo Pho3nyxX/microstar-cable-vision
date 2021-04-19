@@ -126,7 +126,7 @@ public class ChatMessage extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e) {
                 //Go back to the chat home panel
-                new ChatHome();
+                Driver.FRAME.add(new ChatHome());
             }
         });
 

@@ -30,7 +30,8 @@ public class ChatHome extends JPanel {
     Color blueBackground;
 
 
-    ChatHome () {
+    public ChatHome () {
+
         blueBackground = new Color(41,193,239);
 
         profileImageLabel = new JLabel(new ImageIcon("image/Chat.png"));
@@ -116,7 +117,7 @@ public class ChatHome extends JPanel {
                 Complaint complaint = LiveChat.findComplaintFromId(Integer.parseInt(complaintId));
 
                 //Call the Chat message constructer
-                new ChatMessage(recipientUser, complaint);
+                Driver.FRAME.add(new ChatMessage(recipientUser, complaint));
             }
         });
 
