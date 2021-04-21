@@ -1,10 +1,11 @@
 package utilities;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+// import java.util.regex.Matcher;
+// import java.util.regex.Pattern;
 
 
 public class Validator {
+    
     public static final String PHONE  = "[(]?\\d{3}[-.)]?[ ]?\\d{3}[-.]?\\d{4}\\b";
     public static final String EMAIL = "\\b[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}\\b";
     public static final String USERNAME = "[a-zA-Z][a-zA-Z0-9-_]{3,32}";

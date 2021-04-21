@@ -15,8 +15,9 @@ import utilities.communication._ClientServer;
 import models.users.*;
 
 public class Server extends _ClientServer {
+
     private ServerSocket serverSocket;
-    private static int clientCount=0;
+    private static int clientCount = 0;
     private static Connection dBConn = null;
     private Statement stmt;
     private ResultSet result = null;
@@ -64,7 +65,7 @@ public class Server extends _ClientServer {
                 connectionSocket = serverSocket.accept();
                 connection.info("Client request accepted");
                 clientCount++;
-                System.out.println("constructor");
+                // System.out.println("Constructor");
                 connection.info("Clients currently on server: " + clientCount);
 
                 MultipleClientHandler clientHandler = new MultipleClientHandler(this.connectionSocket);

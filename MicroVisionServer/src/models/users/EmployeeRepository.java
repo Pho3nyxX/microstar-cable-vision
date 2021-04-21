@@ -38,7 +38,7 @@ public class EmployeeRepository extends BaseRepository {
     }
     
     public List<Employee> findAll() {
-        return entityManager.createQuery("from Customer").getResultList();
+        return entityManager.createQuery("from Employee").getResultList();
     }
     
     public Employee findByUsername(String username){

@@ -18,6 +18,7 @@ import models.users._User;
             query = "SELECT u FROM Customer u WHERE u.username = :username")
 })
 public class Customer extends _Customer{
+    
     private static final long serialVersionUID = -7122240510909524901L;
 
     @OneToOne(mappedBy="customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

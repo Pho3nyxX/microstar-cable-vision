@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class MultipleClientHandler implements Runnable {
+
     protected Logger connection = LogManager.getLogger("Connection");
     protected Logger error = LogManager.getLogger("Error");
     protected Socket connectionSocket;
@@ -46,7 +47,9 @@ public class MultipleClientHandler implements Runnable {
 
     @Override
     public void run() {
+
         try {
+
             ServerRequest action;
             objectOutputStream = new ObjectOutputStream(connectionSocket.getOutputStream());
             objectInputStream = new ObjectInputStream(connectionSocket.getInputStream());
@@ -65,75 +68,95 @@ public class MultipleClientHandler implements Runnable {
 
             System.out.println(action);
             switch (action.getCommand()) {
-                case ServerRequest.USER_LOGIN_COMMAND -> {
-                    ServerResponse response = login(action);
-                    objectOutputStream.writeObject(response);
-                }
-    
-                case ServerRequest.USER_LOAD_COMMAND -> {
-                    ServerResponse response = loadUser(action);
-                    objectOutputStream.writeObject(response);
-                }
-    
-                case ServerRequest.USER_LOAD_MANY_COMMAND -> {
-                    ServerResponse response = loadUsers(action);
-                    objectOutputStream.writeObject(response);
-                }
-                
-                case ServerRequest.USER_UPDATE_COMMAND -> {
-                    ServerResponse response = saveUser(action);
-                    objectOutputStream.writeObject(response);
-                }
+            case ServerRequest.USER_LOGIN_COMMAND -> {
+                ServerResponse response = login(action);
+                objectOutputStream.writeObject(response);
+            }
 
-                case ServerRequest.COMPLAINT_lOAD_COMMAND -> {
-                    ServerResponse response = loadComplaint(action);
-                    objectOutputStream.writeObject(response);
-                }
+            case ServerRequest.USER_LOAD_COMMAND -> {
+                ServerResponse response = loadUser(action);
+                objectOutputStream.writeObject(response);
+            }
 
-                case ServerRequest.COMPLAINT_lOAD_MANY_COMMAND -> {
-                    ServerResponse response = loadComplaints(action);
-                    objectOutputStream.writeObject(response);
-                }
+            case ServerRequest.USER_LOAD_MANY_COMMAND -> {
+                ServerResponse response = loadUsers(action);
+                objectOutputStream.writeObject(response);
+            }
 
-                case ServerRequest.COMPLAINT_UPDATE_COMMAND -> {
-                    ServerResponse response = saveComplaint(action);
-                    objectOutputStream.writeObject(response);
-                }
-    
-                case "User-Register" -> {
-                    // Actions to register user
-                }
-    
-                case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
-                    //Actions to log on live chat
-                    ServerResponse response = logOnUserToLiveChat(action);
-                    objectOutputStream.writeObject(response);
-                }
-                case ServerRequest.USER_END_CHAT_COMMAND -> {
-                    //Actions to log the user off the live chat
-                    ServerResponse response = logOffUserFromLiveChat(action);
-                    objectOutputStream.writeObject(response);
-                }
-                case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
-                    _Message message = (_Message) action.getData();
-                    //Actions to send message
+            case ServerRequest.USER_UPDATE_COMMAND -> {
+                ServerResponse response = saveUser(action);
+                objectOutputStream.writeObject(response);
+            }
 
-                    //Search for the recipient of the message in the connected clients list
-                    for (MultipleClientHandler client:Server.activeClients) {
-                        //Check if the recipient is an emplotyyee
-                        for (_User onlineUser: Server.activeLiveChatUsers) {
-                            if (message.getRecipientId() == onlineUser.getUserID() ) {
-                                //Send message to that employee
-                                ServerResponse response;
-                                String responseMessage = "Incoming message";
-                                int code = ServerResponse.REQUEST_SUCCEEDED;
-                                response = new ServerResponse<_Message>(responseMessage,code,message);
-                                client.objectOutputStream.writeObject(response);
-                                break;
-                            }
+            case ServerRequest.ACCOUNT_LOAD_COMMAND -> {
+                ServerResponse response = loadAccount(action);
+                objectOutputStream.writeObject(response);
+            }
+
+            case ServerRequest.SERVICE_UPDATE_COMMAND -> {
+                ServerResponse response = saveService(action);
+                objectOutputStream.writeObject(response);
+            }
+
+            case ServerRequest.BILL_UPDATE_COMMAND -> {
+                ServerResponse response = saveBill(action);
+                objectOutputStream.writeObject(response);
+            }
+
+            case ServerRequest.PAYMENT_UPDATE_COMMAND -> {
+                ServerResponse response = savePayment(action);
+                objectOutputStream.writeObject(response);
+            }
+
+            case ServerRequest.COMPLAINT_lOAD_COMMAND -> {
+                ServerResponse response = loadComplaint(action);
+                objectOutputStream.writeObject(response);
+            }
+
+            case ServerRequest.COMPLAINT_lOAD_MANY_COMMAND -> {
+                ServerResponse response = loadComplaints(action);
+                objectOutputStream.writeObject(response);
+            }
+
+            case ServerRequest.COMPLAINT_UPDATE_COMMAND -> {
+                ServerResponse response = saveComplaint(action);
+                objectOutputStream.writeObject(response);
+            }
+
+            case "User-Register" -> {
+                // Actions to register user
+            }
+
+            case ServerRequest.USER_LIVE_CHAT_COMMAND -> {
+                // Actions to log on live chat
+                ServerResponse response = logOnUserToLiveChat(action);
+                objectOutputStream.writeObject(response);
+            }
+            case ServerRequest.USER_END_CHAT_COMMAND -> {
+                // Actions to log the user off the live chat
+                ServerResponse response = logOffUserFromLiveChat(action);
+                objectOutputStream.writeObject(response);
+            }
+            case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
+                _Message message = (_Message) action.getData();
+                // Actions to send message
+
+                // Search for the recipient of the message in the connected clients list
+                for (MultipleClientHandler client : Server.activeClients) {
+                    // Check if the recipient is an emplotyyee
+                    for (_User onlineUser : Server.activeLiveChatUsers) {
+                        if (message.getRecipientId() == onlineUser.getUserID()) {
+                            // Send message to that employee
+                            ServerResponse response;
+                            String responseMessage = "Incoming message";
+                            int code = ServerResponse.REQUEST_SUCCEEDED;
+                            response = new ServerResponse<_Message>(responseMessage, code, message);
+                            client.objectOutputStream.writeObject(response);
+                            break;
                         }
                     }
                 }
+            }
             }
             // Save the message to the database
             // Driver.messageRepository.save(message);
@@ -142,13 +165,13 @@ public class MultipleClientHandler implements Runnable {
         }
     }
 
-    
     /**
      * 
      * @param action
      * @return
      */
     ServerResponse loadUser(ServerRequest action) {
+
         int code = ServerResponse.REQUEST_FAILED;
         String message = "User doesn't exist.";
         ServerResponse response;
@@ -216,16 +239,16 @@ public class MultipleClientHandler implements Runnable {
         if (action.getData().getClass() == Customer.class) {
             CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
             List<Customer> userList = customerRepository.findAll();
-            if(userList.size() > 0){
-                message = "Customers found"; //TODO: add user count to message
+            if (userList.size() > 0) {
+                message = "Customers found"; // TODO: add user count to message
                 code = ServerResponse.REQUEST_SUCCEEDED;
             }
             response = new ServerResponse<List<Customer>>(message, code, userList);
         } else if (action.getData().getClass() == Employee.class) {
             EmployeeRepository employeeRepository = new EmployeeRepository(Driver.entityManager);
             List<Employee> userList = employeeRepository.findAll();
-            if(userList.size() > 0){
-                message = "Employees found"; //TODO: add user count to message
+            if (userList.size() > 0) {
+                message = "Employees found"; // TODO: add user count to message
                 code = ServerResponse.REQUEST_SUCCEEDED;
             }
             response = new ServerResponse<List<Employee>>(message, code, userList);
@@ -239,6 +262,7 @@ public class MultipleClientHandler implements Runnable {
      * @return
      */
     ServerResponse saveUser(ServerRequest action) {
+
         int code = ServerResponse.SAVE_FAILED;
         String message = "No users found.";
         ServerResponse response = null;
@@ -246,16 +270,19 @@ public class MultipleClientHandler implements Runnable {
 
         // TODO:: Handle user save
         if (action.getData().getClass() == Customer.class) {
+
             CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
             Customer customer = (Customer) action.getData();
             // customerRepository.save(customer);
             customer.addAccount(new Account(Account.ACCOUNT_UPTODATE, 0, customer));
             customerRepository.save(customer);
-            response = new ServerResponse<Customer>(message, code, customer);
             message = "Customer saved";
             user = customer;
             code = ServerResponse.SAVE_SUCCEEDED;
+            response = new ServerResponse<Customer>(message, code, customer);
+
         } else if (action.getData().getClass() == Employee.class) {
+
             EmployeeRepository employeeRepository = new EmployeeRepository(Driver.entityManager);
             Employee employee = (Employee) action.getData();
             employeeRepository.save(employee);
@@ -280,26 +307,26 @@ public class MultipleClientHandler implements Runnable {
         String message = "Login Failed.";
         ServerResponse response;
         CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
-        _User user = (_User)action.getData();
-        
+        _User user = (_User) action.getData();
+
         // System.out.println(user.get);
-        
+
         // System.out.println(action.getData().toString());
         Customer customer = null;
         customer = customerRepository.findByUsername(user.getUsername());
-        if(customer != null){
+        if (customer != null) {
             if (customer.getPassword().equals(user.getPassword())) {
                 user = customer;
-            }else{
+            } else {
                 user = null;
             }
         } else {
             EmployeeRepository employeeRepository = new EmployeeRepository(Driver.entityManager);
             Employee employee = employeeRepository.findByUsername(user.getUsername());
             // user = employee;
-            if(employee != null && employee.getPassword().equals(user.getPassword())){
-                    user = employee;
-            }else{
+            if (employee != null && employee.getPassword().equals(user.getPassword())) {
+                user = employee;
+            } else {
                 user = null;
             }
         }
@@ -313,7 +340,7 @@ public class MultipleClientHandler implements Runnable {
             sessionId = UUID.randomUUID();
             code = ServerResponse.REQUEST_SUCCEEDED;
             message = sessionId.toString();
-        }else{
+        } else {
 
         }
         response = new ServerResponse<_User>(message, code, user);
@@ -321,10 +348,13 @@ public class MultipleClientHandler implements Runnable {
         return response;
     }
 
-    /**---------------------------SERVICES & BILLING-------------------------------- */
-    
     /**
-     * save a Service 
+     * ---------------------------SERVICES & BILLING--------------------------------
+     */
+
+    /**
+     * save a Service
+     * 
      * @param action
      * @return
      */
@@ -342,13 +372,14 @@ public class MultipleClientHandler implements Runnable {
             message = "Service saved";
             code = ServerResponse.SAVE_SUCCEEDED;
         }
-        
+
         response = new ServerResponse<Service>(message, code, service);
         return response;
     }
 
     /**
-     * save a Bill 
+     * save a Bill
+     * 
      * @param action
      * @return
      */
@@ -366,13 +397,14 @@ public class MultipleClientHandler implements Runnable {
             message = "Bill saved";
             code = ServerResponse.SAVE_SUCCEEDED;
         }
-        
+
         response = new ServerResponse<Bill>(message, code, bill);
         return response;
     }
 
     /**
-     * save a Payment 
+     * save a Payment
+     * 
      * @param action
      * @return
      */
@@ -390,12 +422,11 @@ public class MultipleClientHandler implements Runnable {
             message = "Bill saved";
             code = ServerResponse.SAVE_SUCCEEDED;
         }
-        
+
         response = new ServerResponse<Payment>(message, code, payment);
         return response;
     }
 
-    
     /**
      * 
      * @param action
@@ -418,13 +449,12 @@ public class MultipleClientHandler implements Runnable {
             if (account.getAccountID() > 0) {
                 // load user by id
                 account = accountRepository.findById(account.getAccountID());
-            } else if (account.getCustomer() !=null && account.getCustomer().getUserID() != 0) {
+            } else if (account.getCustomer() != null && account.getCustomer().getUserID() != 0) {
                 // load user by username
                 int customerId = account.getCustomer().getUserID();
                 account = accountRepository.findByCustomerId(customerId);
             }
 
-            
             if (account != null) {// TODO: check if users found
                 message = "User found";
                 code = ServerResponse.REQUEST_SUCCEEDED;
@@ -435,21 +465,21 @@ public class MultipleClientHandler implements Runnable {
         return response;
     }
 
-    /**---------------------------------COMPLAINTS------------------------------*/
+    /** ---------------------------------COMPLAINTS------------------------------ */
 
     ServerResponse loadComplaint(ServerRequest action) {
         boolean found = false;
         int code = ServerResponse.DELETE_FAILED;
-        String message  = "Complaint doesn't exist.";
+        String message = "Complaint doesn't exist.";
         ServerResponse response;
         Complaint complaint = null;
 
         ComplaintRepository complaintRepository = new ComplaintRepository(Driver.entityManager);
         complaint = (Complaint) action.getData();
 
-        //Check if complaint id available
+        // Check if complaint id available
         if (complaint.getComplaintId() > 0) {
-            //load complaint by id
+            // load complaint by id
             complaint = complaintRepository.findById(complaint.getComplaintId()).get();
             found = true;
         }
@@ -458,7 +488,7 @@ public class MultipleClientHandler implements Runnable {
             message = "User found";
             code = ServerResponse.REQUEST_SUCCEEDED;
         }
-        response = new ServerResponse<Complaint>(message,code,complaint);
+        response = new ServerResponse<Complaint>(message, code, complaint);
         return response;
     }
 
@@ -468,7 +498,6 @@ public class MultipleClientHandler implements Runnable {
         String message = "No Complaint Found.";
         ServerResponse response;
 
-
         ArrayList<Complaint> complaintsList = new ArrayList<>();
 
         if (true) {
@@ -477,7 +506,7 @@ public class MultipleClientHandler implements Runnable {
             complaintsList.add(new Complaint());
         }
 
-        response = new ServerResponse<ArrayList<Complaint>>(message,code,complaintsList);
+        response = new ServerResponse<ArrayList<Complaint>>(message, code, complaintsList);
 
         return response;
     }
@@ -492,13 +521,12 @@ public class MultipleClientHandler implements Runnable {
         complaint = (Complaint) action.getData();
         complaintRepository.save(complaint);
         message = "Complaint saved";
-        code=ServerResponse.SAVE_SUCCEEDED;
-        response = new ServerResponse<Complaint>(message,code,complaint);
+        code = ServerResponse.SAVE_SUCCEEDED;
+        response = new ServerResponse<Complaint>(message, code, complaint);
         return response;
     }
 
-
-    /**-------------------------------LIVE CHAT--------------------------------*/
+    /** -------------------------------LIVE CHAT-------------------------------- */
 
     ServerResponse logOnUserToLiveChat(ServerRequest action) {
         // Check if user is a Customer or an Employee of type

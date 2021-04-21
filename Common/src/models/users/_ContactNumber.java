@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
+import utilities.Validator;
+
 // Annotations
 @MappedSuperclass
 public class _ContactNumber implements Serializable{
@@ -22,10 +24,16 @@ public class _ContactNumber implements Serializable{
     int userId;
 
     public boolean validate(){
-        boolean valid = false;
+
+        boolean valid = true;
         
+        if( !( Validator.validate(contactNum, Validator.PHONE ) ) ){
+
+            valid = false;
+        }
         return valid;
     }
+    
     /**------------------------------------------------------------- */
     // default constructor
     public _ContactNumber() {

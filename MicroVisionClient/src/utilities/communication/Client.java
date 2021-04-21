@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class Client extends _ClientServer {
+    
     String SERVERIP = "127.0.0.1";
 
 
@@ -18,33 +19,39 @@ public class Client extends _ClientServer {
     }
 
     public void createConnection() {
+
         try {
             connection.warn("Attempting to setup client socket");
             //Create a socket to connect to the server
             this.connectionSocket = new Socket(SERVERIP, SERVERPORT);
             connection.info("Socket setup successful");
+
         }catch (IOException ex) {
             error.error(ex.getMessage());
         }
     }
 
     public void sendAction(ServerRequest action) {
+
         // this.action = action;
         try {
             connection.warn("Attempting to send action to the Server");
             objectOutputStream.writeObject(action);
             connection.info("Action successfully sent to Server");
             System.out.println("Action successfully sent to Server");
+
         }catch (IOException ex) {
             error.warn("Action not sent to Server \n" + ex.getMessage());
         }
     }
 
     public ServerResponse receiveResponse() {
+
         ServerResponse response = null;
         try {
             connection.warn("Attempting to receive response from server");
             response = (ServerResponse) objectInputStream.readObject();
+            
         }catch (IOException | ClassNotFoundException ex) {
             error.error(ex.getMessage());
         }

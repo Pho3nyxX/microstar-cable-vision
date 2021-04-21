@@ -11,6 +11,7 @@ import javax.persistence.*;
 // Annotations
 @MappedSuperclass
 public class _Service implements Serializable {
+    
     public static final String SERVICE_WIRED_INTERNET = "Internet";
     public static final String SERVICE_BROADBAND = "Broadband";
     public static final String SERVICE_TV = "TV";

@@ -35,6 +35,7 @@ public class Account extends _Account{
     @JoinColumn(name = "account_id", referencedColumnName="account_id")
     protected List<Payment> payments;
 
+    
     public Customer getCustomer() {
         return customer;
     }
@@ -62,7 +63,7 @@ public class Account extends _Account{
         this.payments = payments;
     }
     public Account(int accountID, String accountStatus, double amountDue, int customerID, Customer customer,
-            List<Service> services, List<Payment> payment) {
+            List<Service> services, List<Payment> payments) {
         super(accountID, accountStatus, amountDue);
         this.customer = customer;
         this.services = services;

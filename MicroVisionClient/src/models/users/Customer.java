@@ -1,9 +1,11 @@
 package models.users;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import models.users._Customer;
-import models.users._Address;
+import models.users.Address;
+import models.accounts.Account;
 import models.chat._Message;
 
 import utilities.ServerRequest;
@@ -14,6 +16,10 @@ import driver.*;
 
 public class Customer extends _Customer{
     private static final long serialVersionUID = -7122240510909524901L;
+
+    protected ContactNumber phone;
+    protected List<Account> accounts;
+    protected List<Address> addresses;
 
     // @Override
     public void LodgeComplaint() {
@@ -29,19 +35,24 @@ public class Customer extends _Customer{
         if( this.validate()){
             // Create request with user data
             ServerRequest<Customer> request = new ServerRequest<Customer>(ServerRequest.USER_UPDATE_COMMAND, this); 
+
             Driver.clientConnection.createConnection();
+
             Driver.clientConnection.configureStreams();
+
             Driver.clientConnection.sendAction(request);
-            //App.clientConnection.closeConnection();
+
             ServerResponse response = Driver.clientConnection.receiveResponse();
             if (response.getCode() == ServerResponse.SAVE_SUCCEEDED) {
+
                 userCreated = true;
+
                 System.out.println(response);
-                //TODO handle user creation succeed
+
             } else{
-                //TODO handle user creation failed
                 //Add error returned from server to validation errors array
                 System.out.println(response);
+
                 this.validation_errors.add(response.getMessage());
             }
             Driver.clientConnection.closeConnection();
@@ -74,7 +85,10 @@ public class Customer extends _Customer{
             this.userID = ((Customer)response.getData()).getUserID();
             this.age = ((Customer)response.getData()).getAge();
             this.email = ((Customer)response.getData()).getEmail();
-            // this.phone = ((Customer)response.getData()).getPhone();
+            this.isOnline = ((Customer)response.getData()).isOnline;
+            this.phone = ((Customer)response.getData()).phone;
+            this.addresses = ((Customer)response.getData()).addresses;
+            this.accounts = ((Customer)response.getData()).accounts;
             this.username = ((Customer)response.getData()).getUsername();
             this.firstName = ((Customer)response.getData()).getfirstName();
             this.lastName = ((Customer)response.getData()).getlastName();
@@ -91,8 +105,7 @@ public class Customer extends _Customer{
     public static ArrayList<Customer> loadCustomers(){
         // load customers from datatbase
         ArrayList<Customer> customers = null;
-        Integer page = 100;
-        ServerRequest<Integer> request = new ServerRequest<Integer>(ServerRequest.USER_LOAD_MANY_COMMAND, page); 
+        ServerRequest<Customer> request = new ServerRequest<Customer>(ServerRequest.USER_LOAD_MANY_COMMAND, new Customer()); 
         Driver.clientConnection.createConnection();
         Driver.clientConnection.configureStreams();
         Driver.clientConnection.sendAction(request);

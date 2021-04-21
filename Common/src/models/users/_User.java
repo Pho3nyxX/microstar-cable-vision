@@ -12,6 +12,7 @@ import utilities.Validator;
 @Table(name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class _User implements Serializable {
+    
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="user_id")
