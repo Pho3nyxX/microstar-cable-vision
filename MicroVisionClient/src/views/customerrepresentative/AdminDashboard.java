@@ -10,6 +10,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import driver.Driver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import views.livechat.ChatHome;
 
 public class AdminDashboard  extends JPanel  {
     
@@ -56,6 +59,8 @@ public class AdminDashboard  extends JPanel  {
     JButton startLiveChatBtn;
     JButton createCustomerBtn;
     JButton createEmployeeBtn;
+
+    Logger employeeAccess = LogManager.getLogger("EmployeeAccess");
 
     /** -------------------------CONSTRUCTORS------------------------------- */
     public AdminDashboard() {
@@ -146,7 +151,9 @@ public class AdminDashboard  extends JPanel  {
         startLiveChatBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button clicked");
+                System.out.println("Start Chat Button clicked");
+                employeeAccess.info("Start Chat Button clicked");
+                Driver.FRAME.add(new ChatHome());
             }
         });
 

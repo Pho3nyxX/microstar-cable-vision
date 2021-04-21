@@ -2,6 +2,7 @@ package views.livechat;
 
 import controllers.LiveChat;
 import driver.Driver;
+import models.complaints.Complaint;
 import models.users.Customer;
 import models.users.Employee;
 import models.users._User;
@@ -29,7 +30,8 @@ public class ChatHome extends JPanel {
     Color blueBackground;
 
 
-    ChatHome () {
+    public ChatHome () {
+
         blueBackground = new Color(41,193,239);
 
         profileImageLabel = new JLabel(new ImageIcon("image/Chat.png"));
@@ -102,8 +104,20 @@ public class ChatHome extends JPanel {
                 String name = JOptionPane.showInputDialog(null, "Enter name");
 
                 _User recipientUser = LiveChat.findUserFromUsername(name);
-                //Get complaint
+
+                //Get complaints to be displayed so a choice can be made
+                if (Driver.SESSION_TYPE.equals("Customer")) {
+                    LiveChat.loadUserComplaints(Driver.CURRENT_USER);
+                }else if (Driver.SESSION_TYPE.equals("Employee")) {
+                    LiveChat.loadUserComplaints(recipientUser);
+                }
+
+                String complaintId = JOptionPane.showInputDialog(null,"Enter complaint id");
+
+                Complaint complaint = LiveChat.findComplaintFromId(Integer.parseInt(complaintId));
+
                 //Call the Chat message constructer
+                Driver.FRAME.add(new ChatMessage(recipientUser, complaint));
             }
         });
 

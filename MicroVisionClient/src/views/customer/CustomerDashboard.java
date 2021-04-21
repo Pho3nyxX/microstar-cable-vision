@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import driver.Driver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import views.livechat.ChatHome;
 
 public class CustomerDashboard extends JPanel {
 
@@ -40,6 +43,8 @@ public class CustomerDashboard extends JPanel {
     JButton pastComplaintsBtn; // this button takes you to the complaint history page
     JButton lodgeComplaintsBtn; // this button takes you to lodge complaint page
 
+    //Logger for tracking customer
+    Logger customerAccess = LogManager.getLogger("CustomerAccess");
     /** -------------------------CONSTRUCTORS------------------------------- */
 
     public CustomerDashboard() {
@@ -96,8 +101,9 @@ public class CustomerDashboard extends JPanel {
         startChatBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button clicked");
-                //ViewPastPayment pastPayment = new ViewPastPayment(Driver.FRAME);
+                System.out.println("Start Chat Button clicked");
+                customerAccess.info("Start Chat Button clicked");
+                Driver.FRAME.add(new ChatHome());
             }
         });
         // adding action listener to Past Payment Button button because it requires an
