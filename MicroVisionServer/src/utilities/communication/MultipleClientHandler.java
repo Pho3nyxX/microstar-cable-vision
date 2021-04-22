@@ -346,14 +346,14 @@ public class MultipleClientHandler implements Runnable {
         String message = "Login Failed.";
         ServerResponse response;
         CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
-        
+
         _User user = (_User) serverRequest.getData();
 
         // System.out.println(user.get);
 
         // System.out.println(action.getData().toString());
         Customer customer = null;
-        
+
         customer = customerRepository.findByUsername(user.getUsername());
 
         if (customer != null) {
