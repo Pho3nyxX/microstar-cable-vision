@@ -603,10 +603,12 @@ public class MultipleClientHandler implements Runnable {
 
             } else if (employee.getRole().equals("Customer Service Rep") || employee.getRole().equals("Admin")) {
                 // Don't allow them to log on to live chat
+                ArrayList<_User> notAcceptedUsers = new ArrayList<>();
 
                 String message = "Login Failed";
                 int code = ServerResponse.REQUEST_FAILED;
-                response = new ServerResponse<_User>(message, code, user);
+                notAcceptedUsers.add(user);
+                response = new ServerResponse<ArrayList<_User>>(message, code, notAcceptedUsers);
             }
         }
         return response;

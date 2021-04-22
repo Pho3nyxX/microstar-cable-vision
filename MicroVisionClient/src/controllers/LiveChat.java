@@ -29,8 +29,7 @@ public class LiveChat {
         ArrayList<_User> onlineUsersFromServer = null;
 
         ServerResponse<ArrayList<_User>> response = Driver.messageConnection.receiveResponse();
-
-        onlineUsersFromServer = response.getData();
+        onlineUsersFromServer = (ArrayList<_User>) response.getData();
 
         if (response.getMessage().equals("Login Successful")) {
 

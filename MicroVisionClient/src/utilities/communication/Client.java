@@ -58,7 +58,7 @@ public class Client extends _ClientServer {
 
             connection.warn("Attempting to receive response from server");
             response = (ServerResponse) objectInputStream.readObject();
-            
+            connection.info("Response received from Server");
         }catch (IOException | ClassNotFoundException ex) {
             
             error.error(ex.getMessage());
