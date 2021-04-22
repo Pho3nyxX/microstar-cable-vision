@@ -1,5 +1,9 @@
 package views.customer;
 
+import driver.Driver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +40,8 @@ public class ViewPastComplaints extends JDialog {
     // inputs
     JButton viewBtn;
     JButton DashboardBtn;
+
+    Logger customer = LogManager.getLogger("CustomerAccess");
 
     /** -------------------------CONSTRUCTORS------------------------------- */
     
@@ -101,6 +107,12 @@ public class ViewPastComplaints extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button clicked");
+                customer.info("Dashboard Button Clicked. - Returning to Dashboard.");
+                dispose();
+                CustomerDashboard dashboard = new CustomerDashboard();
+                dashboard.setBounds(0, 0, 700, 700);
+
+                Driver.FRAME.add(dashboard);
             }
         });
 

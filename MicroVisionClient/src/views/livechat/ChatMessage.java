@@ -168,7 +168,7 @@ public class ChatMessage extends JFrame{
         mainPanel.setVisible(true);
 
         this.setSize(450,600);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.add(mainPanel);
         this.setVisible(true);
     }

@@ -1,6 +1,10 @@
 package views.technician;
 
 
+import driver.Driver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -42,6 +46,8 @@ public class Visit extends JPanel {
     JButton notifyCustomerBtn;
     JButton submitBtn;
     JButton dashboardBtn;
+
+    Logger employee = LogManager.getLogger("EmployeeAccess");
 
     /** -------------------------CONSTRUCTORS------------------------------- */
 
@@ -128,6 +134,11 @@ public class Visit extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e){
                 System.out.println("Button clicked");
+                employee.info("Dashboard Button Clicked. - Returning to Technician Dashboard");
+                TechDashboard techDashboard = new TechDashboard();
+                techDashboard.setBounds(0, 0, 700, 700);
+                Driver.FRAME.add(techDashboard);
+                setVisible(false);
             }
         });
 

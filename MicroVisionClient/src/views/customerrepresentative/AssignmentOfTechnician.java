@@ -1,5 +1,11 @@
 package views.customerrepresentative;
 
+import driver.Driver;
+import models.users.Employee;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import views.customer.CustomerDashboard;
+
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,6 +46,8 @@ public class AssignmentOfTechnician extends JDialog {
     // inputs
     JButton assignBtn;
     JButton dashboardBtn;
+
+    Logger employee = LogManager.getLogger("EmployeeAccess");
 
     /** -------------------------CONSTRUCTORS------------------------------- */
 
@@ -107,7 +115,21 @@ public class AssignmentOfTechnician extends JDialog {
         dashboardBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Button clicked");
+                System.out.println("Dashboard Button clicked");
+                employee.info("Dashboard Button Clicked.");
+                dispose();
+
+                if (((Employee)Driver.CURRENT_USER).getRole().equals(Employee.ROLE_CUSTOMER_REP)) {
+                    employee.info("Returning to Rep Dashboard");
+                    RepDashboard repDashboard = new RepDashboard();
+                    repDashboard.setBounds(0, 0, 700, 700);
+                    Driver.FRAME.add(repDashboard);
+                }else if (((Employee)Driver.CURRENT_USER).getRole().equals(Employee.ROLE_ADMIN)) {
+                    employee.info("Returning to Admin Dashboard");
+                    AdminDashboard adminDashboard = new AdminDashboard();
+                    adminDashboard.setBounds(0, 0, 700, 700);
+                    Driver.FRAME.add(adminDashboard);
+                }
             }
         });
 
