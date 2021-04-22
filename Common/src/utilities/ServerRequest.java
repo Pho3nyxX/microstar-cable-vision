@@ -52,6 +52,8 @@ public class ServerRequest<T extends Serializable>  implements Serializable {
     public static final String COMPLAINT_UPDATE_COMMAND = "Complaint-Update";
     public static final String COMPLAINT_DELETE_COMMAND = "Complaint-Delete";
 
+    public static final String MESSAGE_UPDATE_COMMAND = "Message-Update";
+
     public ServerRequest() {
     }
 

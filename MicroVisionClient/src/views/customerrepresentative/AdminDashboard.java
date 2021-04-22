@@ -2,6 +2,7 @@ package views.customerrepresentative;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -164,7 +165,8 @@ public class AdminDashboard  extends JPanel implements ActionListener  {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Start Chat Button clicked");
                 employeeAccess.info("Start Chat Button clicked");
-                Driver.FRAME.add(new ChatHome());
+                JOptionPane.showMessageDialog(null,"Login as Technician to use Live Chat",
+                        "Live Chat",JOptionPane.WARNING_MESSAGE);
             }
         });
 
