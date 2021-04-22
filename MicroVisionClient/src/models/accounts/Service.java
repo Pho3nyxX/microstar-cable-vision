@@ -15,34 +15,47 @@ public class Service extends _Service{
 
         // @Override
     public boolean save() {
+
         boolean serviceCreated = false; 
 
         // validate data 
         if( this.validate()){
+
             // Create request with user data
             ServerRequest<Service> request = new ServerRequest<Service>(ServerRequest.SERVICE_UPDATE_COMMAND, this); 
+
             Driver.clientConnection.createConnection();
+
             Driver.clientConnection.configureStreams();
-            Driver.clientConnection.sendAction(request);
+
+            Driver.clientConnection.sendRequest(request);
+
             //App.clientConnection.closeConnection();
             ServerResponse response = Driver.clientConnection.receiveResponse();
+
             if (response.getCode() == ServerResponse.SAVE_SUCCEEDED) {
+
                 serviceCreated = true;
                 System.out.println(response);
                 //TODO handle user creation succeed
+
             } else{
+
                 //TODO handle user creation failed
                 //Add error returned from server to validation errors array
                 System.out.println(response);
+
                 this.validation_errors.add(response.getMessage());
             }
             Driver.clientConnection.closeConnection();
         }
+
         return serviceCreated;
     }
         
     @Override
     public boolean validate() {
+
         //TODO implement individual validators
         boolean valid = super.validate();
 
@@ -50,10 +63,12 @@ public class Service extends _Service{
     }
 
     public Service(int serviceID, String typeOfService, LocalDate dateInitiated, String status, int accountID) {
+
         super(serviceID, typeOfService, dateInitiated, status, accountID);
     }
 
     public Service() {
+        
         super();
     }
 }

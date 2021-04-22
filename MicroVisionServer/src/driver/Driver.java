@@ -1,6 +1,8 @@
 package driver;
 
 import utilities.communication.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.EntityManager;
@@ -10,12 +12,9 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 import models.users._User;
-import models.users.Customer;
-import models.accounts.Account;
-import models.users.Address;
-import models.users.AddressRepository;
-import models.users.ContactNumber;
-import models.users.CustomerRepository;
+import models.accounts.*;
+import models.users.*;
+import models.complaints.*;
 
 public class Driver {
     public static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("Microstarcablevision");
@@ -27,7 +26,15 @@ public class Driver {
         entityManagerFactory = Persistence.createEntityManagerFactory("Microstarcablevision");
         entityManager = entityManagerFactory.createEntityManager();
         
+        // Create our repositories
+        // ComplaintRepository complaintRepository = new ComplaintRepository(entityManager);      
+
+        // Create an complaint
+        // Complaint complaint = new Complaint(0, "Open", "Red dlight on box", "connection", LocalDateTime.now(), 1);
         
+        // complaintRepository.save(complaint);
+        // complaint.addResponse( new Response(0, "Return router", LocalDate.now()) );
+        // complaintRepository.save(complaint);
         /*
         // Create our repositories
         CustomerRepository customerRepository = new CustomerRepository(entityManager);

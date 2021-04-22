@@ -3,23 +3,30 @@ package models.users;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
+import models.BaseRepository;
+
 import java.util.List;
 import java.util.Optional;
 
-public class CustomerRepository {
-    private EntityManager entityManager;
+public class CustomerRepository extends BaseRepository{
+
     public CustomerRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
     }
     
     public Optional<Customer> save(Customer customer) {
         try {
             entityManager.getTransaction().begin();
+            
             entityManager.persist(customer);
+            
             entityManager.getTransaction().commit();
+            
             return Optional.of(customer);
+        
         } catch (Exception e) {
-            e.printStackTrace();
+            
+            this.handleSaveError(e);
         }
         return Optional.empty();
     }

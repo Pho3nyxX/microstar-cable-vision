@@ -16,14 +16,22 @@ public class EmployeeRepository extends BaseRepository {
     }
 
     public Optional<Employee> save(Employee employee) {
+        
         try {
+        
             entityManager.getTransaction().begin();
+        
             entityManager.persist(employee);
+        
             entityManager.getTransaction().commit();
+        
             return Optional.of(employee);
+        
         } catch (Exception e) {
-            e.printStackTrace();
+            
+            this.handleSaveError(e);
         }
+
         return Optional.empty();
     }
 

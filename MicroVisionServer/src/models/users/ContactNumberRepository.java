@@ -2,25 +2,30 @@ package models.users;
 
 import javax.persistence.EntityManager;
 
+import models.BaseRepository;
+
 import java.util.List;
 import java.util.Optional;
 
-public class ContactNumberRepository {
+public class ContactNumberRepository extends BaseRepository {
 
-    private EntityManager entityManager;
     public ContactNumberRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
     }
 
     public Optional<ContactNumber> save(ContactNumber contactNumber) {
         try {
             entityManager.getTransaction().begin();
+            
             entityManager.persist(contactNumber);
+            
             entityManager.getTransaction().commit();
+            
             return Optional.of(contactNumber);
+        
         } catch (Exception e) {
-            // e.printStackTrace();
-            System.err.println(e.getMessage());
+            
+            this.handleSaveError(e);
         }
         return Optional.empty();
     }

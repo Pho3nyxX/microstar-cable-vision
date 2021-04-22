@@ -16,13 +16,21 @@ public class VisitRepository extends BaseRepository{
 
     public Optional<Visit> save(Visit visit) {
         try {
+            
             entityManager.getTransaction().begin();
+            
             entityManager.persist(visit);
+            
             entityManager.getTransaction().commit();
+            
             return Optional.of(visit);
+
         } catch (Exception e) {
-            e.printStackTrace();
+            
+            this.handleSaveError(e);
+        
         }
+        
         return Optional.empty();
     }
 

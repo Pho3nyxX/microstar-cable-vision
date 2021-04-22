@@ -14,6 +14,7 @@ public class Client extends _ClientServer {
 
 
     public Client() {
+
         this.createConnection();
         this.configureStreams();
     }
@@ -21,6 +22,7 @@ public class Client extends _ClientServer {
     public void createConnection() {
 
         try {
+
             connection.warn("Attempting to setup client socket");
             //Create a socket to connect to the server
             this.connectionSocket = new Socket(SERVERIP, SERVERPORT);
@@ -31,28 +33,34 @@ public class Client extends _ClientServer {
         }
     }
 
-    public void sendAction(ServerRequest action) {
+    public void sendRequest(ServerRequest serverRequest) {
 
         // this.action = action;
         try {
+
             connection.warn("Attempting to send action to the Server");
-            objectOutputStream.writeObject(action);
+            objectOutputStream.writeObject(serverRequest);
             connection.info("Action successfully sent to Server");
             System.out.println("Action successfully sent to Server");
 
         }catch (IOException ex) {
+
             error.warn("Action not sent to Server \n" + ex.getMessage());
         }
     }
 
+    
     public ServerResponse receiveResponse() {
 
         ServerResponse response = null;
+
         try {
+
             connection.warn("Attempting to receive response from server");
             response = (ServerResponse) objectInputStream.readObject();
             
         }catch (IOException | ClassNotFoundException ex) {
+            
             error.error(ex.getMessage());
         }
         return response;

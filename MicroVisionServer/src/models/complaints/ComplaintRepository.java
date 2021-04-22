@@ -17,11 +17,15 @@ public class ComplaintRepository extends BaseRepository{
     public Optional<Complaint> save(Complaint complaint) {
         try {
             entityManager.getTransaction().begin();
+            
             entityManager.persist(complaint);
+            
             entityManager.getTransaction().commit();
+            
             return Optional.of(complaint);
         } catch (Exception e) {
-            e.printStackTrace();
+            
+            this.handleSaveError(e);
         }
         return Optional.empty();
     }

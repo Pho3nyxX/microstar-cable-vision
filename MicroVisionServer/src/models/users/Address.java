@@ -20,19 +20,25 @@ public class Address extends _Address{
     public Address() {
         super();
     }
+
     public Address(int address_id, String parish, String town, String street, int customer_id) {
+
         super(address_id, parish, town, street, customer_id);
     }
 
     public Address(String parish, String town, String street) {
+
         super();
         this.setParish(parish);
         this.setTown(town);
         this.setStreet(street);
     }
+
     public Customer getCustomer() {
+
         return customer;
     }
+    
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }

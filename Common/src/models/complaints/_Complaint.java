@@ -2,6 +2,7 @@ package models.complaints;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -10,6 +11,14 @@ import javax.persistence.*;
 @MappedSuperclass
 public abstract class _Complaint implements Serializable {
 
+    public static final String COMPLAINT_STATUS_UNRESOLVED = "Unresolved";
+    public static final String COMPLAINT_STATUS_RESOLVED = "resolved";
+
+    public static final String COMPLAINT_ISSUE_CONNECTIVITY = "Connectivity";
+    public static final String COMPLAINT_ISSUE_DEVICE = "Device";
+    public static final String COMPLAINT_ISSUE_SERVICE = "Missing service";
+    public static final String COMPLAINT_ISSUE_OUTAGE = "Outage";
+
     @Id
     @Column(name = "complaint_id")
     int complaintId;
@@ -17,7 +26,7 @@ public abstract class _Complaint implements Serializable {
     @Column(name = "status")
     String status;
 
-    @Column(name = "details")
+    @Column(name = "details_of_issue")
     String details;
 
     @Column(name = "type_of_issue")
@@ -29,7 +38,41 @@ public abstract class _Complaint implements Serializable {
     @Column(name = "account_id")
     int accountId;
 
+    @Transient
+    protected ArrayList<String> validation_errors;
+
     public _Complaint() {
+    }
+
+    /**
+     * validate members to ensure all dat falls within acceptable ranges
+     * @return
+     */
+    public boolean validate(){
+        boolean valid = true;
+
+        // check if each fields data is valid
+        if( !( this.status.equals(_Complaint.COMPLAINT_STATUS_RESOLVED) ) && !( this.status.equals(_Complaint.COMPLAINT_STATUS_UNRESOLVED) ) ){
+            
+            this.validation_errors.add("Invalid issue status entered.");
+            valid = false;
+        }
+
+        if( !( this.status.equals(_Complaint.COMPLAINT_ISSUE_CONNECTIVITY) ) && !( this.status.equals(_Complaint.COMPLAINT_ISSUE_DEVICE) ) && !( this.status.equals(_Complaint.COMPLAINT_ISSUE_OUTAGE) ) && !( this.status.equals(_Complaint.COMPLAINT_ISSUE_SERVICE) )){
+            
+            this.validation_errors.add("Invalid issue type entered.");
+            
+            valid = false;
+        }
+        
+        if(this.details.isBlank()){
+            
+            this.validation_errors.add("Detaiks cannot be blank.");
+            
+            valid = false;
+        }
+        return valid;
+
     }
 
     public _Complaint(int complaintId, String status, String details, String typeOfIssue, LocalDateTime dateRaised, int accountId) {

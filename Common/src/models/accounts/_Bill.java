@@ -48,6 +48,7 @@ public class _Bill implements Serializable {
 
         // check if each fields data is valid
         if( (this.periodStart.compareTo(this.periodEnd) > 0)){
+            
             this.validation_errors.add("Start date cannot fall after end.");
             valid = false;
         }

@@ -2,6 +2,7 @@ package models.complaints;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -23,6 +24,9 @@ public class _Visit implements Serializable{
 
     @Column(name="complete")
     boolean complete;
+
+    @Transient
+    protected ArrayList<String> validation_errors;
 
     // default constructor
     public _Visit() {

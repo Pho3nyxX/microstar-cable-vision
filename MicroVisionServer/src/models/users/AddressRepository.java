@@ -1,14 +1,16 @@
 package models.users;
 
 import javax.persistence.EntityManager;
+
+import models.BaseRepository;
+
 import java.util.List;
 import java.util.Optional;
 
-public class AddressRepository {
+public class AddressRepository extends BaseRepository{
 
-    private EntityManager entityManager;
     public AddressRepository(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
     }
     
     public Optional<Address> save(Address address) {
@@ -18,7 +20,7 @@ public class AddressRepository {
             entityManager.getTransaction().commit();
             return Optional.of(address);
         } catch (Exception e) {
-            e.printStackTrace();
+            this.handleSaveError(e);
         }
         return Optional.empty();
     }

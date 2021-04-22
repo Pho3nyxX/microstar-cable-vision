@@ -8,20 +8,23 @@ import javax.persistence.NoResultException;
 
 import models.BaseRepository;
 
-public class AccountRepository extends BaseRepository{
-    
+public class AccountRepository extends BaseRepository {
 
     public AccountRepository(EntityManager entityManager) {
+
         super(entityManager);
-        //TODO Auto-generated constructor stub
+        // TODO Auto-generated constructor stub
     }
 
     public Optional<Account> save(Account account) {
+
         try {
+
             entityManager.getTransaction().begin();
             entityManager.persist(account);
             entityManager.getTransaction().commit();
             return Optional.of(account);
+
         } catch (Exception e) {
             // e.printStackTrace();
             System.err.println(e.getMessage());
@@ -29,30 +32,54 @@ public class AccountRepository extends BaseRepository{
         return Optional.empty();
     }
 
+    /**
+     * 
+     * @param id
+     * @return
+     */
     public Account findById(Integer id) {
+
         Account account;
-        try{
+
+        try {
+
             account = entityManager.find(Account.class, id);
-        }catch(Exception ex){
+
+        } catch (Exception ex) {
+
             account = null;
+            
         }
+
         return account;
     }
 
+    /**
+     * 
+     * @return
+     */
     public List<Account> findAll() {
+
         return entityManager.createQuery("from Account").getResultList();
     }
 
-    public Account findByCustomerId(int customer_id){
+    /**
+     * 
+     * @param customer_id
+     * @return
+     */
+    public Account findByCustomerId(int customer_id) {
+
         Account account;
+
         try {
-             account = entityManager.createNamedQuery("Account.findByCustomerId", Account.class)
-            .setParameter("customer_id", customer_id)
-            .getSingleResult();
-        }catch(NoResultException ex){
+
+            account = entityManager.createNamedQuery("Account.findByCustomerId", Account.class)
+                    .setParameter("customer_id", customer_id).getSingleResult();
+
+        } catch (NoResultException ex) {
             account = null;
         }
         return account;
     }
 }
-

@@ -3,5 +3,8 @@
         "lib/**/*.jar",
         "c:\\Program Files (x86)\\MySQL\\Connector J 8.0\\mysql-connector-java-8.0.23.jar",
         "c:\\Users\\hummi\\Documents\\MicroStarCableVision\\Common\\Common.jar"
+    ],
+    "java.project.sourcePaths": [
+        "src"
     ]
 }

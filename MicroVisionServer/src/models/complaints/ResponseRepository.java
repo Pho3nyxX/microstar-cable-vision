@@ -17,11 +17,14 @@ public class ResponseRepository extends BaseRepository{
     public Optional<Response> save(Response response) {
         try {
             entityManager.getTransaction().begin();
+            
             entityManager.persist(response);
+            
             entityManager.getTransaction().commit();
+            
             return Optional.of(response);
         } catch (Exception e) {
-            e.printStackTrace();
+            this.handleSaveError(e);
         }
         return Optional.empty();
     }

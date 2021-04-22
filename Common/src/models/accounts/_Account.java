@@ -39,13 +39,18 @@ public class _Account implements Serializable {
 
     
     public boolean validate() {
+        
         boolean valid = true;
 
         // check if each fields data is valid
         if( !( this.accountStatus.equals(_Account.ACCOUNT_DEACTIVATED) ) && !( this.accountStatus.equals(_Account.ACCOUNT_PAST_DUE) ) && !( this.accountStatus.equals(_Account.ACCOUNT_UPTODATE) )){
+        
             this.validation_errors.add("Invalid account status entered.");
+        
             valid = false;
+        
         }
+        
         return valid;
     }
 
@@ -53,7 +58,9 @@ public class _Account implements Serializable {
     //default constructor
     public _Account() {
         this.accountID = 0;
+        
         this.accountStatus = "";
+        
         this.amountDue = 0.0;
         // this.customerID = 0;
         this.validation_errors = new ArrayList();
@@ -62,7 +69,9 @@ public class _Account implements Serializable {
     // primary constructor
     public _Account(int accountID, String accountStatus, double amountDue) {
         this.accountID = accountID;
+        
         this.accountStatus = accountStatus;
+        
         this.amountDue = amountDue;
         // this.customerID = customerID;
         this.validation_errors = new ArrayList();
@@ -70,8 +79,11 @@ public class _Account implements Serializable {
 
     // copy constructor
     public _Account(_Account ac) {
+        
         this.accountID = ac.accountID;
+        
         this.accountStatus = ac.accountStatus;
+        
         this.amountDue = ac.amountDue;
         // this.customerID = ac.customerID;
         this.validation_errors = new ArrayList();

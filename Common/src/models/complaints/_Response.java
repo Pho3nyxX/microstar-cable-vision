@@ -2,6 +2,7 @@ package models.complaints;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -15,37 +16,59 @@ public class _Response implements Serializable {
     @Column(name="response_id")
     int responseID;
 
-    @Column(name="detail")
-    String detail;
+    @Column(name="response_detail")
+    String details;
 
     @Column(name="response_date")
     LocalDate responseDate;
 
-    @Column(name="complaint_id")
-    int complaintID;
+    // @Column(name="complaint_id" )
+    // int complaintID;
+
+    @Transient
+    protected ArrayList<String> validation_errors;
+
+        /**
+     * validate members to ensure all dat falls within acceptable ranges
+     * @return
+     */
+    public boolean validate(){
+        boolean valid = true;
+
+        // check if each fields data is valid        
+        if(this.details.isBlank()){
+            
+            this.validation_errors.add("Detaiks cannot be blank.");
+            
+            valid = false;
+        }
+        return valid;
+
+    }
+
 
     // default constructor
     public _Response() {
         this.responseID = 0;
-        this.detail = "";
+        this.details = "";
         this.responseDate = null;
-        this.complaintID = 0;
+        // this.complaintID = 0;
     }
 
     // primary constructor
     public _Response(int responseID, String detail, LocalDate responseDate, int complaintID) {
         this.responseID = responseID;
-        this.detail = detail;
+        this.details = detail;
         this.responseDate = responseDate;
-        this.complaintID = complaintID;
+        // this.complaintID = complaintID;
     }
 
     // copy constructor
     public _Response(_Response call) {
         this.responseID = call.responseID;
-        this.detail = call.detail;
+        this.details = call.details;
         this.responseDate = call.responseDate;
-        this.complaintID = call.complaintID;
+        // this.complaintID = call.complaintID;
     }
 
     public int getResponseID() {
@@ -57,11 +80,11 @@ public class _Response implements Serializable {
     }
 
     public String getDetail() {
-        return this.detail;
+        return this.details;
     }
 
     public void setDetail(String detail) {
-        this.detail = detail;
+        this.details = detail;
     }
 
     public LocalDate getResponseDate() {
@@ -72,13 +95,15 @@ public class _Response implements Serializable {
         this.responseDate = responseDate;
     }
 
-    public int getComplaintID() {
-        return this.complaintID;
-    }
 
-    public void setComplaintID(int complaintID) {
-        this.complaintID = complaintID;
-    }
+    // public int getComplaintID() {
+    //     return this.complaintID;
+    // }
+    
+    // public void setComplaintID(int complaintID) {
+    //     this.complaintID = complaintID;
+    // }
+    
 
     public _Response responseID(int responseID) {
         setResponseID(responseID);
@@ -95,10 +120,10 @@ public class _Response implements Serializable {
         return this;
     }
 
-    public _Response complaintID(int complaintID) {
-        setComplaintID(complaintID);
-        return this;
-    }
+    // public _Response complaintID(int complaintID) {
+    //     setComplaintID(complaintID);
+    //     return this;
+    // }
 
     @Override
     public boolean equals(Object o) {
@@ -108,12 +133,12 @@ public class _Response implements Serializable {
             return false;
         }
         _Response _Response = (_Response) o;
-        return responseID == _Response.responseID && Objects.equals(detail, _Response.detail) && Objects.equals(responseDate, _Response.responseDate) && complaintID == _Response.complaintID;
+        return responseID == _Response.responseID && Objects.equals(details, _Response.details) && Objects.equals(responseDate, _Response.responseDate) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(responseID, detail, responseDate, complaintID);
+        return Objects.hash(responseID, details, responseDate);
     }
 
     @Override
@@ -122,7 +147,7 @@ public class _Response implements Serializable {
             " responseID='" + getResponseID() + "'" +
             ", detail='" + getDetail() + "'" +
             ", responseDate='" + getResponseDate() + "'" +
-            ", complaintID='" + getComplaintID() + "'" +
+            // ", complaintID='" + getComplaintID() + "'" +
             "}";
     }
 

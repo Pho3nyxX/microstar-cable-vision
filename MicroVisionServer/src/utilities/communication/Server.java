@@ -26,31 +26,41 @@ public class Server extends _ClientServer {
     public static ArrayList<_User> activeLiveChatUsers = new ArrayList<>();
 
     public Server() {
+        System.out.println("Starting server ... ");
         this.createConnection();
         this.waitForRequests();
     }
 
     public void createConnection() {
+
         try {
+
             //New instance of the ServerSocket listening on port 9097
             connection.warn("Attempting to set up the Server Socket");
             serverSocket = new ServerSocket(SERVERPORT);
             connection.info("Server Socket set-up successfully");
+
         }catch (IOException ex) {
+
             System.out.println("Socket not created");
             error.error(ex.getMessage());
         }
     }
     
     public static void getDatabaseConnection() {
+
         if (dBConn == null) {
+
             try {
+
                 String url = "jdbc:mysql://localhost:3306/microstarvision?useSSL=false";
                 dBConn = DriverManager.getConnection(url,"ap_project_user","&L&TM1nuT&$258");
                 
                 JOptionPane.showMessageDialog(null,"DB Connection Established", "Connection Status",
                 JOptionPane.INFORMATION_MESSAGE);
+
             }catch (SQLException ex){
+
                 JOptionPane.showMessageDialog(null, "Could not connect to database\n" +
                 ex,"Connection Failure",JOptionPane.ERROR_MESSAGE);
             }
@@ -58,10 +68,15 @@ public class Server extends _ClientServer {
     }
     
     private void waitForRequests() {
+
         //getDatabaseConnection();
         try {
+
+            System.out.println("Server waiting for connections");
+
             while (true) {
-                connection.info("Server waiting for connections");
+
+                connection.info("Server waiting for connections ... ");
                 connectionSocket = serverSocket.accept();
                 connection.info("Client request accepted");
                 clientCount++;
@@ -73,17 +88,25 @@ public class Server extends _ClientServer {
                 activeClients.add(clientHandler);
                 thread.start();
             }
+
         }catch (EOFException ex) {
+
             connection.info("Client has terminated connections with the server");
             error.error(ex.getMessage());
             //System.out.println(ex.getMessage());
+
         }catch (IOException ex) {
+
             error.error(ex.getMessage());
             //System.out.println(ex.getMessage());
+
         }catch (Exception ex) {
+
             error.error(ex.getMessage());
             System.out.println(ex.getMessage());
+
         }finally{
+            
             this.closeConnection();
         }
     }
