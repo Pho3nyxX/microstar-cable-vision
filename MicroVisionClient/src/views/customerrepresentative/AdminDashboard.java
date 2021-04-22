@@ -2,12 +2,7 @@ package views.customerrepresentative;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import driver.Driver;
 import org.apache.logging.log4j.LogManager;
@@ -153,7 +148,8 @@ public class AdminDashboard  extends JPanel  {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Start Chat Button clicked");
                 employeeAccess.info("Start Chat Button clicked");
-                Driver.FRAME.add(new ChatHome());
+                JOptionPane.showMessageDialog(null,"Login as Technician to use Live Chat",
+                        "Live Chat",JOptionPane.WARNING_MESSAGE);
             }
         });
 
