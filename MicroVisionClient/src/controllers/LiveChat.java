@@ -26,7 +26,7 @@ public class LiveChat {
     public static void logOnToLiveChat (_User user) {
         //Login to live chat
         ServerRequest<_User> request = new ServerRequest<_User>(ServerRequest.USER_LIVE_CHAT_COMMAND, user);
-        Driver.messageConnection.sendAction(request);
+        Driver.messageConnection.sendRequest(request);
 
         ArrayList<_User> onlineUsersFromServer = null;
 
@@ -72,7 +72,7 @@ public class LiveChat {
     public static void logOffLiveChat(_User user) {
         //Log off live chat
         ServerRequest<_User> request = new ServerRequest<_User>(ServerRequest.USER_END_CHAT_COMMAND, user);
-        Driver.messageConnection.sendAction(request);
+        Driver.messageConnection.sendRequest(request);
 
         ServerResponse response;
         response = Driver.messageConnection.receiveResponse();
@@ -90,7 +90,7 @@ public class LiveChat {
             Employee employee = new Employee();
             employee.setUsername(username);
             ServerRequest request = new ServerRequest(ServerRequest.USER_LOAD_COMMAND,employee);
-            Driver.messageConnection.sendAction(request);
+            Driver.messageConnection.sendRequest(request);
 
             ServerResponse response = Driver.messageConnection.receiveResponse();
             user = (_User) response.getData();
@@ -98,7 +98,7 @@ public class LiveChat {
             Customer customer = new Customer();
             customer.setUsername(username);
             ServerRequest request = new ServerRequest(ServerRequest.USER_LOAD_COMMAND, customer);
-            Driver.messageConnection.sendAction(request);
+            Driver.messageConnection.sendRequest(request);
 
             ServerResponse response = Driver.messageConnection.receiveResponse();
             user = (_User) response.getData();
@@ -124,7 +124,7 @@ public class LiveChat {
         Complaint complaint = new Complaint();
         complaint.setComplaintId(compaintId);
         ServerRequest request = new ServerRequest(ServerRequest.COMPLAINT_lOAD_COMMAND, complaint);
-        Driver.messageConnection.sendAction(request);
+        Driver.messageConnection.sendRequest(request);
 
         ServerResponse response = Driver.messageConnection.receiveResponse();
         complaint = (Complaint) response.getData();
@@ -137,7 +137,7 @@ public class LiveChat {
         //Check if recipient is online before sending
         ServerRequest<Message> request = new ServerRequest<Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
                 message);
-        Driver.messageConnection.sendAction(request);
+        Driver.messageConnection.sendRequest(request);
 
         //Save Message in Database
         request = new ServerRequest<Message>(ServerRequest.MESSAGE_UPDATE_COMMAND,message);

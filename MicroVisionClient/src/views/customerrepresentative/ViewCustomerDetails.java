@@ -1,6 +1,14 @@
 package views.customerrepresentative;
 
+import driver.Driver;
+import models.users.Employee;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import views.technician.TechDashboard;
+
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -25,6 +33,8 @@ public class ViewCustomerDetails extends JDialog {
 
     // inputs
     JButton DashboardBtn;
+
+    Logger employee = LogManager.getLogger("EmployeeAccess");
 
     /** -------------------------CONSTRUCTORS------------------------------- */
 
@@ -75,6 +85,32 @@ public class ViewCustomerDetails extends JDialog {
         detailsOfIssueLabelField.setBounds(160, 300, 150, 20);
 
         DashboardBtn.setBounds(160, 340, 100, 40);
+
+        DashboardBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Dashboard Button clicked");
+                employee.info("Dashboard Button Clicked.");
+                dispose();
+
+                if (((Employee) Driver.CURRENT_USER).getRole().equals(Employee.ROLE_CUSTOMER_REP)) {
+                    employee.info("Returning to Rep Dashboard");
+                    RepDashboard repDashboard = new RepDashboard();
+                    repDashboard.setBounds(0, 0, 700, 700);
+                    Driver.FRAME.add(repDashboard);
+                }else if (((Employee)Driver.CURRENT_USER).getRole().equals(Employee.ROLE_ADMIN)) {
+                    employee.info("Returning to Admin Dashboard");
+                    AdminDashboard adminDashboard = new AdminDashboard();
+                    adminDashboard.setBounds(0, 0, 700, 700);
+                    Driver.FRAME.add(adminDashboard);
+                }else {
+                    employee.info("Returning to Tech Dashboard");
+                    TechDashboard techDashboard = new TechDashboard();
+                    techDashboard.setBounds(0, 0, 700, 700);
+                    Driver.FRAME.add(techDashboard);
+                }
+            }
+        });
 
         // centering Micro-Star Cable-Vision and Complaint Form
         microStarLabel.setHorizontalAlignment(JLabel.CENTER);
