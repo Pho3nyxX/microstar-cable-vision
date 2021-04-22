@@ -142,7 +142,7 @@ public class MultipleClientHandler implements Runnable {
             }
 
                 case ServerRequest.MESSAGE_UPDATE_COMMAND -> {
-                    ServerResponse response = saveMessage(action);
+                    ServerResponse response = saveMessage(serverRequest);
                     objectOutputStream.writeObject(response);
                 }
 
