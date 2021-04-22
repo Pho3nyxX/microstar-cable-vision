@@ -1,9 +1,12 @@
 package controllers;
 
+import models.chat.Message;
 import models.chat._Message;
 import models.complaints.Complaint;
 import models.users.Customer;
 import models.users.Employee;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import sound.Mp3;
 import driver.Driver;
 import javazoom.jl.decoder.JavaLayerException;
@@ -17,6 +20,8 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class LiveChat {
+    static Logger employee = LogManager.getLogger("EmployeeAccess");
+    static Logger customer = LogManager.getLogger("CustomerAccess");
 
     public static void logOnToLiveChat (_User user) {
         //Login to live chat
@@ -42,6 +47,7 @@ public class LiveChat {
                     Mp3.playMp3("1");
                 }catch (JavaLayerException ex) {
                     System.out.println("Error message to be logged");
+                    customer.error(ex.getMessage());
                 }
             }else if (user.getClass().getSimpleName().equals("Employee")) {
                 //Send a message to all Technicians the customers that are online
@@ -55,6 +61,7 @@ public class LiveChat {
                     Mp3.playMp3("1");
                 }catch (JavaLayerException ex) {
                     System.out.println("Error message to be logged");
+                    employee.error(ex.getMessage());
                 }
             }
         }else if (response.getMessage().equals("Login Failed")) {
@@ -73,7 +80,7 @@ public class LiveChat {
         //Check if it was successful
 
         //Close the message connection socket for the user who wishes to log off
-        Driver.messageConnection.createConnection();
+        Driver.messageConnection.closeConnection();
     }
 
     public static _User findUserFromUsername(String username) {
@@ -125,14 +132,15 @@ public class LiveChat {
         return complaint;
     }
 
-    public static void sendMessage(_Message message) {
+    public static void sendMessage(Message message) {
         //Send messages through live chat
         //Check if recipient is online before sending
-        ServerRequest<_Message> request = new ServerRequest<_Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
+        ServerRequest<Message> request = new ServerRequest<Message>(ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND,
                 message);
         Driver.messageConnection.sendAction(request);
 
         //Save Message in Database
+        request = new ServerRequest<Message>(ServerRequest.MESSAGE_UPDATE_COMMAND,message);
     }
 
     public static _Message receiveMessage() {
@@ -141,6 +149,6 @@ public class LiveChat {
 
         //Maybe update database with the message
 
-        return (_Message) response.getData();
+        return (Message) response.getData();
     }
 }

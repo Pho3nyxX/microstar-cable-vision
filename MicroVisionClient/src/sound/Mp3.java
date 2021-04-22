@@ -30,7 +30,7 @@ public class Mp3 {
 
     public static void setSound(String option) throws FileNotFoundException{
         switch (option){
-            case "1": FileInputStream = new FileInputStream("Ping.mp3");
+            case "1": FileInputStream = new FileInputStream("MicroVisionClient/audio/Ping.mp3");
                 BufferedInputStream = new BufferedInputStream(FileInputStream);
                 break;
                 default:

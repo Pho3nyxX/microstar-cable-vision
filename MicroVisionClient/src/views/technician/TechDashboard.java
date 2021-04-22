@@ -15,6 +15,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import driver.Driver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import views.livechat.ChatHome;
 
 public class TechDashboard extends JPanel {
 
@@ -59,6 +62,8 @@ public class TechDashboard extends JPanel {
     JButton closeBtn;
     JButton availableForChatBtn;
     JButton joinChatBtn;
+
+    Logger employeeAccess = LogManager.getLogger("EmployeeAccess");
 
     /** -------------------------CONSTRUCTORS------------------------------- */
 
@@ -172,6 +177,8 @@ public class TechDashboard extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button clicked");
+                employeeAccess.info("Join Chat Button clicked");
+                new ChatHome();
             }
         });
 

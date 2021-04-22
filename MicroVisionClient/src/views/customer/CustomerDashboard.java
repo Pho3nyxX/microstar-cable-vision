@@ -103,7 +103,7 @@ public class CustomerDashboard extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Start Chat Button clicked");
                 customerAccess.info("Start Chat Button clicked");
-                Driver.FRAME.add(new ChatHome());
+                new ChatHome();
             }
         });
         // adding action listener to Past Payment Button button because it requires an

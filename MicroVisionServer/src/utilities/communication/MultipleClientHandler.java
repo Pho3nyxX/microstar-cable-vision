@@ -10,6 +10,8 @@ import models.accounts.Payment;
 import models.accounts.PaymentRepository;
 import models.accounts.Service;
 import models.accounts.ServiceRepository;
+import models.chat.Message;
+import models.chat.MessageRepository;
 import models.chat._Message;
 import models.complaints.Complaint;
 import models.complaints.ComplaintRepository;
@@ -122,6 +124,11 @@ public class MultipleClientHandler implements Runnable {
                 ServerResponse response = saveComplaint(action);
                 objectOutputStream.writeObject(response);
             }
+
+                case ServerRequest.MESSAGE_UPDATE_COMMAND -> {
+                    ServerResponse response = saveMessage(action);
+                    objectOutputStream.writeObject(response);
+                }
 
             case "User-Register" -> {
                 // Actions to register user
@@ -523,6 +530,22 @@ public class MultipleClientHandler implements Runnable {
         message = "Complaint saved";
         code = ServerResponse.SAVE_SUCCEEDED;
         response = new ServerResponse<Complaint>(message, code, complaint);
+        return response;
+    }
+    /**-----------------------------------------Message----------------------------**/
+    ServerResponse saveMessage(ServerRequest action) {
+        int code = ServerResponse.SAVE_FAILED;
+        String message = "Message not Saved";
+        ServerResponse response = null;
+        Message messageData = null;
+
+        MessageRepository messageRepository = new MessageRepository(Driver.entityManager);
+        messageData = (Message) action.getData();
+        messageRepository.save(messageData);
+        message = "Message Saved";
+        code = ServerResponse.SAVE_SUCCEEDED;
+
+        response = new ServerResponse<Message>(message,code,messageData);
         return response;
     }
 
