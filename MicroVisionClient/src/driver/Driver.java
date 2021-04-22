@@ -35,6 +35,7 @@ public class Driver extends JFrame{
         CURRENT_DATE = LocalDate.now().toString();
         CURRENT_DAY = LocalDate.now().getDayOfWeek().name();
         clientConnection = new Client();
+        messageConnection = new Client();
     }
     
     public Driver(String title) {
@@ -42,6 +43,7 @@ public class Driver extends JFrame{
         CURRENT_DATE = LocalDate.now().toString();
         CURRENT_DAY = LocalDate.now().getDayOfWeek().name();
         clientConnection = new Client();
+        messageConnection = new Client();
     }
 
 
