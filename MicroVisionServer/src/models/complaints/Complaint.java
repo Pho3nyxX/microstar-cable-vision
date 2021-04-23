@@ -12,8 +12,8 @@ import models.chat.Message;
 @Table(name = "complaint")
 public class Complaint extends _Complaint{
 
-    @OneToMany(mappedBy = "complaint", cascade = CascadeType.ALL)
-    // @JoinColumn(name = "complaint_id", referencedColumnName="complaint_id")
+    @OneToMany
+    @JoinColumn(name = "complaint_id", referencedColumnName="complaint_id")
     protected List<Response> responses;
 
 

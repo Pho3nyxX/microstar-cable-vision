@@ -41,7 +41,9 @@ public abstract class _Complaint implements Serializable {
     @Transient
     protected ArrayList<String> validation_errors;
 
+    
     public _Complaint() {
+
     }
 
     /**

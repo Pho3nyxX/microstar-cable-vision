@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "address")
+
 public class Address extends _Address{
 
     /**

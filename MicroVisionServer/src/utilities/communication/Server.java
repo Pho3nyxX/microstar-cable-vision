@@ -25,7 +25,9 @@ public class Server extends _ClientServer {
     public static Vector<MultipleClientHandler> activeClients = new Vector<>();
     public static ArrayList<_User> activeLiveChatUsers = new ArrayList<>();
 
+
     public Server() {
+        
         System.out.println("Starting server ... ");
         this.createConnection();
         this.waitForRequests();

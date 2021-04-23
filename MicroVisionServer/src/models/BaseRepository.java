@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class BaseRepository {
+    
     protected Logger connection = LogManager.getLogger("Connection");
     protected Logger error = LogManager.getLogger("Error");
 

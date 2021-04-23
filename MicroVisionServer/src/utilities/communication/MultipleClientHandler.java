@@ -41,9 +41,12 @@ public class MultipleClientHandler implements Runnable {
     protected ObjectOutputStream objectOutputStream;
     protected ObjectInputStream objectInputStream;
 
+
     public MultipleClientHandler(Socket socketObject) {
+
         this.connectionSocket = socketObject;
     }
+
 
     @Override
     public void run() {
@@ -67,6 +70,7 @@ public class MultipleClientHandler implements Runnable {
             // System.out.println(action.getClass());
 
             System.out.println(serverRequest);
+
             switch (serverRequest.getCommand()) {
 
             case ServerRequest.USER_LOGIN_COMMAND -> {
@@ -342,6 +346,7 @@ public class MultipleClientHandler implements Runnable {
 
         // System.out.println(action.getData().toString());
         Customer customer = null;
+        
         customer = customerRepository.findByUsername(user.getUsername());
 
         if (customer != null) {

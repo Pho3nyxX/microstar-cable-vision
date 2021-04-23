@@ -11,6 +11,7 @@ import utilities.Validator;
 @Entity
 @Table(name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
+
 public class _User implements Serializable {
     
     @Id

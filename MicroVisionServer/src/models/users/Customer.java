@@ -17,6 +17,7 @@ import models.users._User;
 @NamedQuery(name = "Customer.findByUsername",
             query = "SELECT u FROM Customer u WHERE u.username = :username")
 })
+
 public class Customer extends _Customer{
     
     private static final long serialVersionUID = -7122240510909524901L;

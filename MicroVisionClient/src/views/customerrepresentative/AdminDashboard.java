@@ -2,10 +2,12 @@ package views.customerrepresentative;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -14,7 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import views.livechat.ChatHome;
 
-public class AdminDashboard  extends JPanel  {
+public class AdminDashboard  extends JPanel implements ActionListener  {
     
     /** -------------------------MEMBERS------------------------------- */
 
@@ -48,10 +50,10 @@ public class AdminDashboard  extends JPanel  {
     JTextArea techniciansOnDutyNumberTxtArea; // TODO:: display the number
     JTextArea techniciansOnDutyNamesTxtArea; // TODO:: display the names
 
-    // JCheckboxes
-    JCheckBox internetCheckbox; // TODO:: if statement required for this
-    JCheckBox phoneCheckbox; // TODO:: if statement required for this
-    JCheckBox televisionCheckbox; // TODO:: if statement required for this
+    // JRadioButtons
+    JRadioButton internetRadioButton; // TODO:: if statement required for this
+    JRadioButton phoneRadioButton; // TODO:: if statement required for this
+    JRadioButton televisionRadioButton; // TODO:: if statement required for this
 
     // JButtons
     JButton viewBtn;
@@ -81,6 +83,7 @@ public class AdminDashboard  extends JPanel  {
         createCustomerBtn = new JButton("Create Customer");
         createEmployeeBtn = new JButton("Create Employee");
 
+
         // JLabel objects
         welcomeLabel = new JLabel(
                 "Welcome: " + Driver.CURRENT_USER.getfirstName() + " " + Driver.CURRENT_USER.getlastName());
@@ -101,10 +104,16 @@ public class AdminDashboard  extends JPanel  {
         techniciansOnDutyNumberTxtArea = new JTextArea("1");
         techniciansOnDutyNamesTxtArea = new JTextArea();
 
-        // Checkbox objects
-        internetCheckbox = new JCheckBox("Internet");
-        phoneCheckbox = new JCheckBox("Phone");
-        televisionCheckbox = new JCheckBox("Television");
+        // JRadioButton objects
+        internetRadioButton = new JRadioButton("Internet");
+        phoneRadioButton = new JRadioButton("Phone");
+        televisionRadioButton = new JRadioButton("Television");
+
+        //JRadioButton group
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(internetRadioButton);
+        buttonGroup.add(phoneRadioButton);
+        buttonGroup.add(televisionRadioButton);
 
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
@@ -112,9 +121,9 @@ public class AdminDashboard  extends JPanel  {
         weekDayLabel.setBounds(430, 20, 100, 50);
         dateLabel.setBounds(500, 20, 150, 50);
         complaintsLabel.setBounds(10, 60, 150, 50);
-        internetCheckbox.setBounds(5, 100, 70, 50);
-        phoneCheckbox.setBounds(90, 100, 70, 50);
-        televisionCheckbox.setBounds(160, 100, 90, 50);
+        internetRadioButton.setBounds(5, 100, 70, 50);
+        phoneRadioButton.setBounds(90, 100, 70, 50);
+        televisionRadioButton.setBounds(160, 100, 90, 50);
         resolvedLabel.setBounds(10, 140, 100, 50);
         resolvedTxtArea.setBounds(65, 160, 20, 12);
         unresolvedLabel.setBounds(100, 140, 110, 50);
@@ -137,6 +146,7 @@ public class AdminDashboard  extends JPanel  {
         createCustomerBtn.setBounds(10, 380, 140, 30);
         createEmployeeBtn.setBounds(10, 430, 140, 30);
 
+        
         // adding action listener to Assign Complaint button because it requires an
         // action if it is selected
         assignComplaintBtn.addActionListener(new ActionListener() {
@@ -145,6 +155,7 @@ public class AdminDashboard  extends JPanel  {
                 System.out.println("Button clicked");
             }
         });
+
 
         // adding action listener to Start LiveChat button because it requires an action
         // if it is selected
@@ -157,6 +168,7 @@ public class AdminDashboard  extends JPanel  {
             }
         });
 
+
         // adding action listener to Create Customer button because it requires an
         // action if it is selected
         createCustomerBtn.addActionListener(new ActionListener() {
@@ -167,6 +179,7 @@ public class AdminDashboard  extends JPanel  {
             }
         });
 
+
         // adding action listener to Create Employee button because it requires an action
         // if it is selected
         createEmployeeBtn.addActionListener(new ActionListener() {
@@ -175,7 +188,14 @@ public class AdminDashboard  extends JPanel  {
                 System.out.println("Button clicked");
                 RegisterEmployee reg = new RegisterEmployee(Driver.FRAME);
             }
-        });        
+        });
+        
+
+        //Register a listener for the radio buttons.
+        internetRadioButton.addActionListener(this);
+        phoneRadioButton.addActionListener(this);
+        televisionRadioButton.addActionListener(this);
+
 
         // align Micro-Star Cable-Vision to the left
         microStarLabel.setHorizontalAlignment(JLabel.LEFT);
@@ -186,9 +206,9 @@ public class AdminDashboard  extends JPanel  {
         this.add(weekDayLabel);
         this.add(dateLabel);
         this.add(complaintsLabel);
-        this.add(internetCheckbox);
-        this.add(phoneCheckbox);
-        this.add(televisionCheckbox);
+        this.add(internetRadioButton);
+        this.add(phoneRadioButton);
+        this.add(televisionRadioButton);
         this.add(resolvedLabel);
         this.add(resolvedTxtArea);
         this.add(unresolvedLabel);
@@ -210,10 +230,19 @@ public class AdminDashboard  extends JPanel  {
         this.add(createCustomerBtn);
         this.add(createEmployeeBtn);
 
+
+       
+
         this.setLayout(null);
 
         // making GUI visable
         this.setVisible(true);
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        System.out.println("action");
     }
 }

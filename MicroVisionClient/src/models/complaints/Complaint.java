@@ -78,10 +78,12 @@ public class Complaint extends _Complaint {
         Driver.clientConnection.closeConnection();
     }
 
+
     public static ArrayList<Complaint> loadComplaints() {
 
         //Load complaints from database
         ArrayList<Complaint> complaints = null;
+
         Integer page = 100;
 
         ServerRequest<Integer> request = new ServerRequest<Integer>(ServerRequest.COMPLAINT_lOAD_MANY_COMMAND, page);
@@ -107,6 +109,7 @@ public class Complaint extends _Complaint {
 
         return complaints;
     }
+    
 
     public boolean delete() {
 

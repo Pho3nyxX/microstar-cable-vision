@@ -10,6 +10,7 @@ public class ServerResponse<T> implements Serializable{
     private static final long serialVersionUID = 1216288619378276877L;
 
     /**---------------------RESPONSE CODES------------------------ */
+    
     public static final int DELETE_FAILED = 1;
     public static final int DELETE_SUCCEEDED = 2;
     public static final int SAVE_FAILED = 1;

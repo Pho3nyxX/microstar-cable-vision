@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import models.users.*;
 import utilities.communication.*;
@@ -18,6 +21,7 @@ import views.customerrepresentative.RepDashboard;
 import views.technician.TechDashboard;
 
 public class Driver extends JFrame{
+
     public static Client clientConnection; //socket connection for general purpose use in the app
     public static Client messageConnection; //socket connection for use with chat
     public static _User CURRENT_USER; // the currently logged in user
@@ -31,6 +35,7 @@ public class Driver extends JFrame{
  
     
     public Driver() {
+
         super(Driver.APP_NAME);
         CURRENT_DATE = LocalDate.now().toString();
         CURRENT_DAY = LocalDate.now().getDayOfWeek().name();
@@ -39,6 +44,7 @@ public class Driver extends JFrame{
     }
     
     public Driver(String title) {
+        
         super(title);
         CURRENT_DATE = LocalDate.now().toString();
         CURRENT_DAY = LocalDate.now().getDayOfWeek().name();
@@ -96,11 +102,50 @@ public class Driver extends JFrame{
             
         }
 
+
+        //menuBar
+        JMenuBar menuBar;
+
+        //JMenu
+        JMenu menu;
+
+        //JMenuItems
+        JMenuItem menuItem;
+
+        //MenuBar objects
+        menuBar = new JMenuBar();
+
+        //JMenu objects
+        menu = new JMenu("Menu");
+
+        //creating menuItems
+        menuItem = new JMenuItem("Logout");
+
+        //adding menu items to menu
+        menu.add(menuItem);
+
+        //adding menu to menuBar
+        menuBar.add(menu);
+
+        driver.setJMenuBar(menuBar); 
+
+
+
+
+
+
+
+
+
+
+
         // set window properties
         driver.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // close app when window is closed
         driver.setSize(610, 600); // set panel window size
         driver.setLayout(null);
         driver.setVisible(true);
+
+
 
 
 /*
