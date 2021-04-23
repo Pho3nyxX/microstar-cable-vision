@@ -36,7 +36,7 @@ public class ChatHome extends JFrame {
 
         blueBackground = new Color(41,193,239);
 
-        profileImageLabel = new JLabel(new ImageIcon("image/Chat.png"));
+        profileImageLabel = new JLabel(new ImageIcon("MicroVisionClient/image/Chat.png"));
         nameOfClientLabel = new JLabel("Hi, " + Driver.CURRENT_USER.getfirstName() + "!");
         doToHelpLabel = new JLabel("What can we do to help?");
         startAConversationLabel = new JLabel("Start a Conversation");
@@ -115,7 +115,7 @@ public class ChatHome extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String name = JOptionPane.showInputDialog(null, "Enter name");
 
-                if (name == null) {
+                if (name.equals(" ")) {
                     JOptionPane.showMessageDialog(null,"Name empty","Error",
                             JOptionPane.WARNING_MESSAGE);
                 }else {
@@ -129,14 +129,14 @@ public class ChatHome extends JFrame {
 
                     String complaintId = JOptionPane.showInputDialog(null,"Enter complaint id");
 
-                    if (complaintId == null) {
+                    if (complaintId.equals(" ")) {
                         JOptionPane.showMessageDialog(null,"Complaint id empty","Error",
                                 JOptionPane.WARNING_MESSAGE);
                     }else {
                         Complaint complaint = LiveChat.findComplaintFromId(Integer.parseInt(complaintId));
 
                         //Call the Chat message constructer
-                        Driver.FRAME.add(new ChatMessage(recipientUser, complaint));
+                        new ChatMessage(recipientUser, complaint);
                     }
                 }
             }

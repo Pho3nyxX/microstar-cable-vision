@@ -166,7 +166,7 @@ public class MultipleClientHandler implements Runnable {
 
             case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
 
-                _Message message = (_Message) serverRequest.getData();
+                Message message = (Message) serverRequest.getData();
                 // Actions to send message
 
                 // Search for the recipient of the message in the connected clients list
@@ -346,14 +346,14 @@ public class MultipleClientHandler implements Runnable {
         String message = "Login Failed.";
         ServerResponse response;
         CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
-        
+
         _User user = (_User) serverRequest.getData();
 
         // System.out.println(user.get);
 
         // System.out.println(action.getData().toString());
         Customer customer = null;
-        
+
         customer = customerRepository.findByUsername(user.getUsername());
 
         if (customer != null) {

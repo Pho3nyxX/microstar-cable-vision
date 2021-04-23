@@ -44,7 +44,7 @@ public class Driver extends JFrame{
     }
     
     public Driver(String title) {
-        
+
         super(title);
         CURRENT_DATE = LocalDate.now().toString();
         CURRENT_DAY = LocalDate.now().getDayOfWeek().name();
@@ -99,6 +99,7 @@ public class Driver extends JFrame{
                 driver.add(techDashboard);
                 
             }
+            
         }
 
 
@@ -126,7 +127,7 @@ public class Driver extends JFrame{
         //adding menu to menuBar
         menuBar.add(menu);
 
-        driver.setJMenuBar(menuBar); 
+        driver.setJMenuBar(menuBar);
 
 
 
@@ -143,6 +144,10 @@ public class Driver extends JFrame{
         driver.setSize(610, 650); // set panel window size
         driver.setLayout(null);
         driver.setVisible(true);
+
+
+
+
 /*
         // Authentication auth =  new Authentication();
         // auth.login("admin", "P@ssword123"); 
