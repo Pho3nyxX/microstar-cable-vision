@@ -189,7 +189,7 @@ public class RepDashboard extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Start Chat Button clicked");
                 employeeAccess.info("Start Chat Button clicked");
-                Driver.FRAME.add(new ChatHome());
+                new ChatHome();
             }
         });
 

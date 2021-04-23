@@ -1,5 +1,6 @@
 package views.customer;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -216,9 +217,8 @@ public class CustomerDashboard extends JPanel {
                     while (true) {
                         switch (count) {
                             case 0 -> {
-                                ImageIcon slideshowIcon1 = new ImageIcon("image/CustomerImage1.jpg");
-                                System.out.println("working");
-                                slideshowImage1.setIcon(slideshowIcon1);
+                                ImageIcon slideshowIcon1 = new ImageIcon("MicroVisionClient/image/CustomerImage3.jpg");
+                                slideshowImage2.setIcon(slideshowIcon1);
                                 Thread.sleep(6000);
                                 //2380 milliseconds
                                 animationClass.jLabelXRight(170, 595, 20, 5, slideshowImage1);
@@ -230,8 +230,8 @@ public class CustomerDashboard extends JPanel {
                                 slideshowImage1.setIcon(slideshowIcon2);
                                 Thread.sleep(6000);
                                 //2380 milliseconds
-                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage1);
                                 animationClass.jLabelXRight(170, 595, 20, 5, slideshowImage2);
+                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage1);
                                 count = 2;
                             }
                             case 2 -> {
@@ -248,8 +248,8 @@ public class CustomerDashboard extends JPanel {
                                 slideshowImage1.setIcon(slideshowIcon4);
                                 Thread.sleep(6000);
                                 //2380 milliseconds
-                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage1);
                                 animationClass.jLabelXRight(170, 595, 20, 5, slideshowImage2);
+                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage1);
                                 count = 0;
                             }
                         }

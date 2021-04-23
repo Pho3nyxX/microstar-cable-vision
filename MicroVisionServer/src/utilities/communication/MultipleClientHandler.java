@@ -686,7 +686,7 @@ ServerResponse saveResponse(ServerRequest action) {
             // Check for the type of Employee, It should be a Technician
             Employee employee = (Employee) user;
 
-            if (employee.getRole().equals("Technician")) {
+            if ((employee.getRole().equals("Technician")) || (employee.getRole().equals("Customer Service Rep"))) {
                 // Add Technician to current list of online technicians and change the status to
                 // online
                 user.setIsOnline(true);
@@ -696,7 +696,7 @@ ServerResponse saveResponse(ServerRequest action) {
                 int code = ServerResponse.REQUEST_SUCCEEDED;
                 response = new ServerResponse<ArrayList<_User>>(message, code, Server.activeLiveChatUsers);
 
-            } else if (employee.getRole().equals("Customer Service Rep") || employee.getRole().equals("Admin")) {
+            } else if (employee.getRole().equals("Admin")) {
                 // Don't allow them to log on to live chat
                 ArrayList<_User> notAcceptedUsers = new ArrayList<>();
 

@@ -29,16 +29,21 @@ public class LiveChat {
         ArrayList<_User> onlineUsersFromServer = null;
 
         ServerResponse<ArrayList<_User>> response = Driver.messageConnection.receiveResponse();
-        onlineUsersFromServer = (ArrayList<_User>) response.getData();
 
         if (response.getMessage().equals("Login Successful")) {
+            onlineUsersFromServer = (ArrayList<_User>) response.getData();
             if (user.getClass().getSimpleName().equals("Customer")) {
                 //Send a message to all Customers the technicians that are online
                 //play an mp3 sound - maybe a ping
 
                 for (_User onlineUser:onlineUsersFromServer) {
                     if (onlineUser.getClass().getSimpleName().equals("Employee")) {
-                        ChatHome.personsOnlineTextArea.append("Technician " + onlineUser.getUsername() + " is online \n");
+                        Employee employee = (Employee) onlineUser;
+                        if (employee.getRole().equals("Technician")) {
+                            ChatHome.personsOnlineTextArea.append("Technician " + onlineUser.getUsername() + " is online \n");
+                        }else {
+                            ChatHome.personsOnlineTextArea.append("Cust. Rep. " + onlineUser.getUsername() + " is online \n");
+                        }
                     }
                 }
                 try {
