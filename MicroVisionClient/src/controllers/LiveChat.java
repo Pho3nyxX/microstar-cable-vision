@@ -14,9 +14,7 @@ import models.users._User;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 import views.livechat.ChatHome;
-import views.livechat.ChatMessage;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class LiveChat {
@@ -123,7 +121,7 @@ public class LiveChat {
     public static Complaint findComplaintFromId(int compaintId) {
         Complaint complaint = new Complaint();
         complaint.setComplaintId(compaintId);
-        ServerRequest request = new ServerRequest(ServerRequest.COMPLAINT_lOAD_COMMAND, complaint);
+        ServerRequest<Complaint> request = new ServerRequest<Complaint>(ServerRequest.COMPLAINT_lOAD_COMMAND, complaint);
         Driver.messageConnection.sendRequest(request);
 
         ServerResponse response = Driver.messageConnection.receiveResponse();
@@ -141,9 +139,10 @@ public class LiveChat {
 
         //Save Message in Database
         request = new ServerRequest<Message>(ServerRequest.MESSAGE_UPDATE_COMMAND,message);
+        Driver.messageConnection.sendRequest(request);
     }
 
-    public static _Message receiveMessage() {
+    public static Message receiveMessage() {
         ServerResponse response;
         response = Driver.messageConnection.receiveResponse();
 

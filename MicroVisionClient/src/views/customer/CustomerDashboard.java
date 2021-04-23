@@ -2,11 +2,9 @@ package views.customer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
+import AppPackage.AnimationClass;
 import driver.Driver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,13 +27,14 @@ public class CustomerDashboard extends JPanel {
     JLabel weekDayLabel; // TODO:: auto generate weekday
     JLabel dateLabel; // TODO:: auto generate date
     JLabel microStarLabel;
+    JLabel slideshowImage1;
+    JLabel slideshowImage2;
+
+    //JPanel slideshowPanel;
 
     // these are menu drop downs
     JLabel signOutLabel; // TODO:: should be when "menu" is clicked, it drops this down
     JLabel profileLabel; // TODO:: should be when "menu" is clicked, it drops this down
-
-    // JTextArea: this is acture meant for a picture
-    JTextArea pictureGoesHere; // TODO:: TO BE REMOVED LATER
 
     // inputs
     JButton startChatBtn;
@@ -45,6 +44,8 @@ public class CustomerDashboard extends JPanel {
 
     //Logger for tracking customer
     Logger customerAccess = LogManager.getLogger("CustomerAccess");
+
+    AnimationClass animationClass = new AnimationClass();
     /** -------------------------CONSTRUCTORS------------------------------- */
 
     public CustomerDashboard() {
@@ -70,9 +71,11 @@ public class CustomerDashboard extends JPanel {
         paymentDueDateTxtLabel = new JLabel("1/05/2021");
         weekDayLabel = new JLabel(Driver.CURRENT_DAY);
         dateLabel = new JLabel(Driver.CURRENT_DATE);
+        slideshowImage1 = new JLabel();
+        slideshowImage2 = new JLabel();
 
-        // JTextArea objects
-        pictureGoesHere = new JTextArea(); // TODO:: TO BE REMOVED LATER
+        //slideshowPanel = new JPanel();
+        //slideshowPanel.setLayout(null);
 
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
@@ -86,7 +89,10 @@ public class CustomerDashboard extends JPanel {
         paidTxtLabel.setBounds(300, 110, 150, 20);
         paymentDueDateLabel.setBounds(450, 90, 150, 20);
         paymentDueDateTxtLabel.setBounds(450, 110, 150, 20);
-        pictureGoesHere.setBounds(170, 170, 380, 180);
+        slideshowImage1.setBounds(170,170,380,180); //170,170
+        slideshowImage2.setBounds(595,170,380,180);
+
+        //slideshowPanel.setBounds(170,170,380,180);
         
         // setting the size of the labels buttons
         startChatBtn.setBounds(10, 90, 100, 30);
@@ -94,6 +100,10 @@ public class CustomerDashboard extends JPanel {
         pastComplaintsBtn.setBounds(10, 430, 140, 40);
         lodgeComplaintsBtn.setBounds(10, 490, 140, 40);
 
+        slideshowImage1.setIcon(new ImageIcon("MicroVisionClient/image/CustomerImage1.jpg"));
+        slideshowImage2.setIcon(new ImageIcon("MicroVisionClient/image/CustomerImage3.jpg"));
+
+        slideshow();
 
        // adding action listener to Past Payment Button button because it requires an
         // action if
@@ -154,17 +164,72 @@ public class CustomerDashboard extends JPanel {
         this.add(paidTxtLabel);
         this.add(paymentDueDateLabel);
         this.add(paymentDueDateTxtLabel);
-        this.add(pictureGoesHere);
+        this.add(slideshowImage1);
+        this.add(slideshowImage2);
         this.add(startChatBtn);
         this.add(pastPaymentsBtn);
         this.add(pastComplaintsBtn);
         this.add(lodgeComplaintsBtn);
+
+        //this.add(slideshowPanel);
 
         this.setLayout(null);
 
         // making GUI visable
         this.setVisible(true);
 
+    }
+
+    private void slideshow() {
+        new Thread() {
+            int count;
+            public void run() {
+                try {
+                    while (true) {
+                        switch (count) {
+                            case 0 -> {
+                                ImageIcon slideshowIcon1 = new ImageIcon("MicroVisionClient/image/CustomerImage1.jpg");
+                                slideshowImage1.setIcon(slideshowIcon1);
+                                Thread.sleep(6000);
+                                //2380 milliseconds
+                                animationClass.jLabelXRight(170, 595, 20, 5, slideshowImage1);
+                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage2);
+                                count = 1;
+                            }
+                            case 1 -> {
+                                ImageIcon slideshowIcon2 = new ImageIcon("MicroVisionClient/image/CustomerImage4.jpg");
+                                slideshowImage1.setIcon(slideshowIcon2);
+                                Thread.sleep(6000);
+                                //2380 milliseconds
+                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage1);
+                                animationClass.jLabelXRight(170, 595, 20, 5, slideshowImage2);
+                                count = 2;
+                            }
+                            case 2 -> {
+                                ImageIcon slideshowIcon3 = new ImageIcon("MicroVisionClient/image/CustomerImage5.jpg");
+                                slideshowImage2.setIcon(slideshowIcon3);
+                                Thread.sleep(6000);
+                                //2380 milliseconds
+                                animationClass.jLabelXRight(170, 595, 20, 5, slideshowImage1);
+                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage2);
+                                count = 3;
+                            }
+                            case 3 -> {
+                                ImageIcon slideshowIcon4 = new ImageIcon("MicroVisionClient/image/CustomerImage3.jpg");
+                                slideshowImage1.setIcon(slideshowIcon4);
+                                Thread.sleep(6000);
+                                //2380 milliseconds
+                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage1);
+                                animationClass.jLabelXRight(170, 595, 20, 5, slideshowImage2);
+                                count = 0;
+                            }
+                        }
+                    }
+                }catch (InterruptedException ex) {
+                    System.out.println("Sleep Error");
+                }
+            }
+        }.start();
     }
 
 }

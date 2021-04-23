@@ -166,7 +166,7 @@ public class MultipleClientHandler implements Runnable {
 
             case ServerRequest.USER_SEND_MESSAGE_LIVE_CHAT_COMMAND -> {
 
-                _Message message = (_Message) serverRequest.getData();
+                Message message = (Message) serverRequest.getData();
                 // Actions to send message
 
                 // Search for the recipient of the message in the connected clients list
