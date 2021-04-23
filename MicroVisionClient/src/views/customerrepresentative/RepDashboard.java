@@ -2,12 +2,19 @@ package views.customerrepresentative;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+
+import java.awt.Color;
 
 import driver.Driver;
 import org.apache.logging.log4j.LogManager;
@@ -33,6 +40,11 @@ public class RepDashboard extends JPanel {
     JLabel liveChatRequestsTxtLabel;
     JLabel menuLabel;
 
+    JPanel topPanel;
+    Border blueLine;
+    Border raisedBevel;
+    Color blueBackground;
+
     // these are menu drop downs
     JLabel signOutLabel; // TODO:: should be when "menu" is clicked, it drops this down
 
@@ -49,10 +61,10 @@ public class RepDashboard extends JPanel {
     JTextArea techniciansOnDutyNumberTxtArea; // TODO:: display the number
     JTextArea techniciansOnDutyNamesTxtArea; // TODO:: display the names
 
-    // JCheckboxes
-    JCheckBox internetCheckbox; // TODO:: if statement required for this
-    JCheckBox phoneCheckbox; // TODO:: if statement required for this
-    JCheckBox televisionCheckbox; // TODO:: if statement required for this
+    // JRadioButton
+    JRadioButton internetRadioButton; // TODO:: if statement required for this
+    JRadioButton phoneRadioButton; // TODO:: if statement required for this
+    JRadioButton televisionRadioButton; // TODO:: if statement required for this
 
     // JButtons
     JButton viewBtn;
@@ -63,6 +75,25 @@ public class RepDashboard extends JPanel {
 
     /** -------------------------CONSTRUCTORS------------------------------- */
     public RepDashboard() {
+        
+        //colour object
+        blueBackground = new Color(41,193,239);
+
+        //JPanel objects
+        topPanel = new JPanel();
+
+        //set background colour to panel
+        topPanel.setBackground(blueBackground);
+
+        //setting the size of the panel
+        topPanel.setBounds(0,0,1200,60);
+
+        this.add(topPanel);
+
+        blueLine = BorderFactory.createLineBorder(blueBackground);
+        raisedBevel = BorderFactory.createRaisedBevelBorder();
+
+        topPanel.setLayout(null);
 
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
@@ -100,9 +131,15 @@ public class RepDashboard extends JPanel {
         techniciansOnDutyNamesTxtArea = new JTextArea();
 
         // Checkbox objects
-        internetCheckbox = new JCheckBox("Internet");
-        phoneCheckbox = new JCheckBox("Phone");
-        televisionCheckbox = new JCheckBox("Television");
+        internetRadioButton = new JRadioButton("Internet");
+        phoneRadioButton = new JRadioButton("Phone");
+        televisionRadioButton = new JRadioButton("Television");
+
+        //JRadioButton group
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(internetRadioButton);
+        buttonGroup.add(phoneRadioButton);
+        buttonGroup.add(televisionRadioButton);
 
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
@@ -111,9 +148,9 @@ public class RepDashboard extends JPanel {
         weekDayLabel.setBounds(450, 20, 100, 50);
         dateLabel.setBounds(500, 20, 150, 50);
         complaintsLabel.setBounds(10, 60, 150, 50);
-        internetCheckbox.setBounds(5, 100, 70, 50);
-        phoneCheckbox.setBounds(90, 100, 70, 50);
-        televisionCheckbox.setBounds(160, 100, 90, 50);
+        internetRadioButton.setBounds(5, 100, 70, 50);
+        phoneRadioButton.setBounds(90, 100, 70, 50);
+        televisionRadioButton.setBounds(160, 100, 90, 50);
         resolvedLabel.setBounds(10, 140, 100, 50);
         resolvedTxtArea.setBounds(65, 160, 20, 12);
         unresolvedLabel.setBounds(100, 140, 110, 50);
@@ -140,6 +177,8 @@ public class RepDashboard extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button clicked");
+                employeeAccess.info("Employee Button Clicked. - Assigning Technician");
+                AssignmentOfTechnician assignmentOfTechnician = new AssignmentOfTechnician(Driver.FRAME);
             }
         });
 
@@ -158,15 +197,15 @@ public class RepDashboard extends JPanel {
         microStarLabel.setHorizontalAlignment(JLabel.LEFT);
 
         // adding attributes
-        this.add(microStarLabel);
+        topPanel.add(microStarLabel);
+        topPanel.add(welcomeLabel);
+        topPanel.add(weekDayLabel);
+        topPanel.add(dateLabel);
         this.add(menuLabel);
-        this.add(welcomeLabel);
-        this.add(weekDayLabel);
-        this.add(dateLabel);
         this.add(complaintsLabel);
-        this.add(internetCheckbox);
-        this.add(phoneCheckbox);
-        this.add(televisionCheckbox);
+        this.add(internetRadioButton);
+        this.add(phoneRadioButton);
+        this.add(televisionRadioButton);
         this.add(resolvedLabel);
         this.add(resolvedTxtArea);
         this.add(unresolvedLabel);

@@ -95,9 +95,6 @@ public class AdminDashboard  extends JPanel implements ActionListener  {
 
         topPanel.setLayout(null);
 
-
-
-
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
 

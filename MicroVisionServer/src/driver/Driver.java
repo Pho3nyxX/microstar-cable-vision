@@ -38,9 +38,16 @@ public class Driver {
         // complaint.addResponse( response );
         // responseRepository.save(response);
         /*
+        
+        // Create our repositories
+        EmployeeRepository employeeRepository = new EmployeeRepository(entityManager);
+        
+        Employee employee = new Employee(0, "abir", "abi", "gordon", "middleName", "P@ssword123", 10, "F", Employee.ROLE_CUSTOMER_REP, "Active");
+        
+        employeeRepository.save(employee);
+        
         // Create our repositories
         CustomerRepository customerRepository = new CustomerRepository(entityManager);
-        
         // Create an customer
         Customer customer = new Customer(0, "abi5", "abi", "gordon", "middleName", "P@ssword123", 10, "F", "email2@server.com", new Address("parish", "town","street"));
         ContactNumber cn = new ContactNumber();
