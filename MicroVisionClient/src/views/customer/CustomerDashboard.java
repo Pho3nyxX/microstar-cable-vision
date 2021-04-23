@@ -2,10 +2,14 @@ package views.customer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
+import java.awt.Color;
 
 import driver.Driver;
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +34,11 @@ public class CustomerDashboard extends JPanel {
     JLabel dateLabel; // TODO:: auto generate date
     JLabel microStarLabel;
 
+    JPanel topPanel;
+    Border blueLine;
+    Border raisedBevel;
+    Color blueBackground;
+
     // these are menu drop downs
     JLabel signOutLabel; // TODO:: should be when "menu" is clicked, it drops this down
     JLabel profileLabel; // TODO:: should be when "menu" is clicked, it drops this down
@@ -48,6 +57,27 @@ public class CustomerDashboard extends JPanel {
     /** -------------------------CONSTRUCTORS------------------------------- */
 
     public CustomerDashboard() {
+
+        //colour object
+        blueBackground = new Color(41,193,239);
+
+        //JPanel objects
+        topPanel = new JPanel();
+
+        //set background colour to panel
+        topPanel.setBackground(blueBackground);
+
+        //setting the size of the panel
+        topPanel.setBounds(0,0,1200,60);
+
+        this.add(topPanel);
+
+        blueLine = BorderFactory.createLineBorder(blueBackground);
+        raisedBevel = BorderFactory.createRaisedBevelBorder();
+
+        topPanel.setLayout(null);
+
+
 
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
@@ -143,10 +173,10 @@ public class CustomerDashboard extends JPanel {
         microStarLabel.setHorizontalAlignment(JLabel.LEFT);
 
         // adding attributes
-        this.add(microStarLabel);
-        this.add(welcomeLabel);
-        this.add(weekDayLabel);
-        this.add(dateLabel);
+        topPanel.add(microStarLabel);
+        topPanel.add(welcomeLabel);
+        topPanel.add(weekDayLabel);
+        topPanel.add(dateLabel);
         this.add(repAvailableTxtLabel);
         this.add(amountDueLabel);
         this.add(amountDuetxtLabel);

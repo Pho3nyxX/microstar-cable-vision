@@ -4,13 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -42,6 +45,11 @@ public class TechDashboard extends JPanel {
     JLabel liveChatRequestsLabel;
     JLabel liveChatRequestsTxtLabel;
 
+    JPanel topPanel;
+    Border blueLine;
+    Border raisedBevel;
+    Color blueBackground;
+
     // JList
     JList<String> complaintList;
 
@@ -68,6 +76,30 @@ public class TechDashboard extends JPanel {
     /** -------------------------CONSTRUCTORS------------------------------- */
 
     public TechDashboard() {
+
+        //colour object
+        blueBackground = new Color(41,193,239);
+
+        //JPanel objects
+        topPanel = new JPanel();
+
+        //set background colour to panel
+        topPanel.setBackground(blueBackground);
+
+        //setting the size of the panel
+        topPanel.setBounds(0,0,1200,60);
+
+        this.add(topPanel);
+
+        blueLine = BorderFactory.createLineBorder(blueBackground);
+        raisedBevel = BorderFactory.createRaisedBevelBorder();
+
+        topPanel.setLayout(null);
+
+
+
+
+
 
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
@@ -211,10 +243,10 @@ public class TechDashboard extends JPanel {
         this.add(detailsPanel);
 
         // adding attributes
-        this.add(microStarLabel);
-        this.add(welcomeLabel);
-        this.add(weekDayLabel);
-        this.add(dateLabel);
+        topPanel.add(microStarLabel);
+        topPanel.add(welcomeLabel);
+        topPanel.add(weekDayLabel);
+        topPanel.add(dateLabel);
         this.add(taskLabel);
         this.add(typeOfTaskCombobox);
         this.add(titleLabel);

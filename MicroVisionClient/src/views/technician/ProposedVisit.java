@@ -7,13 +7,17 @@ import org.apache.logging.log4j.Logger;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
 import javax.swing.text.View;
+import java.awt.Color;
 
 public class ProposedVisit extends JDialog {
 
@@ -28,6 +32,15 @@ public class ProposedVisit extends JDialog {
     JLabel proposedTimeOfVisitLabel;
     JLabel microStarLabel;
     JLabel visitLabel;
+
+
+    JPanel topPanel;
+    Border blueLine;
+    Border raisedBevel;
+    Color blueBackground;
+
+
+
 
     // comboboxes
     JComboBox<String> proposedDateOfVisitMonthCombobox;
@@ -56,6 +69,51 @@ public class ProposedVisit extends JDialog {
 
         super(parent, "Proposed Visit Schedule", true);
 
+
+
+
+
+
+        blueBackground = new Color(41,193,239);
+
+        //JPanel objects
+        topPanel = new JPanel();
+
+        //set background colour to panel
+        topPanel.setBackground(blueBackground);
+
+        //setting the size of the panel
+        topPanel.setBounds(0,0,400,60);
+
+        this.add(topPanel);
+        
+        blueLine = BorderFactory.createLineBorder(blueBackground);
+        raisedBevel = BorderFactory.createRaisedBevelBorder();
+        
+        topPanel.setLayout(null);
+        
+        
+        
+        // button objects
+        notifyCustomerBtn = new JButton("Notify Customer");
+        submitBtn = new JButton("Submit");
+        dashboardBtn = new JButton("Dashboard");
+        
+        notifyCustomerBtn.setBackground(blueBackground);
+        submitBtn.setBackground(blueBackground);
+        dashboardBtn.setBackground(blueBackground);
+        
+        
+        notifyCustomerBtn.setForeground(Color.WHITE);
+        submitBtn.setForeground(Color.WHITE);
+        dashboardBtn.setForeground(Color.WHITE);
+        
+
+
+
+
+
+        
         contentPanel = new JPanel();
 
         // JLabel objects
@@ -64,11 +122,6 @@ public class ProposedVisit extends JDialog {
 
         // JText object
         JTextArea responseTxtArea = new JTextArea();
-
-        // button objects
-        notifyCustomerBtn = new JButton("Notify Customer");
-        submitBtn = new JButton("Submit");
-        dashboardBtn = new JButton("Dashboard");
 
         // JLabel objects
         responseLabel = new JLabel("Response");

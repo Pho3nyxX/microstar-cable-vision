@@ -140,7 +140,7 @@ public class Driver extends JFrame{
 
         // set window properties
         driver.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // close app when window is closed
-        driver.setSize(610, 600); // set panel window size
+        driver.setSize(610, 650); // set panel window size
         driver.setLayout(null);
         driver.setVisible(true);
 /*

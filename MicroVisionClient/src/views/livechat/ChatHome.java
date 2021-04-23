@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ChatHome extends JFrame {
+    
     JLabel nameOfClientLabel;
     JLabel doToHelpLabel;
     JLabel startAConversationLabel;

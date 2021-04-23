@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -15,6 +17,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.Border;
+import java.awt.Color;
 
 public class ViewPastPayment extends JDialog {
 
@@ -36,6 +40,13 @@ public class ViewPastPayment extends JDialog {
     JLabel dateLabel;
     JLabel amountLabel;
 
+
+    JPanel topPanel;
+    Border blueLine;
+    Border raisedBevel;
+    Color blueBackground;
+
+    
     // JList
     JList<String> paymentList;
 
@@ -63,6 +74,43 @@ public class ViewPastPayment extends JDialog {
 
         super(parent, "Payment History", true);
 
+
+
+
+
+        blueBackground = new Color(41,193,239);
+        
+        //JPanel objects
+        topPanel = new JPanel();
+
+        //set background colour to panel
+        topPanel.setBackground(blueBackground);
+
+        //setting the size of the panel
+        topPanel.setBounds(0,0,1200,65);
+
+        this.add(topPanel);
+        
+        
+        blueLine = BorderFactory.createLineBorder(blueBackground);
+        raisedBevel = BorderFactory.createRaisedBevelBorder();
+        
+        topPanel.setLayout(null);
+        
+        // button objects
+        dashboardBtn = new JButton("Dashboard");
+        
+        dashboardBtn.setBackground(blueBackground);
+        
+        dashboardBtn.setForeground(Color.WHITE);
+        
+        
+
+
+
+
+
+        
         contentPanel = new JPanel();
         
         
@@ -92,9 +140,6 @@ public class ViewPastPayment extends JDialog {
 
         // JPanel object
         detailsPanel = new JPanel();
-
-        // button objects
-        dashboardBtn = new JButton("Dashboard");
 
         // a string array of service list items
         paymentMonthsCombobox = new JComboBox<>(paymentMonths);

@@ -7,12 +7,16 @@ import org.apache.logging.log4j.Logger;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import java.awt.Color;
 
 public class ViewPastComplaints extends JDialog {
 
@@ -29,6 +33,18 @@ public class ViewPastComplaints extends JDialog {
     JLabel MicroStarLabel;
     JLabel PastComplaintsLabel;
 
+
+
+    
+    JPanel topPanel;
+    Border blueLine;
+    Border raisedBevel;
+    Color blueBackground;
+
+
+
+
+
     // comboboxes
     JComboBox<String> selectTypeOfServiceCombobox;
     JComboBox<String> selectComplaintCombobox;
@@ -39,7 +55,7 @@ public class ViewPastComplaints extends JDialog {
 
     // inputs
     JButton viewBtn;
-    JButton DashboardBtn;
+    JButton dashboardBtn;
 
     Logger customer = LogManager.getLogger("CustomerAccess");
 
@@ -49,15 +65,57 @@ public class ViewPastComplaints extends JDialog {
 
         super(parent, "Complaint History", true);
 
+
+
+
+
+
+        blueBackground = new Color(41,193,239);
+        
+        //JPanel objects
+        topPanel = new JPanel();
+
+        //set background colour to panel
+        topPanel.setBackground(blueBackground);
+
+        //setting the size of the panel
+        topPanel.setBounds(0,0,1000,65);
+
+        this.add(topPanel);
+        
+        
+        blueLine = BorderFactory.createLineBorder(blueBackground);
+        raisedBevel = BorderFactory.createRaisedBevelBorder();
+        
+        topPanel.setLayout(null);
+        
+        // button objects
+        viewBtn = new JButton("View");
+        dashboardBtn = new JButton("Dashboard");
+        
+        viewBtn.setBackground(blueBackground);
+        dashboardBtn.setBackground(blueBackground);
+        
+        viewBtn.setForeground(Color.WHITE);
+        dashboardBtn.setForeground(Color.WHITE);
+
+
+
+
+
+
+
+
+
+
+
+
+
         contentPanel = new JPanel();
 
         // JLabel objects
         MicroStarLabel = new JLabel("Micro-Star Cable-Vision");
         PastComplaintsLabel = new JLabel("Complaint History");
-
-        // button objects
-        viewBtn = new JButton("View");
-        DashboardBtn = new JButton("Dashboard");
 
         // JLabel objects
         selectTypeOfServiceLabel = new JLabel("Select Type of Service");
@@ -90,20 +148,26 @@ public class ViewPastComplaints extends JDialog {
         RespondeeLabelField.setBounds(150, 240, 200, 40);
 
         viewBtn.setBounds(150, 300, 80, 40);
-        DashboardBtn.setBounds(245, 300, 100, 40);
+        dashboardBtn.setBounds(245, 300, 100, 40);
 
         // adding action listener to View Button button because it requires an action if
         // it is selected
         viewBtn.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+        
                 System.out.println("Button clicked");
+                customer.info("Customer Button Clicked. - Viewing Past Complaints");
+                CustomerDashboard custDashboard = new CustomerDashboard();
+                //custDashboard.showWindow();
+                
             }
         });
 
         // adding action listener to Dashboard Button button because it requires an
         // action if it is selected
-        DashboardBtn.addActionListener(new ActionListener() {
+        dashboardBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button clicked");
@@ -132,7 +196,7 @@ public class ViewPastComplaints extends JDialog {
         contentPanel.add(RespondeeLabel);
         contentPanel.add(RespondeeLabelField);
         contentPanel.add(viewBtn);
-        contentPanel.add(DashboardBtn);
+        contentPanel.add(dashboardBtn);
 
         contentPanel.setLayout(null);
         contentPanel.setBounds(0,0,600,680);
