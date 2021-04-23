@@ -1,6 +1,5 @@
 package views.customer;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -217,8 +216,9 @@ public class CustomerDashboard extends JPanel {
                     while (true) {
                         switch (count) {
                             case 0 -> {
-                                ImageIcon slideshowIcon1 = new ImageIcon("MicroVisionClient/image/CustomerImage3.jpg");
-                                slideshowImage2.setIcon(slideshowIcon1);
+                                ImageIcon slideshowIcon1 = new ImageIcon("MicroVisionClient/image/CustomerImage1.jpg");
+                                System.out.println("working");
+                                slideshowImage1.setIcon(slideshowIcon1);
                                 Thread.sleep(6000);
                                 //2380 milliseconds
                                 animationClass.jLabelXRight(170, 595, 20, 5, slideshowImage1);
@@ -226,7 +226,7 @@ public class CustomerDashboard extends JPanel {
                                 count = 1;
                             }
                             case 1 -> {
-                                ImageIcon slideshowIcon2 = new ImageIcon("image/CustomerImage4.jpg");
+                                ImageIcon slideshowIcon2 = new ImageIcon("MicroVisionClient/image/CustomerImage4.jpg");
                                 slideshowImage1.setIcon(slideshowIcon2);
                                 Thread.sleep(6000);
                                 //2380 milliseconds
@@ -235,7 +235,7 @@ public class CustomerDashboard extends JPanel {
                                 count = 2;
                             }
                             case 2 -> {
-                                ImageIcon slideshowIcon3 = new ImageIcon("image/CustomerImage5.jpg");
+                                ImageIcon slideshowIcon3 = new ImageIcon("MicroVisionClient/image/CustomerImage5.jpg");
                                 slideshowImage2.setIcon(slideshowIcon3);
                                 Thread.sleep(6000);
                                 //2380 milliseconds
@@ -244,7 +244,7 @@ public class CustomerDashboard extends JPanel {
                                 count = 3;
                             }
                             case 3 -> {
-                                ImageIcon slideshowIcon4 = new ImageIcon("image/CustomerImage3.jpg");
+                                ImageIcon slideshowIcon4 = new ImageIcon("MicroVisionClient/image/CustomerImage1.jpg");
                                 slideshowImage1.setIcon(slideshowIcon4);
                                 Thread.sleep(6000);
                                 //2380 milliseconds

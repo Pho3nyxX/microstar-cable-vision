@@ -179,7 +179,7 @@ public class AdminDashboard  extends JPanel implements ActionListener  {
         // adding action listener to Assign Complaint button because it requires an
         // action if it is selected
         assignComplaintBtn.addActionListener(new ActionListener() {
-             
+
             @Override
             public void actionPerformed(ActionEvent e) {
 
