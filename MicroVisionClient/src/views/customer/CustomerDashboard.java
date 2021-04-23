@@ -5,11 +5,17 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.ArrayList;
 
 import AppPackage.AnimationClass;
 import driver.Driver;
+import models.accounts.Account;
+import models.users.Customer;
+import models.users.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import utilities.ServerRequest;
+import utilities.ServerResponse;
 import views.livechat.ChatHome;
 
 public class CustomerDashboard extends JPanel {
@@ -51,6 +57,7 @@ public class CustomerDashboard extends JPanel {
 
     //Logger for tracking customer
     Logger customerAccess = LogManager.getLogger("CustomerAccess");
+    Logger recordAccess = LogManager.getLogger("RecordAccess");
 
     AnimationClass animationClass = new AnimationClass();
     /** -------------------------CONSTRUCTORS------------------------------- */
@@ -92,7 +99,7 @@ public class CustomerDashboard extends JPanel {
         repAvailableTxtLabel = new JLabel("Rep Available");
         techAvailableTxtLabel = new JLabel("Technician Available");
         amountDueLabel = new JLabel("Amount Due");
-        amountDuetxtLabel = new JLabel("$5,000");
+        amountDuetxtLabel = new JLabel("5,000");
         paymentStatusLabel = new JLabel("Payment Status");
         paidTxtLabel = new JLabel("UnPaid");
         paymentDueDateLabel = new JLabel("Payment Due Date");
@@ -102,8 +109,8 @@ public class CustomerDashboard extends JPanel {
         slideshowImage1 = new JLabel();
         slideshowImage2 = new JLabel();
 
-        //slideshowPanel = new JPanel();
-        //slideshowPanel.setLayout(null);
+        techAvailableTxtLabel.setBackground(Color.RED);
+        repAvailableTxtLabel.setBackground(Color.RED);
 
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
@@ -133,6 +140,36 @@ public class CustomerDashboard extends JPanel {
 
         slideshow();
 
+        //Labels that changes colour when avail/not avail
+        ArrayList<Employee> employeeArrayList = Employee.loadEmployees();
+        for (Employee employee: employeeArrayList) {
+            if (employee.getRole().equals("Technician") && employee.getStatus().equals("Available")) {
+                techAvailableTxtLabel.setBackground(Color.GREEN);
+            }else if (employee.getRole().equals("Customer Service Rep") && employee.getStatus().equals("Available")) {
+                repAvailableTxtLabel.setBackground(Color.GREEN);
+            }
+        }
+
+        //Displaying accurate amount due
+        Account currentCustomerAccount = new Account();
+        currentCustomerAccount.setCustomerId(Driver.CURRENT_USER.getUserID());
+        ServerRequest<Account> request = new ServerRequest<Account>(ServerRequest.ACCOUNT_LOAD_COMMAND, currentCustomerAccount);
+        Driver.clientConnection.sendRequest(request);
+        ServerResponse<Account> response = Driver.clientConnection.receiveResponse();
+        if (response == null) {
+            amountDuetxtLabel.setText("0");
+        }else if (response.getCode() == ServerResponse.REQUEST_SUCCEEDED) {
+            currentCustomerAccount = response.getData();
+            amountDuetxtLabel.setText(String.valueOf(currentCustomerAccount.getAmountDue()));
+        }
+
+        //Changing paid label when amount due to 0
+        if (Integer.parseInt(amountDuetxtLabel.getText()) <= 0 ) {
+            paidTxtLabel.setText("Paid");
+        }else {
+            paidTxtLabel.setText("UnPaid");
+        }
+
        // adding action listener to Past Payment Button button because it requires an
         // action if
         // it is selected
@@ -151,6 +188,8 @@ public class CustomerDashboard extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button clicked");
+                customerAccess.info("Past Payment Button Clicked");
+                recordAccess.info(Driver.CURRENT_USER.getfirstName() + "tried to access past payments");
                 ViewPastPayment pastPayment = new ViewPastPayment(Driver.FRAME);
             }
         });
@@ -162,6 +201,8 @@ public class CustomerDashboard extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button clicked");
+                customerAccess.info("Past Complaints Button Clicked");
+                recordAccess.info(Driver.CURRENT_USER.getfirstName() + "tried to access past complaints");
                 ViewPastComplaints pastComplaint = new ViewPastComplaints(Driver.FRAME);
             }
         });
@@ -173,6 +214,7 @@ public class CustomerDashboard extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button clicked");
+                customerAccess.info("Lodge Complaint Button Clicked");
                 ComplaintForm complaintForm = new ComplaintForm(Driver.FRAME);
             }
         });
