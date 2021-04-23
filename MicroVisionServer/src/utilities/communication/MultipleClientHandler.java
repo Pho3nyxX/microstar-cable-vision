@@ -15,6 +15,8 @@ import models.chat.MessageRepository;
 import models.chat._Message;
 import models.complaints.Complaint;
 import models.complaints.ComplaintRepository;
+import models.complaints.Response;
+import models.complaints.ResponseRepository;
 import utilities.ServerRequest;
 import utilities.ServerResponse;
 
@@ -520,67 +522,132 @@ public class MultipleClientHandler implements Runnable {
         return response;
     }
 
-    /** ---------------------------------COMPLAINTS------------------------------ */
+ /** ---------------------------------COMPLAINTS------------------------------ */
 
-    ServerResponse loadComplaint(ServerRequest action) {
-        boolean found = false;
-        int code = ServerResponse.DELETE_FAILED;
-        String message = "Complaint doesn't exist.";
-        ServerResponse response;
-        Complaint complaint = null;
+ ServerResponse loadComplaint(ServerRequest action) {
+    boolean found = false;
+    int code = ServerResponse.DELETE_FAILED;
+    String message = "Complaint doesn't exist.";
+    ServerResponse response;
+    Complaint complaint = null;
 
-        ComplaintRepository complaintRepository = new ComplaintRepository(Driver.entityManager);
-        complaint = (Complaint) action.getData();
+    ComplaintRepository complaintRepository = new ComplaintRepository(Driver.entityManager);
+    complaint = (Complaint) action.getData();
 
-        // Check if complaint id available
-        if (complaint.getComplaintId() > 0) {
-            // load complaint by id
-            complaint = complaintRepository.findById(complaint.getComplaintId()).get();
-            found = true;
-        }
-
-        if (found) {
-            message = "User found";
-            code = ServerResponse.REQUEST_SUCCEEDED;
-        }
-        response = new ServerResponse<Complaint>(message, code, complaint);
-        return response;
+    // Check if complaint id available
+    if (complaint.getComplaintId() > 0) {
+        // load complaint by id
+        complaint = complaintRepository.findById(complaint.getComplaintId()).get();
+        found = true;
     }
 
-    ServerResponse loadComplaints(ServerRequest action) {
-        boolean found = false;
-        int code = ServerResponse.REQUEST_FAILED;
-        String message = "No Complaint Found.";
-        ServerResponse response;
+    if (found) {
+        message = "User found";
+        code = ServerResponse.REQUEST_SUCCEEDED;
+    }
+    response = new ServerResponse<Complaint>(message, code, complaint);
+    return response;
+}
 
-        ArrayList<Complaint> complaintsList = new ArrayList<>();
+ServerResponse loadComplaints(ServerRequest action) {
+    boolean found = false;
+    int code = ServerResponse.REQUEST_FAILED;
+    String message = "No Complaint Found.";
+    ServerResponse response;
 
-        if (true) {
-            message = "Complaints Found";
-            code = ServerResponse.REQUEST_SUCCEEDED;
-            complaintsList.add(new Complaint());
-        }
+    List<Complaint> complaintsList = new ArrayList<>();
+    ComplaintRepository complaintRepository = new ComplaintRepository(Driver.entityManager);
+    complaintsList = complaintRepository.findAll();
+    if (complaintsList.size() > 0) {
 
-        response = new ServerResponse<ArrayList<Complaint>>(message, code, complaintsList);
+        message = "Complaints Found";
 
-        return response;
+        code = ServerResponse.REQUEST_SUCCEEDED;
+
     }
 
-    ServerResponse saveComplaint(ServerRequest action) {
-        int code = ServerResponse.SAVE_FAILED;
-        String message = "No Complaint found";
-        ServerResponse response = null;
-        Complaint complaint = null;
+    response = new ServerResponse<List<Complaint>>(message, code, complaintsList);
 
-        ComplaintRepository complaintRepository = new ComplaintRepository(Driver.entityManager);
-        complaint = (Complaint) action.getData();
-        complaintRepository.save(complaint);
-        message = "Complaint saved";
-        code = ServerResponse.SAVE_SUCCEEDED;
-        response = new ServerResponse<Complaint>(message, code, complaint);
-        return response;
+    return response;
+}
+
+ServerResponse saveComplaint(ServerRequest action) {
+    int code = ServerResponse.SAVE_FAILED;
+    String message = "No Complaint found";
+    ServerResponse response = null;
+    Complaint complaint = null;
+
+    ComplaintRepository complaintRepository = new ComplaintRepository(Driver.entityManager);
+    complaint = (Complaint) action.getData();
+    complaintRepository.save(complaint);
+    message = "Complaint saved";
+    code = ServerResponse.SAVE_SUCCEEDED;
+    response = new ServerResponse<Complaint>(message, code, complaint);
+    return response;
+}
+
+// Responses
+ServerResponse loadResponse(ServerRequest action) {
+    boolean found = false;
+    int code = ServerResponse.DELETE_FAILED;
+    String message = "Response doesn't exist.";
+    ServerResponse serverResponse;
+    Response complaintResponse = null;
+
+    ResponseRepository responseRepository = new ResponseRepository(Driver.entityManager);
+    complaintResponse = (Response) action.getData();
+
+    // Check if complaint id available
+    if (complaintResponse.getResponseID() > 0) {
+        // load complaint by id
+        complaintResponse = responseRepository.findById( complaintResponse.getResponseID() ).get();
+        found = true;
     }
-    /**-----------------------------------------Message----------------------------**/
+
+    if (found) {
+        message = "Response found";
+        code = ServerResponse.REQUEST_SUCCEEDED;
+    }
+    serverResponse = new ServerResponse<Response>(message, code, complaintResponse);
+    return serverResponse;
+}
+
+ServerResponse loadResponses(ServerRequest action) {
+    boolean found = false;
+    int code = ServerResponse.REQUEST_FAILED;
+    String message = "No Responses Found.";
+    ServerResponse response;
+
+    ResponseRepository responseRepository = new ResponseRepository(Driver.entityManager);
+    List<Response> complaintResponseList = responseRepository.findAll();
+
+    if (complaintResponseList.size() > 0) {
+        message = "" + complaintResponseList.size() + " responses Found.";
+        code = ServerResponse.REQUEST_SUCCEEDED;
+    }
+
+    response = new ServerResponse<List<Response>>(message, code, complaintResponseList);
+
+    return response;
+}
+
+ServerResponse saveResponse(ServerRequest action) {
+    int code = ServerResponse.SAVE_FAILED;
+    String message = "Response not saved";
+    ServerResponse response = null;
+    Response complaintResponse = null;
+
+    ResponseRepository complaintRepository = new ResponseRepository(Driver.entityManager);
+    complaintResponse = (Response) action.getData();
+    complaintRepository.save(complaintResponse);
+    message = "Response saved";
+    code = ServerResponse.SAVE_SUCCEEDED;
+    response = new ServerResponse<Response>(message, code, complaintResponse);
+    return response;
+}
+
+
+/**-----------------------------------------Message----------------------------**/
     ServerResponse saveMessage(ServerRequest action) {
         int code = ServerResponse.SAVE_FAILED;
         String message = "Message not Saved";

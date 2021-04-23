@@ -21,29 +21,27 @@ public abstract class _Complaint implements Serializable {
 
     @Id
     @Column(name = "complaint_id")
-    int complaintId;
+    protected int complaintId;
 
     @Column(name = "status")
-    String status;
+    protected String status;
 
     @Column(name = "details_of_issue")
-    String details;
+    protected String details;
 
     @Column(name = "type_of_issue")
-    String typeOfIssue;
+    protected String typeOfIssue;
 
     @Column(name = "date_raised")
-    LocalDateTime dateRaised;
+    protected LocalDateTime dateRaised;
 
     @Column(name = "account_id")
-    int accountId;
+    protected int accountId;
 
     @Transient
     protected ArrayList<String> validation_errors;
 
-    
     public _Complaint() {
-
     }
 
     /**

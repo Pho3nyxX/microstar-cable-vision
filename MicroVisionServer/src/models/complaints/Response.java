@@ -8,9 +8,12 @@ import javax.persistence.*;
 @Table(name = "response")
 public class Response extends _Response{
 
-    @ManyToOne
-    @JoinColumn(name="complaint_id", nullable=false)
-    Complaint complaint;
+    // @ManyToOne
+    // @JoinColumn(name="complaint_id")
+    // Complaint complaint;
+
+    // @Column(name = "complaint_id", insertable = false, updatable = false)
+    // int complaintId;
 
     public Response(int responseID, String detail, LocalDate responseDate, int complaintID) {
         
@@ -23,11 +26,18 @@ public class Response extends _Response{
     
     }
 
-    public Complaint getComplaint() {
-        return complaint;
+    public Response(String detail, LocalDate responseDate, Complaint complaint)  {
+        super();
+        this.details = detail;
+        this.responseDate = responseDate;
+        // this.complaint = complaint;
     }
 
-    public void setComplaint(Complaint complaint) {
-        this.complaint = complaint;
-    }
+    // public Complaint getComplaint() {
+    //     return complaint;
+    // }
+
+    // public void setComplaint(Complaint complaint) {
+    //     this.complaint = complaint;
+    // }
 }

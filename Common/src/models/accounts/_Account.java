@@ -23,13 +23,13 @@ public class _Account implements Serializable {
     /**----------------------------DATA MEMBERS-------------------------------------------- */
     @Id
     @Column(name="account_id")
-    int accountID;
+    protected int accountID;
 
     @Column(name="account_status")
-    String accountStatus;
+    protected String accountStatus;
 
     @Column(name="amount_due")
-    double amountDue;
+    protected double amountDue;
 
     // @Column(name="customer_id")
     // int customerID;

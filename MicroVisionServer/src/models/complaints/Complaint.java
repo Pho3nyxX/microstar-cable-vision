@@ -10,8 +10,11 @@ import models.chat.Message;
 
 @Entity
 @Table(name = "complaint")
+@PrimaryKeyJoinColumn(name = "complaint_id")
 public class Complaint extends _Complaint{
 
+    // @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+    // @OneToMany(mappedBy = "complaint", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OneToMany
     @JoinColumn(name = "complaint_id", referencedColumnName="complaint_id")
     protected List<Response> responses;
@@ -29,11 +32,12 @@ public class Complaint extends _Complaint{
         
         super(complaintId, status, details, typeOfIssue, dateRaised, accountId);
         
-        this.responses = new ArrayList<>();
+        // this.responses = new ArrayList<>();
     }
-
+    
     public Complaint(){
         super();
+        // this.responses = new ArrayList<>();
     }
 
     public List<Response> getResponses() {
@@ -46,7 +50,7 @@ public class Complaint extends _Complaint{
 
     public void addResponse(Response response){
         this.responses.add(response);
-        response.setComplaint(this);
+        // response.setComplaint(this);
     }
 /*
     public List<Message> getMessages() {

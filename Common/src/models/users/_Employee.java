@@ -17,7 +17,6 @@ public class _Employee extends _User {
      */
     private static final long serialVersionUID = 3820461434905932966L; 
     
-    
     public static final String ROLE_CUSTOMER_REP = "Customer Service Rep";
     public static final String ROLE_TECH = "Technician";
     public static final String ROLE_ADMIN = "Admin";
@@ -43,7 +42,7 @@ public class _Employee extends _User {
         boolean valid = super.validate();
 
         // check if each fields data is valid
-        if( !( Validator.validate(this.role, Validator.EMAIL) ) ){
+        if( !( this.role.equals(_Employee.ROLE_ADMIN) ) && !( this.role.equals(_Employee.ROLE_CUSTOMER_REP) ) && !( this.role.equals(_Employee.ROLE_TECH) )){
             this.validation_errors.add("Invalid email entered.");
             valid = false;
         }

@@ -14,16 +14,16 @@ public class _Visit implements Serializable{
 
     @Id
     @Column(name="visit_id")
-    int visitID;
+    protected int visitID;
 
     @Column(name="date_of_visit")
-    LocalDate dateOfVisit;
+    protected LocalDate dateOfVisit;
 
     @Column(name="schedule_date")
-    LocalDate scheduleDate;
+    protected LocalDate scheduleDate;
 
     @Column(name="complete")
-    boolean complete;
+    protected boolean complete;
 
     @Transient
     protected ArrayList<String> validation_errors;

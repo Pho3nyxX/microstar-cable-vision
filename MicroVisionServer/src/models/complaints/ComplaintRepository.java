@@ -24,7 +24,6 @@ public class ComplaintRepository extends BaseRepository{
             
             return Optional.of(complaint);
         } catch (Exception e) {
-            
             this.handleSaveError(e);
         }
         return Optional.empty();
