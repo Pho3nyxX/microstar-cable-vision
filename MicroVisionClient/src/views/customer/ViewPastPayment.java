@@ -24,7 +24,7 @@ public class ViewPastPayment extends JDialog {
 
     /** -------------------------MEMBERS------------------------------- */
 
-    //container
+    // container
     JPanel contentPanel;
 
     // labels
@@ -40,13 +40,11 @@ public class ViewPastPayment extends JDialog {
     JLabel dateLabel;
     JLabel amountLabel;
 
-
     JPanel topPanel;
     Border blueLine;
     Border raisedBevel;
     Color blueBackground;
 
-    
     // JList
     JList<String> paymentList;
 
@@ -74,46 +72,33 @@ public class ViewPastPayment extends JDialog {
 
         super(parent, "Payment History", true);
 
+        blueBackground = new Color(41, 193, 239);
 
-
-
-
-        blueBackground = new Color(41,193,239);
-        
-        //JPanel objects
+        // JPanel objects
         topPanel = new JPanel();
 
-        //set background colour to panel
+        // set background colour to panel
         topPanel.setBackground(blueBackground);
 
-        //setting the size of the panel
-        topPanel.setBounds(0,0,1200,65);
+        // setting the size of the panel
+        topPanel.setBounds(0, 0, 1200, 68);
 
         this.add(topPanel);
-        
-        
+
         blueLine = BorderFactory.createLineBorder(blueBackground);
         raisedBevel = BorderFactory.createRaisedBevelBorder();
-        
+
         topPanel.setLayout(null);
-        
+
         // button objects
         dashboardBtn = new JButton("Dashboard");
-        
+
         dashboardBtn.setBackground(blueBackground);
-        
+
         dashboardBtn.setForeground(Color.WHITE);
-        
-        
 
-
-
-
-
-        
         contentPanel = new JPanel();
-        
-        
+
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
         paymentsHeaderLabel = new JLabel("Past Payments");
@@ -198,8 +183,8 @@ public class ViewPastPayment extends JDialog {
         paymentsHeaderLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // adding attributes
-        contentPanel.add(microStarLabel);
-        contentPanel.add(paymentsHeaderLabel);
+        topPanel.add(microStarLabel);
+        topPanel.add(paymentsHeaderLabel);
         contentPanel.add(monthLabel);
         contentPanel.add(paymentMonthsCombobox);
         contentPanel.add(paymentsListLabel);
@@ -208,12 +193,12 @@ public class ViewPastPayment extends JDialog {
         contentPanel.add(dashboardBtn);
 
         contentPanel.setLayout(null);
-        contentPanel.setBounds(0,0,600,680);
-        
+        contentPanel.setBounds(0, 0, 600, 680);
+
         this.add(contentPanel);
 
         this.setLayout(null);
-        this.setSize(600,460);
+        this.setSize(600, 460);
 
         // making GUI visable
         this.setVisible(true);

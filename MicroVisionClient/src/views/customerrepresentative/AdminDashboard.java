@@ -11,7 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.*;
+import java.awt.*;
 
 import driver.Driver;
 import org.apache.logging.log4j.LogManager;
@@ -179,9 +181,13 @@ public class AdminDashboard  extends JPanel implements ActionListener  {
         // adding action listener to Assign Complaint button because it requires an
         // action if it is selected
         assignComplaintBtn.addActionListener(new ActionListener() {
+             
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("Button clicked");
+                employeeAccess.info("Employee Button Clicked. - Assigning Technician");
+                AssignmentOfTechnician assignmentOfTechnician = new AssignmentOfTechnician(Driver.FRAME);
             }
         });
 
@@ -189,8 +195,10 @@ public class AdminDashboard  extends JPanel implements ActionListener  {
         // adding action listener to Start LiveChat button because it requires an action
         // if it is selected
         startLiveChatBtn.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("Start Chat Button clicked");
                 employeeAccess.info("Start Chat Button clicked");
                 JOptionPane.showMessageDialog(null,"Login as Technician to use Live Chat",
@@ -202,9 +210,12 @@ public class AdminDashboard  extends JPanel implements ActionListener  {
         // adding action listener to Create Customer button because it requires an
         // action if it is selected
         createCustomerBtn.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("Button clicked");
+                employeeAccess.info("Create Customer Button clicked");
                 RegisterCustomer reg = new RegisterCustomer(Driver.FRAME);
             }
         });
@@ -213,9 +224,12 @@ public class AdminDashboard  extends JPanel implements ActionListener  {
         // adding action listener to Create Employee button because it requires an action
         // if it is selected
         createEmployeeBtn.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("Button clicked");
+                employeeAccess.info("Create Employee Button clicked");
                 RegisterEmployee reg = new RegisterEmployee(Driver.FRAME);
             }
         });

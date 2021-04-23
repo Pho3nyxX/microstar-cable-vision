@@ -34,14 +34,10 @@ public class ComplaintForm extends JDialog {
     JLabel MicroStarLabel;
     JLabel ComplaintFormLabel;
 
-
-        
     JPanel topPanel;
     Border blueLine;
     Border raisedBevel;
     Color blueBackground;
-
-    
 
     // comboboxes
     JComboBox<String> selectTypeOfServiceCombobox;
@@ -62,53 +58,33 @@ public class ComplaintForm extends JDialog {
 
         super(parent, "Complaint Form", true);
 
+        blueBackground = new Color(41, 193, 239);
 
-
-
-
-
-        blueBackground = new Color(41,193,239);
-        
-        //JPanel objects
+        // JPanel objects
         topPanel = new JPanel();
 
-        //set background colour to panel
+        // set background colour to panel
         topPanel.setBackground(blueBackground);
 
-        //setting the size of the panel
-        topPanel.setBounds(0,0,1000,65);
+        // setting the size of the panel
+        topPanel.setBounds(0, 0, 1000, 68);
 
         this.add(topPanel);
-        
-        
+
         blueLine = BorderFactory.createLineBorder(blueBackground);
         raisedBevel = BorderFactory.createRaisedBevelBorder();
-        
+
         topPanel.setLayout(null);
-        
+
         // button objects
         submitBtn = new JButton("Submit");
         cancelBtn = new JButton("Cancel");
-        
+
         submitBtn.setBackground(blueBackground);
         cancelBtn.setBackground(blueBackground);
-        
+
         submitBtn.setForeground(Color.WHITE);
         cancelBtn.setForeground(Color.WHITE);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         contentPanel = new JPanel();
 
@@ -173,8 +149,8 @@ public class ComplaintForm extends JDialog {
         // adding attributes
         // lodgeComplaintScroller.add();
 
-        contentPanel.add(MicroStarLabel);
-        contentPanel.add(ComplaintFormLabel);
+        topPanel.add(MicroStarLabel);
+        topPanel.add(ComplaintFormLabel);
         contentPanel.add(selectTypeOfServiceCombobox);
         contentPanel.add(complaintTxtAreaScrollPane); // TODO:: fix scroll pane
         contentPanel.add(selectMethodOfContactCombobox);

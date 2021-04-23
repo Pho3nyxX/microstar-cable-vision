@@ -3,11 +3,15 @@ package views.customerrepresentative;
 import java.awt.event.ActionEvent;
 import java.awt.Frame;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import java.awt.Color;
 
 public class RegisterCustomer extends JDialog {
 
@@ -30,6 +34,11 @@ public class RegisterCustomer extends JDialog {
     JLabel emailLabel;
     JLabel microStarLabel;
     JLabel registerLabel;
+
+    JPanel topPanel;
+    Border blueLine;
+    Border raisedBevel;
+    Color blueBackground;
 
     // fields
     JTextField firstNameTxtField;
@@ -54,15 +63,39 @@ public class RegisterCustomer extends JDialog {
 
         super(parent, "Register Customer", true);
 
+        blueBackground = new Color(41, 193, 239);
+
+        // JPanel objects
+        topPanel = new JPanel();
+
+        // set background colour to panel
+        topPanel.setBackground(blueBackground);
+
+        // setting the size of the panel
+        topPanel.setBounds(0, 0, 1000, 68);
+
+        this.add(topPanel);
+
+        blueLine = BorderFactory.createLineBorder(blueBackground);
+        raisedBevel = BorderFactory.createRaisedBevelBorder();
+
+        topPanel.setLayout(null);
+
+        // button objects
+        saveBtn = new JButton("Save");
+        cancelBtn = new JButton("Cancel");
+
+        saveBtn.setBackground(blueBackground);
+        cancelBtn.setBackground(blueBackground);
+
+        saveBtn.setForeground(Color.WHITE);
+        cancelBtn.setForeground(Color.WHITE);
+
         contentPanel = new JPanel();
 
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
         registerLabel = new JLabel("Register Customer");
-
-        // button objects
-        saveBtn = new JButton("Save");
-        cancelBtn = new JButton("Cancel");
 
         // JLabel objects
         firstNameLabel = new JLabel("First Name");
@@ -145,8 +178,8 @@ public class RegisterCustomer extends JDialog {
         registerLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // adding attributes
-        contentPanel.add(microStarLabel);
-        contentPanel.add(registerLabel);
+        topPanel.add(microStarLabel);
+        topPanel.add(registerLabel);
         contentPanel.add(firstNameLabel);
         contentPanel.add(firstNameTxtField);
         contentPanel.add(lastNameLabel);

@@ -7,11 +7,15 @@ import org.apache.logging.log4j.Logger;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.border.Border;
+import java.awt.Color;
 
 public class SpecificComplaint extends JDialog {
 
@@ -37,6 +41,11 @@ public class SpecificComplaint extends JDialog {
     JLabel responseTxtField;
     JLabel respondeeTxtField;
 
+    JPanel topPanel;
+    Border blueLine;
+    Border raisedBevel;
+    Color blueBackground;
+
     // JTextArea
     JTextArea complaintTxtArea;
 
@@ -51,14 +60,36 @@ public class SpecificComplaint extends JDialog {
 
         super(parent, "Complaint", true);
 
+        blueBackground = new Color(41, 193, 239);
+
+        // JPanel objects
+        topPanel = new JPanel();
+
+        // set background colour to panel
+        topPanel.setBackground(blueBackground);
+
+        // setting the size of the panel
+        topPanel.setBounds(0, 0, 1000, 70);
+
+        this.add(topPanel);
+
+        blueLine = BorderFactory.createLineBorder(blueBackground);
+        raisedBevel = BorderFactory.createRaisedBevelBorder();
+
+        topPanel.setLayout(null);
+
+        // button objects
+        dashboardBtn = new JButton("Dashboard");
+
+        dashboardBtn.setBackground(blueBackground);
+
+        dashboardBtn.setForeground(Color.WHITE);
+
         contentPanel = new JPanel();
 
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
         complaintHeaderLabel = new JLabel("Complaint");
-
-        // button objects
-        JButton DashboardBtn = new JButton("Dashboard");
 
         // JLabel objects
         titleLabel = new JLabel("Title");
@@ -97,11 +128,11 @@ public class SpecificComplaint extends JDialog {
         respondeeTxtField.setBounds(150, 260, 150, 20);
         responseTxtField.setBounds(150, 300, 150, 20);
 
-        DashboardBtn.setBounds(50, 340, 98, 30);
+        dashboardBtn.setBounds(50, 340, 98, 30);
 
         // adding action listener to Dashboard button because it requires an action if
         // it is selected
-        DashboardBtn.addActionListener(new ActionListener() {
+        dashboardBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 customer.info("Dashboard Button Clicked. - Returning to Dashboard.");
@@ -118,8 +149,8 @@ public class SpecificComplaint extends JDialog {
         complaintHeaderLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // adding attributes
-        contentPanel.add(microStarLabel);
-        contentPanel.add(complaintHeaderLabel);
+        topPanel.add(microStarLabel);
+        topPanel.add(complaintHeaderLabel);
         contentPanel.add(titleLabel);
         contentPanel.add(titleTxtField);
         contentPanel.add(dateMadeLabel);
@@ -132,7 +163,7 @@ public class SpecificComplaint extends JDialog {
         contentPanel.add(respondeeTxtField);
         contentPanel.add(reponseLabel);
         contentPanel.add(responseTxtField);
-        contentPanel.add(DashboardBtn);
+        contentPanel.add(dashboardBtn);
 
         contentPanel.setLayout(null);
         contentPanel.setBounds(0, 0, 600, 680);
@@ -140,7 +171,7 @@ public class SpecificComplaint extends JDialog {
         this.add(contentPanel);
 
         this.setLayout(null);
-        this.setSize(400, 400);
+        this.setSize(400, 450);
 
         // making GUI visable
         this.setVisible(true);

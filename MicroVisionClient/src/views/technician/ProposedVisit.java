@@ -33,14 +33,10 @@ public class ProposedVisit extends JDialog {
     JLabel microStarLabel;
     JLabel visitLabel;
 
-
     JPanel topPanel;
     Border blueLine;
     Border raisedBevel;
     Color blueBackground;
-
-
-
 
     // comboboxes
     JComboBox<String> proposedDateOfVisitMonthCombobox;
@@ -50,11 +46,21 @@ public class ProposedVisit extends JDialog {
     JComboBox<String> proposedTimeOfVisitMinsCombobox;
 
     // combobox options
-    String month[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec" }; // TODO:: write code to generate available month
-    String day[] = { " 1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "20", "31" }; // TODO:: write code to generate available date
+    String month[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec" }; // TODO::
+                                                                                                              // write
+                                                                                                              // code to
+                                                                                                              // generate
+                                                                                                              // available
+                                                                                                              // month
+    String day[] = { " 1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18",
+            "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "20", "31" }; // TODO:: write code to
+                                                                                            // generate available date
     String year[] = { "2021", "2022", "2023", "2024", "2025" }; // TODO:: write code to generate available year
-    String hour[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }; // TODO:: write code to generate available hour
-    String mins[] = { "00", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35" }; // TODO:: write code to generate available mins
+    String hour[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }; // TODO:: write code to generate
+                                                                                       // available hour
+    String mins[] = { "00", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
+            "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34",
+            "35" }; // TODO:: write code to generate available mins
 
     // inputs
     JButton notifyCustomerBtn;
@@ -69,51 +75,37 @@ public class ProposedVisit extends JDialog {
 
         super(parent, "Proposed Visit Schedule", true);
 
+        blueBackground = new Color(41, 193, 239);
 
-
-
-
-
-        blueBackground = new Color(41,193,239);
-
-        //JPanel objects
+        // JPanel objects
         topPanel = new JPanel();
 
-        //set background colour to panel
+        // set background colour to panel
         topPanel.setBackground(blueBackground);
 
-        //setting the size of the panel
-        topPanel.setBounds(0,0,400,60);
+        // setting the size of the panel
+        topPanel.setBounds(0, 0, 400, 65);
 
         this.add(topPanel);
-        
+
         blueLine = BorderFactory.createLineBorder(blueBackground);
         raisedBevel = BorderFactory.createRaisedBevelBorder();
-        
+
         topPanel.setLayout(null);
-        
-        
-        
+
         // button objects
         notifyCustomerBtn = new JButton("Notify Customer");
         submitBtn = new JButton("Submit");
         dashboardBtn = new JButton("Dashboard");
-        
+
         notifyCustomerBtn.setBackground(blueBackground);
         submitBtn.setBackground(blueBackground);
         dashboardBtn.setBackground(blueBackground);
-        
-        
+
         notifyCustomerBtn.setForeground(Color.WHITE);
         submitBtn.setForeground(Color.WHITE);
         dashboardBtn.setForeground(Color.WHITE);
-        
 
-
-
-
-
-        
         contentPanel = new JPanel();
 
         // JLabel objects
@@ -198,8 +190,8 @@ public class ProposedVisit extends JDialog {
         visitLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // adding attributes
-        contentPanel.add(microStarLabel);
-        contentPanel.add(visitLabel);
+        topPanel.add(microStarLabel);
+        topPanel.add(visitLabel);
         contentPanel.add(responseLabel);
         contentPanel.add(responseTxtArea);
         contentPanel.add(proposedDateOfVisitLabel);

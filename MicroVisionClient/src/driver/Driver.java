@@ -104,31 +104,101 @@ public class Driver extends JFrame{
 
 
         //menuBar
-        JMenuBar menuBar;
-
-        //JMenu
-        JMenu menu;
-
-        //JMenuItems
-        JMenuItem menuItem;
-
-        //MenuBar objects
-        menuBar = new JMenuBar();
-
-        //JMenu objects
-        menu = new JMenu("Menu");
-
-        //creating menuItems
-        menuItem = new JMenuItem("Logout");
-
-        //adding menu items to menu
-        menu.add(menuItem);
-
-        //adding menu to menuBar
-        menuBar.add(menu);
-
+        JMenuBar menuBar = new JMenuBar();
         driver.setJMenuBar(menuBar);
 
+
+        //Menu items
+        JMenu menu = new JMenu("Menu");
+        menuBar.add(menu);
+        JMenuItem logOut = new JMenuItem("LogOut");
+        menu.add(logOut);
+        JMenuItem startChat = new JMenuItem("Start Chat");
+        menu.add(startChat);
+        JMenuItem complaint = new JMenuItem("Complaint");
+        menu.add(complaint);
+
+        JMenuItem pastPayment = new JMenuItem("View Past Payment");
+        menu.add(pastPayment);
+
+
+        //View items
+        JMenu view = new JMenu("View");
+        menuBar.add(view);
+        JMenuItem zoom = new JMenuItem("Zoom");
+        view.add(zoom);
+        JMenuItem nightMode = new JMenuItem("Night Mode");
+        view.add(nightMode);
+
+
+        //Services Offered items - Broadband
+        JMenu servicesOffered = new JMenu("Services Offered");
+        menuBar.add(servicesOffered);
+        JMenu broadBand = new JMenu("BroadBand");
+        servicesOffered.add(broadBand);
+        JMenu about = new JMenu("About");
+        broadBand.add(about);
+        JMenuItem overview = new JMenuItem("Overview");
+        about.add(overview);
+
+        JMenu toolServices = new JMenu("Tools & Services");
+        broadBand.add(toolServices);
+        JMenuItem modemRouter = new JMenuItem("Modem & Router");
+        toolServices.add(modemRouter);       
+        JMenuItem speedTest = new JMenuItem("Speed Test");
+        toolServices.add(speedTest);
+
+
+        //Services Offered items - tv
+        JMenu tv = new JMenu("Television");
+        servicesOffered.add(tv);
+        JMenu aboutTV = new JMenu("About");
+        tv.add(aboutTV);
+        JMenuItem overview1 = new JMenuItem("Overview");
+        aboutTV.add(overview1);
+
+        JMenu channels = new JMenu("Channels");
+        tv.add(channels);
+        JMenuItem lineUp = new JMenuItem("LineUp");
+        channels.add(lineUp);
+
+        JMenu questions = new JMenu("Questions");
+        tv.add(questions);
+        JMenuItem faq = new JMenuItem("FAQ");
+        questions.add(faq);
+
+
+        //Services Offered items - phone
+        JMenu phone = new JMenu("Phone");
+        servicesOffered.add(phone);
+        JMenu aboutPhone = new JMenu("About");
+        phone.add(aboutPhone);
+        JMenuItem overview2 = new JMenuItem("Overview");
+        aboutPhone.add(overview2);
+
+        JMenu rates = new JMenu("Rates");
+        phone.add(rates);
+        JMenuItem international = new JMenuItem("International");
+        rates.add(international);
+
+        JMenu questions1 = new JMenu("Questions");
+        phone.add(questions1);
+        JMenuItem faq1 = new JMenuItem("FAQ");
+        questions1.add(faq1);
+        
+
+        //Services Offered items - internet
+        JMenu internet = new JMenu("Internet");
+        servicesOffered.add(internet);
+        JMenu aboutInternet = new JMenu("About");
+        internet.add(aboutInternet);
+        JMenuItem overview3 = new JMenuItem("Overview");
+        aboutInternet.add(overview3);
+
+        JMenu questions2 = new JMenu("Questions");
+        internet.add(questions2);
+        JMenuItem faq2 = new JMenuItem("FAQ");
+        questions2.add(faq2);
 
 
 

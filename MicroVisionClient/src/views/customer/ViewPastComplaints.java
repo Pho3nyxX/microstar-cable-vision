@@ -22,7 +22,7 @@ public class ViewPastComplaints extends JDialog {
 
     /** -------------------------MEMBERS------------------------------- */
 
-    //container
+    // container
     JPanel contentPanel;
 
     // labels
@@ -33,17 +33,10 @@ public class ViewPastComplaints extends JDialog {
     JLabel MicroStarLabel;
     JLabel PastComplaintsLabel;
 
-
-
-    
     JPanel topPanel;
     Border blueLine;
     Border raisedBevel;
     Color blueBackground;
-
-
-
-
 
     // comboboxes
     JComboBox<String> selectTypeOfServiceCombobox;
@@ -60,56 +53,38 @@ public class ViewPastComplaints extends JDialog {
     Logger customer = LogManager.getLogger("CustomerAccess");
 
     /** -------------------------CONSTRUCTORS------------------------------- */
-    
+
     public ViewPastComplaints(Frame parent) {
 
         super(parent, "Complaint History", true);
 
+        blueBackground = new Color(41, 193, 239);
 
-
-
-
-
-        blueBackground = new Color(41,193,239);
-        
-        //JPanel objects
+        // JPanel objects
         topPanel = new JPanel();
 
-        //set background colour to panel
+        // set background colour to panel
         topPanel.setBackground(blueBackground);
 
-        //setting the size of the panel
-        topPanel.setBounds(0,0,1000,65);
+        // setting the size of the panel
+        topPanel.setBounds(0, 0, 1000, 68);
 
         this.add(topPanel);
-        
-        
+
         blueLine = BorderFactory.createLineBorder(blueBackground);
         raisedBevel = BorderFactory.createRaisedBevelBorder();
-        
+
         topPanel.setLayout(null);
-        
+
         // button objects
         viewBtn = new JButton("View");
         dashboardBtn = new JButton("Dashboard");
-        
+
         viewBtn.setBackground(blueBackground);
         dashboardBtn.setBackground(blueBackground);
-        
+
         viewBtn.setForeground(Color.WHITE);
         dashboardBtn.setForeground(Color.WHITE);
-
-
-
-
-
-
-
-
-
-
-
-
 
         contentPanel = new JPanel();
 
@@ -156,12 +131,11 @@ public class ViewPastComplaints extends JDialog {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-        
+
                 System.out.println("Button clicked");
                 customer.info("Customer Button Clicked. - Viewing Past Complaints");
-                CustomerDashboard custDashboard = new CustomerDashboard();
-                //custDashboard.showWindow();
-                
+                SpecificComplaint specificComplaint = new SpecificComplaint(Driver.FRAME);
+
             }
         });
 
@@ -185,8 +159,8 @@ public class ViewPastComplaints extends JDialog {
         PastComplaintsLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // adding attributes
-        contentPanel.add(MicroStarLabel);
-        contentPanel.add(PastComplaintsLabel);
+        topPanel.add(MicroStarLabel);
+        topPanel.add(PastComplaintsLabel);
         contentPanel.add(selectTypeOfServiceLabel);
         contentPanel.add(selectTypeOfServiceCombobox);
         contentPanel.add(selectComplaintLabel);
@@ -199,12 +173,12 @@ public class ViewPastComplaints extends JDialog {
         contentPanel.add(dashboardBtn);
 
         contentPanel.setLayout(null);
-        contentPanel.setBounds(0,0,600,680);
-        
+        contentPanel.setBounds(0, 0, 600, 680);
+
         this.add(contentPanel);
 
         this.setLayout(null);
-        this.setSize(400,400);
+        this.setSize(400, 400);
 
         // making GUI visable
         this.setVisible(true);
