@@ -1,5 +1,6 @@
 package views.customerrepresentative;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -12,6 +13,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import driver.Driver;
 import org.apache.logging.log4j.LogManager;

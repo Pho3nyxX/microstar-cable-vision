@@ -1,8 +1,10 @@
 package views.customer;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import AppPackage.AnimationClass;
 import driver.Driver;
@@ -208,14 +210,14 @@ public class CustomerDashboard extends JPanel {
 
     private void slideshow() {
         new Thread() {
-            int count;
+            int count=0;
             public void run() {
                 try {
                     while (true) {
                         switch (count) {
                             case 0 -> {
-                                ImageIcon slideshowIcon1 = new ImageIcon("MicroVisionClient/image/CustomerImage1.jpg");
-                                slideshowImage1.setIcon(slideshowIcon1);
+                                ImageIcon slideshowIcon1 = new ImageIcon("MicroVisionClient/image/CustomerImage3.jpg");
+                                slideshowImage2.setIcon(slideshowIcon1);
                                 Thread.sleep(6000);
                                 //2380 milliseconds
                                 animationClass.jLabelXRight(170, 595, 20, 5, slideshowImage1);
@@ -227,8 +229,8 @@ public class CustomerDashboard extends JPanel {
                                 slideshowImage1.setIcon(slideshowIcon2);
                                 Thread.sleep(6000);
                                 //2380 milliseconds
-                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage1);
                                 animationClass.jLabelXRight(170, 595, 20, 5, slideshowImage2);
+                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage1);
                                 count = 2;
                             }
                             case 2 -> {
@@ -241,12 +243,12 @@ public class CustomerDashboard extends JPanel {
                                 count = 3;
                             }
                             case 3 -> {
-                                ImageIcon slideshowIcon4 = new ImageIcon("MicroVisionClient/image/CustomerImage3.jpg");
+                                ImageIcon slideshowIcon4 = new ImageIcon("MicroVisionClient/image/CustomerImage1.jpg");
                                 slideshowImage1.setIcon(slideshowIcon4);
                                 Thread.sleep(6000);
                                 //2380 milliseconds
-                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage1);
                                 animationClass.jLabelXRight(170, 595, 20, 5, slideshowImage2);
+                                animationClass.jLabelXLeft(595, 170, 20, 5, slideshowImage1);
                                 count = 0;
                             }
                         }
