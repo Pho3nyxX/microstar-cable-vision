@@ -99,7 +99,6 @@ public class Driver extends JFrame{
                 driver.add(techDashboard);
                 
             }
-            
         }
 
 
@@ -144,10 +143,6 @@ public class Driver extends JFrame{
         driver.setSize(610, 600); // set panel window size
         driver.setLayout(null);
         driver.setVisible(true);
-
-
-
-
 /*
         // Authentication auth =  new Authentication();
         // auth.login("admin", "P@ssword123"); 

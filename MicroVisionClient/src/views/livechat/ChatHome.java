@@ -14,7 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ChatHome extends JPanel {
+public class ChatHome extends JFrame {
     JLabel nameOfClientLabel;
     JLabel doToHelpLabel;
     JLabel startAConversationLabel;
@@ -22,6 +22,7 @@ public class ChatHome extends JPanel {
     public static JTextArea personsOnlineTextArea;
     JButton newConversationButton;
     JButton logOffButton;
+    JPanel mainPanel;
     JPanel topPanel;
     JPanel middleActiveClientsPanel;
     Border blueLine;
@@ -41,6 +42,7 @@ public class ChatHome extends JPanel {
 
         topPanel = new JPanel();
         middleActiveClientsPanel = new JPanel();
+        mainPanel = new JPanel();
 
         personsOnlineTextArea = new JTextArea();
 
@@ -89,10 +91,19 @@ public class ChatHome extends JPanel {
         middleActiveClientsPanel.add(startAConversationLabel);
         middleActiveClientsPanel.add(personsOnlineTextArea);
 
-        this.add(topPanel);
-        this.add(middleActiveClientsPanel);
-        this.add(newConversationButton);
-        this.add(logOffButton);
+        mainPanel.add(topPanel);
+        mainPanel.add(middleActiveClientsPanel);
+        mainPanel.add(newConversationButton);
+        mainPanel.add(logOffButton);
+
+        mainPanel.setLayout(null);
+        mainPanel.setSize(450, 600);
+        mainPanel.setVisible(true);
+
+        this.setSize(450,600);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.add(mainPanel);
+        this.setVisible(true);
 
         //To show in the test area the Technicians or Customers that are online
         LiveChat.logOnToLiveChat(Driver.CURRENT_USER);
@@ -103,21 +114,30 @@ public class ChatHome extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String name = JOptionPane.showInputDialog(null, "Enter name");
 
-                _User recipientUser = LiveChat.findUserFromUsername(name);
+                if (name == null) {
+                    JOptionPane.showMessageDialog(null,"Name empty","Error",
+                            JOptionPane.WARNING_MESSAGE);
+                }else {
+                    _User recipientUser = LiveChat.findUserFromUsername(name);
+                    //Get complaints to be displayed so a choice can be made
+                    if (Driver.SESSION_TYPE.equals("Customer")) {
+                        LiveChat.loadUserComplaints(Driver.CURRENT_USER);
+                    }else if (Driver.SESSION_TYPE.equals("Employee")) {
+                        LiveChat.loadUserComplaints(recipientUser);
+                    }
 
-                //Get complaints to be displayed so a choice can be made
-                if (Driver.SESSION_TYPE.equals("Customer")) {
-                    LiveChat.loadUserComplaints(Driver.CURRENT_USER);
-                }else if (Driver.SESSION_TYPE.equals("Employee")) {
-                    LiveChat.loadUserComplaints(recipientUser);
+                    String complaintId = JOptionPane.showInputDialog(null,"Enter complaint id");
+
+                    if (complaintId == null) {
+                        JOptionPane.showMessageDialog(null,"Complaint id empty","Error",
+                                JOptionPane.WARNING_MESSAGE);
+                    }else {
+                        Complaint complaint = LiveChat.findComplaintFromId(Integer.parseInt(complaintId));
+
+                        //Call the Chat message constructer
+                        Driver.FRAME.add(new ChatMessage(recipientUser, complaint));
+                    }
                 }
-
-                String complaintId = JOptionPane.showInputDialog(null,"Enter complaint id");
-
-                Complaint complaint = LiveChat.findComplaintFromId(Integer.parseInt(complaintId));
-
-                //Call the Chat message constructer
-                Driver.FRAME.add(new ChatMessage(recipientUser, complaint));
             }
         });
 
@@ -127,9 +147,5 @@ public class ChatHome extends JPanel {
                 LiveChat.logOffLiveChat(Driver.CURRENT_USER);
             }
         });
-
-        this.setLayout(null);
-        this.setSize(450, 600);
-        this.setVisible(true);
     }
 }

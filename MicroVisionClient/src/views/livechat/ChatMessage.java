@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
-public class ChatMessage extends JPanel{
+public class ChatMessage extends JFrame{
     JLabel backArrowImageLabel;
     JLabel profileImageLabel;
     JLabel nameLabel;
@@ -29,6 +29,7 @@ public class ChatMessage extends JPanel{
     JButton sendMessageButton;
     JPanel topPanel;
     Boolean typing;
+    JPanel mainPanel;
     static JPanel chatAreaPanel;
     static JScrollPane chatAreaScrollPane;
     static Box verticalBox = Box.createVerticalBox();
@@ -45,6 +46,7 @@ public class ChatMessage extends JPanel{
         sendMessageButton = new JButton("Send");
         chatAreaPanel = new JPanel();
         chatAreaScrollPane = new JScrollPane(chatAreaPanel);
+        mainPanel = new JPanel();
 
         nameLabel.setFont(new Font("Dialog",Font.BOLD, 30));
         availableLabel.setFont(new Font("Dialog", Font.ITALIC, 20));
@@ -126,7 +128,7 @@ public class ChatMessage extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e) {
                 //Go back to the chat home panel
-                Driver.FRAME.add(new ChatHome());
+                new ChatHome();
             }
         });
 
@@ -155,14 +157,19 @@ public class ChatMessage extends JPanel{
         topPanel.add(profileImageLabel);
         topPanel.add(nameLabel);
         topPanel.add(availableLabel);
-        this.add(topPanel);
+        mainPanel.add(topPanel);
         //this.add(chatAreaPanel);
-        this.add(chatAreaScrollPane);
-        this.add(typeMessageTextField);
-        this.add(sendMessageButton);
+        mainPanel.add(chatAreaScrollPane);
+        mainPanel.add(typeMessageTextField);
+        mainPanel.add(sendMessageButton);
 
-        this.setLayout(null);
-        this.setSize(450, 600);
+        mainPanel.setLayout(null);
+        mainPanel.setSize(450, 600);
+        mainPanel.setVisible(true);
+
+        this.setSize(450,600);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.add(mainPanel);
         this.setVisible(true);
     }
 
