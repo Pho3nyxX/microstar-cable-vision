@@ -1,5 +1,6 @@
 package controllers;
 
+import models.accounts.Account;
 import models.chat.Message;
 import models.chat._Message;
 import models.complaints.Complaint;
@@ -111,14 +112,24 @@ public class LiveChat {
     }
 
     public static void loadUserComplaints(_User user) {
-        ArrayList<Complaint> listofComplaints = Complaint.loadComplaints();
+        Account userAccount = new Account();
+        userAccount.setCustomerId(user.getUserID());
+        ServerRequest<Account> request = new ServerRequest<Account>(ServerRequest.ACCOUNT_LOAD_COMMAND, userAccount);
+        Driver.clientConnection.sendRequest(request);
+        ServerResponse<Account> response = Driver.clientConnection.receiveResponse();
 
-        for (Complaint complaint:listofComplaints) {
-            ChatHome.personsOnlineTextArea.setText("");
-            ChatHome.personsOnlineTextArea.append("List of Complaints \n");
-            //Match the user to the complaint
-            if (user.getUserID() == complaint.getAccountId()) {
-                ChatHome.personsOnlineTextArea.append(complaint.toString() + "\n");
+        if (response.getCode() == ServerResponse.REQUEST_SUCCEEDED) {
+            userAccount = (Account) response.getData();
+
+            ArrayList<Complaint> listofComplaints = Complaint.loadComplaints();
+
+            for (Complaint complaint:listofComplaints) {
+                ChatHome.personsOnlineTextArea.setText("");
+                ChatHome.personsOnlineTextArea.append("List of Complaints \n");
+                //Match the user to the complaint
+                if ( userAccount.getAccountID() == complaint.getAccountId()) {
+                    ChatHome.personsOnlineTextArea.append(complaint.toString() + "\n");
+                }
             }
         }
     }

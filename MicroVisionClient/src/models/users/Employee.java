@@ -91,7 +91,7 @@ public class Employee extends _Employee{
     }
 
 
-    public static ArrayList<Employee> loadCustomers(){
+    public static ArrayList<Employee> loadEmployees(){
 
         // load customers from datatbase
         ArrayList<Employee> employees = null;
