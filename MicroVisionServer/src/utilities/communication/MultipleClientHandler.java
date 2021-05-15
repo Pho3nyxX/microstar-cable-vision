@@ -83,6 +83,12 @@ public class MultipleClientHandler implements Runnable {
                 objectOutputStream.writeObject(response);
             }
 
+            case ServerRequest.USER_LOGOUT_COMMAND -> {
+
+                ServerResponse response = logout(serverRequest);
+                objectOutputStream.writeObject(response);
+            }
+
             case ServerRequest.USER_LOAD_COMMAND -> {
 
                 ServerResponse response = loadUser(serverRequest);
@@ -401,12 +407,25 @@ public class MultipleClientHandler implements Runnable {
 
 
         }
-        
+
         response = new ServerResponse<_User>(message, code, user);
 
         return response;
     }
 
+    ServerResponse logout(ServerRequest action){
+
+        int code = ServerResponse.SAVE_FAILED;
+        String message = "Bill not saved.";
+        ServerResponse response = null;
+
+        code = ServerResponse.REQUEST_SUCCEEDED;
+        message = "User Successfully Logout!";
+        response = new ServerResponse<_User>(message, code, null);
+
+        return response;
+    }
+    
     /**
      * ---------------------------SERVICES & BILLING--------------------------------
      */
@@ -418,6 +437,7 @@ public class MultipleClientHandler implements Runnable {
      * @return
      */
     ServerResponse saveService(ServerRequest action) {
+
         int code = ServerResponse.SAVE_FAILED;
         String message = "Bill not saved.";
         ServerResponse response = null;
@@ -574,6 +594,7 @@ ServerResponse loadComplaints(ServerRequest action) {
 }
 
 ServerResponse saveComplaint(ServerRequest action) {
+    
     int code = ServerResponse.SAVE_FAILED;
     String message = "No Complaint found";
     ServerResponse response = null;

@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -144,5 +145,13 @@ public class ViewCustomerDetails extends JDialog {
         // making GUI visable
         this.setVisible(true);
 
+        
     }
+
+
+    // public static void main(String[] args) {
+    //     JFrame frame = new JFrame("test");
+    //     frame.setVisible(true);
+    //     ViewCustomerDetails viewCustomerDetails = new ViewCustomerDetails(frame);
+    // }
 }
