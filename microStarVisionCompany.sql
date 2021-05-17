@@ -31,11 +31,18 @@ CREATE TABLE `account` (
   UNIQUE KEY `account_ID_UNIQUE` (`account_id`),
   KEY `fk_account_customer_45698_idx` (`customer_id`),
   CONSTRAINT `fk_account_customer_45698` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `account` (`account_id`, `account_Status`, `amount_due`, `customer_id`) VALUES
-(1, 'Active', 0, 1);
 
+--
+-- Dumping data for table `account`
+--
+
+LOCK TABLES `account` WRITE;
+/*!40000 ALTER TABLE `account` DISABLE KEYS */;
+INSERT INTO `account` VALUES (1,'Active',0,2);
+/*!40000 ALTER TABLE `account` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `address`
@@ -54,11 +61,18 @@ CREATE TABLE `address` (
   UNIQUE KEY `address_ID_UNIQUE` (`address_id`),
   KEY `fk_address_customer_97657_idx` (`customer_id`),
   CONSTRAINT `fk_address_customer_97657` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `address` (`address_id`, `town`, `parish`, `street`, `customer_id`) VALUES
-(1, 'city', 'Street', 'Country', 1),
-(2, 'town', 'parish', 'street', 2);
+
+--
+-- Dumping data for table `address`
+--
+
+LOCK TABLES `address` WRITE;
+/*!40000 ALTER TABLE `address` DISABLE KEYS */;
+INSERT INTO `address` VALUES (1,'city','Street','Country',1),(2,'town','parish','street',2);
+/*!40000 ALTER TABLE `address` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `bill`
@@ -83,6 +97,15 @@ CREATE TABLE `bill` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `bill`
+--
+
+LOCK TABLES `bill` WRITE;
+/*!40000 ALTER TABLE `bill` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bill` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `complaint`
 --
 
@@ -100,10 +123,18 @@ CREATE TABLE `complaint` (
   UNIQUE KEY `complaint_ID_UNIQUE` (`complaint_id`),
   KEY `fk_complaint_account_idx` (`account_id`),
   CONSTRAINT `fk_complaint_account_65563` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `complaint` (`complaint_id`, `type_of_issue`, `details_of_issue`, `date_raised`, `status`, `account_id`) VALUES
-(1, 'No connection', 'red light on router', '2021-04-05 21:52:56', 'unresolved', 2);
+
+--
+-- Dumping data for table `complaint`
+--
+
+LOCK TABLES `complaint` WRITE;
+/*!40000 ALTER TABLE `complaint` DISABLE KEYS */;
+INSERT INTO `complaint` VALUES (1,'No connection','red light on router','2021-04-05 21:52:56','unresolved',2),(2,'connection','Red dlight on box','2021-04-22 04:25:18','Open',1),(6,'connection','Red dlight on box','2021-04-22 05:11:15','Open',1),(7,'connection','Red dlight on box','2021-04-22 05:11:47','Open',1),(8,'connection','Red dlight on box','2021-04-22 08:42:42','Open',1),(9,'connection','Red dlight on box','2021-04-22 08:54:22','Open',1),(10,'connection','Red dlight on box','2021-04-22 12:14:41','Open',1),(11,'connection','Red dlight on box','2021-04-22 12:15:39','Open',1);
+/*!40000 ALTER TABLE `complaint` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `complaintvisit`
@@ -125,6 +156,15 @@ CREATE TABLE `complaintvisit` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `complaintvisit`
+--
+
+LOCK TABLES `complaintvisit` WRITE;
+/*!40000 ALTER TABLE `complaintvisit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `complaintvisit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `contactnum`
 --
 
@@ -140,9 +180,15 @@ CREATE TABLE `contactnum` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `contactnum` (`contact_num`, `user_id`) VALUES
-('876-256-2384', 1),
-('1876564736', 2);
+--
+-- Dumping data for table `contactnum`
+--
+
+LOCK TABLES `contactnum` WRITE;
+/*!40000 ALTER TABLE `contactnum` DISABLE KEYS */;
+INSERT INTO `contactnum` VALUES ('1876564736',2),('876-256-2384',1);
+/*!40000 ALTER TABLE `contactnum` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `customer`
@@ -156,11 +202,18 @@ CREATE TABLE `customer` (
   `email` varchar(50) NOT NULL,
   UNIQUE KEY `customer_ID_UNIQUE` (`customer_id`),
   CONSTRAINT `fk_customer_account_15648` FOREIGN KEY (`customer_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `customer` (`customer_id`, `email`) VALUES
-(2, 'customer@mail.com');
+--
+-- Dumping data for table `customer`
+--
+
+LOCK TABLES `customer` WRITE;
+/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+INSERT INTO `customer` VALUES (2,'customer@mail.com');
+/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `employee`
@@ -176,13 +229,18 @@ CREATE TABLE `employee` (
   PRIMARY KEY (`emp_id`),
   UNIQUE KEY `idemployee_UNIQUE` (`emp_id`),
   CONSTRAINT `fk_employee_user_45698` FOREIGN KEY (`emp_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-INSERT INTO `employee` (`emp_id`, `role`, `status`) VALUES
-(1, 'Admin', 'Active'),
-(3, 'Technician', 'Offline');
 
+--
+-- Dumping data for table `employee`
+--
 
+LOCK TABLES `employee` WRITE;
+/*!40000 ALTER TABLE `employee` DISABLE KEYS */;
+INSERT INTO `employee` VALUES (1,'Admin','Active'),(3,'Technician','Offline'),(4,'Customer Service Rep','Active');
+/*!40000 ALTER TABLE `employee` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `employeecomplaint`
@@ -205,6 +263,15 @@ CREATE TABLE `employeecomplaint` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `employeecomplaint`
+--
+
+LOCK TABLES `employeecomplaint` WRITE;
+/*!40000 ALTER TABLE `employeecomplaint` DISABLE KEYS */;
+/*!40000 ALTER TABLE `employeecomplaint` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `employeevisit`
 --
 
@@ -222,6 +289,15 @@ CREATE TABLE `employeevisit` (
   CONSTRAINT `fk_employeevisit_vist_15469` FOREIGN KEY (`visit_id`) REFERENCES `visit` (`visit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employeevisit`
+--
+
+LOCK TABLES `employeevisit` WRITE;
+/*!40000 ALTER TABLE `employeevisit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `employeevisit` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `message`
@@ -245,11 +321,18 @@ CREATE TABLE `message` (
   CONSTRAINT `fk_message_complaint_15698` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_message_user_recipient_65878` FOREIGN KEY (`recipient_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `fk_message_user_sender_45698` FOREIGN KEY (`sender_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `message` (`message_id`, `is_read`, `text`, `date`, `sender_id`, `recipient_id`, `complaint_id`) VALUES
-(1, b'1', 'text', '2021-04-05 19:56:30', 1, 2, 1);
+--
+-- Dumping data for table `message`
+--
+
+LOCK TABLES `message` WRITE;
+/*!40000 ALTER TABLE `message` DISABLE KEYS */;
+INSERT INTO `message` VALUES (1,_binary '','text','2021-04-05 19:56:30',1,2,1);
+/*!40000 ALTER TABLE `message` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `payment`
@@ -260,7 +343,7 @@ DROP TABLE IF EXISTS `payment`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `payment` (
   `payment_id` int NOT NULL AUTO_INCREMENT,
-  `amount` double NOT NULL DEFAULT 0,
+  `amount` double NOT NULL DEFAULT '0',
   `payment_status` varchar(15) NOT NULL,
   `payment_date` datetime NOT NULL,
   `account_id` int NOT NULL,
@@ -270,6 +353,15 @@ CREATE TABLE `payment` (
   CONSTRAINT `fk_payment_account_67464` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment`
+--
+
+LOCK TABLES `payment` WRITE;
+/*!40000 ALTER TABLE `payment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `payment` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `response`
@@ -287,8 +379,17 @@ CREATE TABLE `response` (
   UNIQUE KEY `response_ID_UNIQUE` (`response_id`),
   KEY `fk_response_complaint_47898_idx` (`complaint_id`),
   CONSTRAINT `fk_response_complaint_47898` FOREIGN KEY (`complaint_id`) REFERENCES `complaint` (`complaint_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `response`
+--
+
+LOCK TABLES `response` WRITE;
+/*!40000 ALTER TABLE `response` DISABLE KEYS */;
+/*!40000 ALTER TABLE `response` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `service`
@@ -311,6 +412,15 @@ CREATE TABLE `service` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `service`
+--
+
+LOCK TABLES `service` WRITE;
+/*!40000 ALTER TABLE `service` DISABLE KEYS */;
+/*!40000 ALTER TABLE `service` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -329,13 +439,49 @@ CREATE TABLE `user` (
   `online_status` bit(1) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `user` (`user_id`, `username`, `password`, `first_name`, `last_name`, `middle_name`, `age`, `gender`, `online_status`) VALUES
-(1, 'admin', 'P@ssword123', 'abi', 'gordon', 'middleName', 10, 'F', b'0'),
-(2, 'abi', 'P@ssword1', 'Abi', 'Matthews', 'Na', 20, 'F', b'0'),
-(3, 'abie', 'P@ssword123', 'abi', 'gordon', 'middleName', 10, 'F', b'0');
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'admin','P@ssword123','abi','gordon','middleName',10,'F',_binary ''),(2,'abi','P@ssword1','Abi','Matthews','Na',20,'F',_binary '\0'),(3,'abie','P@ssword123','abi','gordon','middleName',10,'F',_binary '\0'),(4,'abir','P@ssword123','abi','gordon','middleName',10,'F',_binary '\0');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_session`
+--
+
+DROP TABLE IF EXISTS `user_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_session` (
+  `user_session_id` int NOT NULL,
+  `session_uuid` varchar(36) NOT NULL,
+  `start` datetime NOT NULL,
+  `last_active` datetime NOT NULL,
+  `client_ip` varchar(15) NOT NULL,
+  `user_id` int NOT NULL,
+  `session_status` varchar(10) NOT NULL,
+  PRIMARY KEY (`user_session_id`),
+  UNIQUE KEY `user_session_id_UNIQUE` (`user_session_id`),
+  UNIQUE KEY `session_uuid_UNIQUE` (`session_uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_session`
+--
+
+LOCK TABLES `user_session` WRITE;
+/*!40000 ALTER TABLE `user_session` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Table structure for table `visit`
 --
@@ -352,6 +498,15 @@ CREATE TABLE `visit` (
   UNIQUE KEY `visit_ID_UNIQUE` (`visit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `visit`
+--
+
+LOCK TABLES `visit` WRITE;
+/*!40000 ALTER TABLE `visit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `visit` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -362,4 +517,4 @@ CREATE TABLE `visit` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-24  8:39:40
+-- Dump completed on 2021-05-17 15:31:34
