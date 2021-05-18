@@ -448,7 +448,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','P@ssword123','abi','gordon','middleName',10,'F',_binary ''),(2,'abi','P@ssword1','Abi','Matthews','Na',20,'F',_binary '\0'),(3,'abie','P@ssword123','abi','gordon','middleName',10,'F',_binary '\0'),(4,'abir','P@ssword123','abi','gordon','middleName',10,'F',_binary '\0');
+INSERT INTO `user` VALUES (1,'admin','P@ssword123','abi','gordon','middleName',10,'F',_binary ''),(2,'abi','P@ssword1','Abi','Matthews','Na',20,'F',_binary '\0'),(3,'abie','P@ssword123','abi','gordon','middleName',10,'F',_binary '\0'),(4,'abir','P@ssword123','abi','gordon','middleName',10,'F',_binary '');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -461,10 +461,10 @@ DROP TABLE IF EXISTS `user_session`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_session` (
   `user_session_id` int NOT NULL,
-  `session_uuid` varchar(36) NOT NULL,
+  `session_uuid` binary(16) NOT NULL,
   `start` datetime NOT NULL,
   `last_active` datetime NOT NULL,
-  `client_ip` varchar(15) NOT NULL,
+  `client_ip` varchar(35) NOT NULL,
   `user_id` int NOT NULL,
   `session_status` varchar(10) NOT NULL,
   PRIMARY KEY (`user_session_id`),
@@ -479,6 +479,7 @@ CREATE TABLE `user_session` (
 
 LOCK TABLES `user_session` WRITE;
 /*!40000 ALTER TABLE `user_session` DISABLE KEYS */;
+INSERT INTO `user_session` VALUES (0,_binary '\Ø\\Ö†7¼Jh…À§Wüú','2021-05-18 16:21:53','2021-05-18 16:21:53','/127.0.0.1:50058',1,'online');
 /*!40000 ALTER TABLE `user_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -517,4 +518,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-17 15:31:34
+-- Dump completed on 2021-05-18 16:57:22

@@ -29,6 +29,7 @@ import models.users.CustomerRepository;
 import models.users.Employee;
 import models.users.EmployeeRepository;
 import models.users.UserSession;
+import models.users.UserSessionRepository;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -355,6 +356,8 @@ public class MultipleClientHandler implements Runnable {
         String message = "Login Failed.";
         ServerResponse response;
         CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
+        UserSessionRepository userSessionRepository = new UserSessionRepository(Driver.entityManager);
+
 
         _User user = (_User) serverRequest.getData();
 
@@ -406,8 +409,10 @@ public class MultipleClientHandler implements Runnable {
             loggedIn = true;
 
             session = new UserSession(user.getUserID(), this.getIPAddress());
+            userSessionRepository.save(session);
             code = ServerResponse.REQUEST_SUCCEEDED;
             message = session.getSessionUUID().toString();
+
 
         } else {
 
