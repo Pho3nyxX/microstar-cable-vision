@@ -401,7 +401,7 @@ public class MultipleClientHandler implements Runnable {
 
 
         }
-        
+
         response = new ServerResponse<_User>(message, code, user);
 
         return response;
@@ -574,6 +574,7 @@ ServerResponse loadComplaints(ServerRequest action) {
 }
 
 ServerResponse saveComplaint(ServerRequest action) {
+    
     int code = ServerResponse.SAVE_FAILED;
     String message = "No Complaint found";
     ServerResponse response = null;

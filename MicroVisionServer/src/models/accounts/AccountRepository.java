@@ -62,7 +62,7 @@ public class AccountRepository extends BaseRepository {
 
         return entityManager.createQuery("from Account").getResultList();
     }
-
+    
     /**
      * 
      * @param customer_id

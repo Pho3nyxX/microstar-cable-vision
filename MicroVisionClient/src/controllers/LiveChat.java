@@ -94,7 +94,7 @@ public class LiveChat {
             employee.setUsername(username);
             ServerRequest request = new ServerRequest(ServerRequest.USER_LOAD_COMMAND,employee);
             Driver.messageConnection.sendRequest(request);
-
+            
             ServerResponse response = Driver.messageConnection.receiveResponse();
             user = (_User) response.getData();
         }else if (Driver.SESSION_TYPE.equals("Employee")) {

@@ -82,7 +82,7 @@ public class Server extends _ClientServer {
                 connectionSocket = serverSocket.accept();
                 connection.info("Client request accepted");
                 clientCount++;
-                // System.out.println("Constructor");
+                System.out.println("Constructor");
                 connection.info("Clients currently on server: " + clientCount);
 
                 MultipleClientHandler clientHandler = new MultipleClientHandler(this.connectionSocket);

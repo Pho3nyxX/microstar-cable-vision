@@ -26,6 +26,10 @@ public class Authentication extends _Authethication {
 
         ServerRequest<_User> request = new ServerRequest<_User>(ServerRequest.USER_LOGIN_COMMAND, user); 
 
+        Driver.clientConnection.createConnection();
+
+        Driver.clientConnection.configureStreams();
+
         Driver.clientConnection.sendRequest(request);
 
         // TODO: Check if user was logged in
@@ -68,6 +72,10 @@ public class Authentication extends _Authethication {
         // send logout request to server to update database  
 
         ServerRequest<String> request = new ServerRequest<String>(ServerRequest.USER_LOGOUT_COMMAND, sessionId);
+
+        Driver.clientConnection.createConnection();
+
+        Driver.clientConnection.configureStreams();
 
         Driver.clientConnection.sendRequest(request);
         

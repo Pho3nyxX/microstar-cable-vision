@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.UIManager;
+import java.awt.Font;
 
 import models.users.*;
 import utilities.communication.*;
@@ -19,6 +21,7 @@ import views.customer.SignIn;
 import views.customerrepresentative.AdminDashboard;
 import views.customerrepresentative.RepDashboard;
 import views.technician.TechDashboard;
+
 
 public class Driver extends JFrame{
 
@@ -37,15 +40,31 @@ public class Driver extends JFrame{
     public Driver() {
 
         super(Driver.APP_NAME);
+
+
+
+        UIManager.getLookAndFeelDefaults()
+        .put("defaultFont", new Font("Arial", Font.BOLD, 16));
+
+
+
         CURRENT_DATE = LocalDate.now().toString();
         CURRENT_DAY = LocalDate.now().getDayOfWeek().name();
         clientConnection = new Client();
         messageConnection = new Client();
     }
     
+
     public Driver(String title) {
 
         super(title);
+
+
+        UIManager.getLookAndFeelDefaults()
+        .put("defaultFont", new Font("Arial", Font.BOLD, 16));
+
+
+
         CURRENT_DATE = LocalDate.now().toString();
         CURRENT_DAY = LocalDate.now().getDayOfWeek().name();
         clientConnection = new Client();
