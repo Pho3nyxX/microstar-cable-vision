@@ -2,6 +2,11 @@ package views.customer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Color;
 import java.awt.Frame;
 import javax.swing.JButton;
@@ -100,6 +105,39 @@ public class SignIn extends JDialog{
                 System.out.println("Button clicked");
             }
         });
+
+/*
+        this.addComponentListener(new ComponentListener(){
+
+            @Override
+            public void componentHidden(ComponentEvent e)
+            {
+                System.out.println("dialog hidden");
+                System.exit(0);
+            }
+
+
+            @Override
+            public void componentResized(ComponentEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+        });
+
+*/
+
         contentPanel.setBounds(0,0,300,300);
         
         // adding attributes 

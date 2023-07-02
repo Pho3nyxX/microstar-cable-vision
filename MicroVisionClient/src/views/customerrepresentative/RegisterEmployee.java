@@ -169,6 +169,7 @@ public class RegisterEmployee extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button clicked");
+                dispose();
             }
         });
 

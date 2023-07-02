@@ -28,6 +28,8 @@ import models.users.Customer;
 import models.users.CustomerRepository;
 import models.users.Employee;
 import models.users.EmployeeRepository;
+import models.users.UserSession;
+import models.users.UserSessionRepository;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -80,6 +82,12 @@ public class MultipleClientHandler implements Runnable {
             case ServerRequest.USER_LOGIN_COMMAND -> {
 
                 ServerResponse response = login(serverRequest);
+                objectOutputStream.writeObject(response);
+            }
+
+            case ServerRequest.USER_LOGOUT_COMMAND -> {
+
+                ServerResponse response = logout(serverRequest);
                 objectOutputStream.writeObject(response);
             }
 
@@ -344,10 +352,12 @@ public class MultipleClientHandler implements Runnable {
         // Actions for user login
         boolean loggedIn = false;
         int code = ServerResponse.REQUEST_FAILED;
-        UUID sessionId = null;
+        UserSession session = null;
         String message = "Login Failed.";
         ServerResponse response;
         CustomerRepository customerRepository = new CustomerRepository(Driver.entityManager);
+        UserSessionRepository userSessionRepository = new UserSessionRepository(Driver.entityManager);
+
 
         _User user = (_User) serverRequest.getData();
 
@@ -361,7 +371,9 @@ public class MultipleClientHandler implements Runnable {
         if (customer != null) {
 
             if (customer.getPassword().equals(user.getPassword())) {
-
+                
+                customer.setIsOnline(true);
+                customerRepository.save(customer);
                 user = customer;
 
             } else {
@@ -377,6 +389,8 @@ public class MultipleClientHandler implements Runnable {
 
             if (employee != null && employee.getPassword().equals(user.getPassword())) {
 
+                employee.setIsOnline(true);
+                employeeRepository.save(employee);
                 user = employee;
 
             } else {
@@ -393,9 +407,12 @@ public class MultipleClientHandler implements Runnable {
 
             // TODO: generate sessionId
             loggedIn = true;
-            sessionId = UUID.randomUUID();
+
+            session = new UserSession(user.getUserID(), this.getIPAddress());
+            userSessionRepository.save(session);
             code = ServerResponse.REQUEST_SUCCEEDED;
-            message = sessionId.toString();
+            message = session.getSessionUUID().toString();
+
 
         } else {
 
@@ -407,6 +424,20 @@ public class MultipleClientHandler implements Runnable {
         return response;
     }
 
+    ServerResponse logout(ServerRequest action){
+
+        int code = ServerResponse.SAVE_FAILED;
+        String message = "Bill not saved.";
+        ServerResponse response = null;
+
+        code = ServerResponse.REQUEST_SUCCEEDED;
+        message = "User Successfully Logout!";
+        response = new ServerResponse<_User>(message, code, null);
+
+        return response;
+    }
+    
+    
     /**
      * ---------------------------SERVICES & BILLING--------------------------------
      */
@@ -418,6 +449,7 @@ public class MultipleClientHandler implements Runnable {
      * @return
      */
     ServerResponse saveService(ServerRequest action) {
+
         int code = ServerResponse.SAVE_FAILED;
         String message = "Bill not saved.";
         ServerResponse response = null;
@@ -724,6 +756,14 @@ ServerResponse saveResponse(ServerRequest action) {
         int code = ServerResponse.REQUEST_SUCCEEDED;
         response = new ServerResponse<>(message, code, user);
         return response;
+    }
+
+    /*------------------------Utilities------------------------------*/
+    
+    private String getIPAddress(){
+
+        return this.connectionSocket.getRemoteSocketAddress().toString();
+
     }
 
 }

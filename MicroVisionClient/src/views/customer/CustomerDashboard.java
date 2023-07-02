@@ -78,7 +78,6 @@ public class CustomerDashboard extends JPanel {
         topPanel.setLayout(null);
 
 
-
         // JLabel objects
         microStarLabel = new JLabel("Micro-Star Cable-Vision");
 
@@ -103,8 +102,6 @@ public class CustomerDashboard extends JPanel {
         slideshowImage1 = new JLabel();
         slideshowImage2 = new JLabel();
 
-        //slideshowPanel = new JPanel();
-        //slideshowPanel.setLayout(null);
 
         // setting the size of the labels
         microStarLabel.setBounds(10, 0, 350, 50);
@@ -121,7 +118,6 @@ public class CustomerDashboard extends JPanel {
         slideshowImage1.setBounds(170,170,380,180); //170,170
         slideshowImage2.setBounds(595,170,380,180);
 
-        //slideshowPanel.setBounds(170,170,380,180);
         
         // setting the size of the labels buttons
         startChatBtn.setBounds(10, 90, 100, 30);
@@ -145,6 +141,7 @@ public class CustomerDashboard extends JPanel {
                 new ChatHome();
             }
         });
+        
         // adding action listener to Past Payment Button button because it requires an
         // action if
         // it is selected
