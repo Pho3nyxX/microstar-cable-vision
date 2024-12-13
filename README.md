@@ -1,5 +1,7 @@
 # MicroStar Cable Vision
 
+![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FPho3nyxX%2Fmicrostar-cable-vision&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Page+Views&edge_flat=false)
+
 This is a fictitious cable company that provides digital cable and internet access services. The manager wants a complaint logging system that will be able to capture all customer complaints and queries. Upon receipt of a complaint, a customer service representative will log the complaint and assign or schedule a service technician to visit the site to rectify the issue.
 
 
